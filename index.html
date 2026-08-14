@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AIHS Digital Library</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="loginView" class="login-page">
+  <div class="login-card">
+    <img src="logo.jpg" class="logo" alt="AIHS Logo">
+    <h1>Acharya Institute of Health Sciences</h1>
+    <h2>Digital Library</h2>
+    <p class="sub">Students & Staff — Secure Library Access</p>
+    <div class="role-tabs">
+      <button class="role active" data-role="Student">Student</button>
+      <button class="role" data-role="Staff">Staff</button>
+      <button class="role" data-role="Librarian">Librarian</button>
+    </div>
+    <form id="loginForm">
+      <input id="username" placeholder="User ID" required autocomplete="username">
+      <input id="password" type="password" placeholder="Password" required autocomplete="current-password">
+      <button class="primary" type="submit">Login</button>
+    </form>
+    <div id="loginMsg" class="msg"></div>
+    <p class="note">Only authorized AIHS students, staff and librarian accounts can access resources.</p>
+  </div>
+</div>
+
+<div id="appView" class="hidden">
+  <header>
+    <div class="brand">
+      <img src="logo.jpg" alt="AIHS Logo">
+      <div><strong>AIHS Digital Library</strong><small>Acharya Institute of Health Sciences</small></div>
+    </div>
+    <div class="userbar"><span id="userInfo"></span><button id="logout">Logout</button></div>
+  </header>
+  <main>
+    <section class="hero">
+      <h1>Welcome to AIHS Digital Library</h1>
+      <p>Access E-books, Question Papers, Notes, Journals and other academic resources.</p>
+    </section>
+
+    <section class="toolbar">
+      <input id="search" placeholder="Search books, subjects, question papers...">
+      <select id="type"><option value="">All Resources</option><option>E-book</option><option>Question Paper</option><option>Notes</option><option>Journal</option><option>Other</option></select>
+      <select id="department"><option value="">All Departments</option><option>BPT</option><option>MPT</option><option>BMLT</option><option>BMIT</option><option>MHA</option><option>ATOT</option></select>
+      <select id="semester"><option value="">All Semesters</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select>
+    </section>
+
+    <section id="adminPanel" class="admin hidden">
+      <h2>Librarian Administration</h2>
+      <div class="admin-grid">
+        <form id="userForm">
+          <h3>Create Student / Staff Account</h3>
+          <input id="newId" placeholder="User ID" required>
+          <input id="newName" placeholder="Full name" required>
+          <input id="newPass" placeholder="Password" required>
+          <select id="newRole"><option>Student</option><option>Staff</option></select>
+          <input id="newDept" placeholder="Department">
+          <button class="primary">Create Account</button>
+          <div id="userMsg" class="msg"></div>
+        </form>
+        <form id="uploadForm">
+          <h3>Upload Library Resource</h3>
+          <input id="title" placeholder="Title" required>
+          <select id="rtype"><option>E-book</option><option>Question Paper</option><option>Notes</option><option>Journal</option><option>Other</option></select>
+          <input id="subject" placeholder="Subject">
+          <input id="year" placeholder="Year">
+          <select id="rdept"><option value="">Department</option><option>BPT</option><option>MPT</option><option>BMLT</option><option>BMIT</option><option>MHA</option><option>ATOT</option></select>
+          <input id="rsem" placeholder="Semester">
+          <input id="file" type="file" required>
+          <button class="primary">Upload Resource</button>
+          <div id="uploadMsg" class="msg"></div>
+        </form>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Library Resources</h2><span id="count"></span></div>
+      <div id="resources" class="grid"></div>
+      <div id="empty" class="empty hidden">No resources found.</div>
+    </section>
+  </main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
