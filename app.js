@@ -19,8 +19,23 @@ $("loginForm").onsubmit=async e=>{
 
 $("logout").onclick=()=>location.reload();
 
-async function post(data){const res=await fetch(API,{method:"POST",body:JSON.stringify(data)});return res.json()}
+async function post(data){
 
+ const res = await fetch(API,{
+   method:"POST",
+   headers:{
+     "Content-Type":"text/plain;charset=utf-8"
+   },
+   body:JSON.stringify(data)
+ });
+
+ const text = await res.text();
+
+ console.log("SERVER RESPONSE:",text);
+
+ return JSON.parse(text);
+
+}
 async function loadResources(){
  const r=await post({action:"list",token});
  if(!r.ok) throw Error(r.error||"Could not load resources");
