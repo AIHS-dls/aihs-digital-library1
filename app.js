@@ -1,58 +1,95 @@
 const API="https://script.google.com/macros/s/AKfycbx2TIiEbBuAkNPZ-6wsyeuwGMb05kwE5HFgH9cdWaYCaMzroaYkU5Vw_IfNDBFaSHuBDA/exec";
-let role="Student",token="",resources=[];
 
-const $=id=>document.getElementById(id);
+let role="Student";
+let token="";
+let resources=[];
 
-document.querySelectorAll(".role").forEach(b=>{
- b.onclick=()=>{
-  document.querySelectorAll(".role").forEach(x=>x.classList.remove("active"));
-  b.classList.add("active");
-  role=b.dataset.role;
- }
+const $ = id => document.getElementById(id);
+
+
+// ROLE BUTTON
+document.querySelectorAll(".role").forEach(btn=>{
+ btn.onclick=()=>{
+  document.querySelectorAll(".role")
+  .forEach(x=>x.classList.remove("active"));
+
+  btn.classList.add("active");
+  role=btn.dataset.role;
+ };
 });
 
-$("loginForm").onsubmit=async e=>{
+
+// LOGIN
+$("loginForm").onsubmit = async function(e){
+
  e.preventDefault();
 
- $("loginMsg").textContent="Logging in...";
+ $("loginMsg").innerHTML="Logging in...";
 
  try{
-  const r=await post({
-    action:"login",
-    username:$("username").value,
-    password:$("password").value
+
+  let response = await post({
+   action:"login",
+   username:$("username").value.trim(),
+   password:$("password").value
   });
 
-  if(!r.ok) throw Error(r.error||"Login failed");
 
-  token=r.token;
-  role=r.role;
+  if(!response || !response.ok){
+
+   $("loginMsg").innerHTML =
+   response.error || "Login failed";
+
+   return;
+  }
+
+
+  token=response.token;
+  role=response.role;
+
 
   $("loginView").classList.add("hidden");
   $("appView").classList.remove("hidden");
 
-  $("userInfo").textContent=
-  `${r.userId} • ${r.role}`;
+
+  $("userInfo").innerHTML =
+  response.userId+" • "+response.role;
+
 
   $("adminPanel").classList.toggle(
-    "hidden",
-    r.role!=="Librarian"
+   "hidden",
+   response.role!=="Librarian"
   );
 
-  await loadResources();
 
- }catch(err){
-  $("loginMsg").textContent=err.message;
+  loadResources();
+
+
  }
+ catch(error){
+
+  console.log(error);
+
+  $("loginMsg").innerHTML=
+  error.message;
+
+ }
+
 };
 
 
-$("logout").onclick=()=>location.reload();
+
+// LOGOUT
+$("logout").onclick=function(){
+ location.reload();
+};
 
 
+
+// API CALL
 async function post(data){
 
- const res=await fetch(API,{
+ const res = await fetch(API,{
   method:"POST",
   headers:{
    "Content-Type":"text/plain;charset=utf-8"
@@ -60,106 +97,256 @@ async function post(data){
   body:JSON.stringify(data)
  });
 
- const text=await res.text();
+
+ const text = await res.text();
 
  console.log("SERVER RESPONSE:",text);
 
+
  return JSON.parse(text);
+
 }
 
 
+
+// LOAD RESOURCE
 async function loadResources(){
 
- const r=await post({
+ try{
+
+ let response = await post({
   action:"list",
-  token
+  token:token
  });
 
- console.log("LIST:",r);
 
- if(!r.ok)
- throw Error(r.error||"Could not load resources");
+ console.log("RESOURCE RESPONSE:",response);
 
- resources=r.resources||[];
+
+ if(!response.ok){
+
+  throw new Error(response.error);
+
+ }
+
+
+ resources=response.resources || [];
 
  render();
+
+
+ }
+ catch(error){
+
+ console.log(error);
+
+ $("resources").innerHTML =
+ "Error loading resources: "+error.message;
+
+ }
+
 }
 
 
+
+// DISPLAY RESOURCE
 function render(){
 
- const q=$("search").value.toLowerCase();
+ let box=$("resources");
 
- const list=resources.filter(x=>
- !q ||
- [
- x.title,
- x.subject,
- x.type,
- x.department,
- x.year
- ].join(" ").toLowerCase().includes(q)
- );
+ if(!box)return;
 
 
- $("count").textContent=
- `${list.length} resource(s)`;
+ if(resources.length===0){
+
+  box.innerHTML="No resources found";
+
+  return;
+ }
 
 
- $("resources").innerHTML=list.map(x=>`
+ box.innerHTML =
+ resources.map(r=>`
 
- <article class="card">
+ <div class="card">
 
- <h3>${esc(x.title)}</h3>
+ <h3>${escapeHTML(r.title)}</h3>
 
- <p>${esc(x.subject||"")}</p>
+ <p>
+ ${escapeHTML(r.type || "")}
+ </p>
 
- <a href="${x.url}" target="_blank">
+ <p>
+ ${escapeHTML(r.department || "")}
+ </p>
+
+
+ <a href="${r.url}" target="_blank">
  Open Resource
  </a>
 
- </article>
+
+ </div>
 
  `).join("");
 
 }
 
 
-["search","type","department","semester"]
-.forEach(id=>{
- if($(id)) $(id).oninput=render;
+
+
+// UPLOAD
+$("uploadForm").onsubmit = async function(e){
+
+ e.preventDefault();
+
+
+ let file=$("file").files[0];
+
+
+ if(!file){
+
+  $("uploadMsg").innerHTML="Select file";
+
+  return;
+
+ }
+
+
+ $("uploadMsg").innerHTML="Uploading...";
+
+
+ let data = await toBase64(file);
+
+
+ let response = await post({
+
+ action:"add",
+
+ token:token,
+
+ title:$("title").value,
+
+ type:$("rtype").value,
+
+ department:$("rdept").value,
+
+ semester:$("rsem").value,
+
+ subject:$("subject").value,
+
+ year:$("year").value,
+
+ fileName:file.name,
+
+ mimeType:file.type,
+
+ data:data
+
+ });
+
+
+ if(response.ok){
+
+  $("uploadMsg").innerHTML=
+  "Uploaded successfully";
+
+  loadResources();
+
+ }
+ else{
+
+  $("uploadMsg").innerHTML=response.error;
+
+ }
+
+
+};
+
+
+
+// USER CREATE
+$("userForm").onsubmit = async function(e){
+
+e.preventDefault();
+
+
+let response=await post({
+
+ action:"createUser",
+
+ token:token,
+
+ userId:$("newId").value,
+
+ name:$("newName").value,
+
+ password:$("newPass").value,
+
+ role:$("newRole").value,
+
+ department:$("newDept").value
+
 });
 
 
+if(response.ok){
 
-function toBase64(file){
+$("userMsg").innerHTML="User created";
 
- return new Promise((resolve,reject)=>{
+}
+else{
 
- const rd=new FileReader();
-
- rd.onload=()=>{
- resolve(String(rd.result).split(",")[1]);
- };
-
- rd.onerror=reject;
-
- rd.readAsDataURL(file);
-
- });
+$("userMsg").innerHTML=response.error;
 
 }
 
 
-function esc(s){
+};
 
- return String(s??"")
- .replace(/[&<>"']/g,m=>({
- "&":"&amp;",
- "<":"&lt;",
- ">":"&gt;",
- '"':"&quot;",
- "'":"&#039;"
- }[m]));
+
+
+// FILE BASE64
+function toBase64(file){
+
+return new Promise((resolve,reject)=>{
+
+let reader=new FileReader();
+
+reader.onload=()=>{
+
+resolve(
+String(reader.result).split(",")[1]
+);
+
+};
+
+reader.onerror=reject;
+
+reader.readAsDataURL(file);
+
+});
+
+}
+
+
+
+// SECURITY
+function escapeHTML(text){
+
+return String(text || "")
+.replace(/[&<>"']/g,function(m){
+
+return {
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+
+}[m];
+
+});
 
 }
