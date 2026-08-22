@@ -149,20 +149,114 @@ async function loadResources(){
 
 
 
-// DISPLAY RESOURCE
+// DISPLAY + SEARCH RESOURCES
 function render(){
 
- let box=$("resources");
+  let box = $("resources");
 
- if(!box)return;
+  if(!box) return;
+
+  let searchBox = $("search");
+
+  let query = searchBox
+    ? searchBox.value.trim().toLowerCase()
+    : "";
+
+  let filtered = resources.filter(function(r){
+
+    let text = [
+      r.title,
+      r.type,
+      r.department,
+      r.semester,
+      r.subject,
+      r.year
+    ]
+    .join(" ")
+    .toLowerCase();
+
+    return text.includes(query);
+
+  });
 
 
- if(resources.length===0){
+  if(filtered.length === 0){
 
-  box.innerHTML="No resources found";
+    box.innerHTML = `
+      <div style="
+        padding:20px;
+        text-align:center;
+        color:#777;
+      ">
+        No resources found
+      </div>
+    `;
 
-  return;
- }
+    return;
+  }
+
+
+  box.innerHTML = filtered.map(function(r){
+
+    return `
+      <div class="card">
+
+        <h3>
+          📘 ${escapeHTML(r.title || "")}
+        </h3>
+
+        <p>
+          <b>Type:</b>
+          ${escapeHTML(r.type || "Other")}
+        </p>
+
+        <p>
+          <b>Department:</b>
+          ${escapeHTML(r.department || "-")}
+        </p>
+
+        <p>
+          <b>Semester:</b>
+          ${escapeHTML(r.semester || "-")}
+        </p>
+
+        <p>
+          <b>Subject:</b>
+          ${escapeHTML(r.subject || "-")}
+        </p>
+
+        <p>
+          <b>Year:</b>
+          ${escapeHTML(r.year || "-")}
+        </p>
+
+        <a
+          href="${r.url}"
+          target="_blank"
+        >
+          📖 Open Resource
+        </a>
+
+        ${
+          role === "Librarian"
+          ?
+          `
+          <button
+            onclick="deleteResource('${r.id}')"
+          >
+            🗑 Delete
+          </button>
+          `
+          :
+          ""
+        }
+
+      </div>
+    `;
+
+  }).join("");
+
+}
 
 
  box.innerHTML =
@@ -189,6 +283,17 @@ function render(){
  </div>
 
  `).join("");
+
+}
+
+// SEARCH
+if($("search")){
+
+  $("search").addEventListener("input", function(){
+
+    render();
+
+  });
 
 }
 
