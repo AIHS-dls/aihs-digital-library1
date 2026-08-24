@@ -7,170 +7,192 @@ let resources=[];
 const $ = id => document.getElementById(id);
 
 
-// ROLE BUTTON
-document.querySelectorAll(".role").forEach(btn=>{
- btn.onclick=()=>{
-  document.querySelectorAll(".role")
-  .forEach(x=>x.classList.remove("active"));
-
-  btn.classList.add("active");
-  role=btn.dataset.role;
- };
-});
-
-
+// ===============================
 // LOGIN
+// ===============================
+
 $("loginForm").onsubmit = async function(e){
 
- e.preventDefault();
+  e.preventDefault();
 
- $("loginMsg").innerHTML="Logging in...";
+  $("loginMsg").innerHTML="Logging in...";
 
- try{
+  try{
 
-  let response = await post({
-   action:"login",
-   username:$("username").value.trim(),
-   password:$("password").value
-  });
+    let response = await post({
+      action:"login",
+      username:$("username").value.trim(),
+      password:$("password").value
+    });
 
+    if(!response || !response.ok){
 
-  if(!response || !response.ok){
+      $("loginMsg").innerHTML =
+        response?.error || "Login failed";
 
-   $("loginMsg").innerHTML =
-   response.error || "Login failed";
+      return;
+    }
 
-   return;
+    token=response.token;
+    role=response.role;
+
+    $("loginView").classList.add("hidden");
+    $("appView").classList.remove("hidden");
+
+    $("userInfo").innerHTML =
+      response.userId+" • "+response.role;
+
+    // Librarian ಮಾತ್ರ Admin panel ನೋಡಬಹುದು
+    if($("adminPanel")){
+
+      $("adminPanel").classList.toggle(
+        "hidden",
+        response.role !== "Librarian"
+      );
+
+    }
+
+    await loadResources();
+
+  }
+  catch(error){
+
+    console.log(error);
+
+    $("loginMsg").innerHTML =
+      error.message || "Login error";
+
   }
 
-
-  token=response.token;
-  role=response.role;
-
-
-  $("loginView").classList.add("hidden");
-  $("appView").classList.remove("hidden");
-
-
-  $("userInfo").innerHTML =
-  response.userId+" • "+response.role;
-
-
-  $("adminPanel").classList.toggle(
-   "hidden",
-   response.role!=="Librarian"
-  );
-
-
-  loadResources();
-
-
- }
- catch(error){
-
-  console.log(error);
-
-  $("loginMsg").innerHTML=
-  error.message;
-
- }
-
 };
 
 
-
+// ===============================
 // LOGOUT
-$("logout").onclick=function(){
- location.reload();
-};
+// ===============================
+
+if($("logout")){
+
+  $("logout").onclick=function(){
+
+    location.reload();
+
+  };
+
+}
 
 
-
+// ===============================
 // API CALL
+// ===============================
+
 async function post(data){
 
- const res = await fetch(API,{
-  method:"POST",
-  headers:{
-   "Content-Type":"text/plain;charset=utf-8"
-  },
-  body:JSON.stringify(data)
- });
+  const res = await fetch(API,{
 
+    method:"POST",
 
- const text = await res.text();
+    headers:{
+      "Content-Type":"text/plain;charset=utf-8"
+    },
 
- console.log("SERVER RESPONSE:",text);
+    body:JSON.stringify(data)
 
+  });
 
- return JSON.parse(text);
+  const text = await res.text();
+
+  console.log("SERVER RESPONSE:",text);
+
+  try{
+
+    return JSON.parse(text);
+
+  }
+  catch(error){
+
+    throw new Error(
+      "Server returned invalid response: "+text
+    );
+
+  }
 
 }
 
 
+// ===============================
+// LOAD RESOURCES
+// ===============================
 
-// LOAD RESOURCE
 async function loadResources(){
 
- try{
+  try{
 
- let response = await post({
-  action:"list",
-  token:token
- });
+    let response = await post({
 
+      action:"list",
+      token:token
 
- console.log("RESOURCE RESPONSE:",response);
+    });
 
+    console.log("RESOURCE RESPONSE:",response);
 
- if(!response.ok){
+    if(!response.ok){
 
-  throw new Error(response.error);
+      throw new Error(
+        response.error || "Could not load resources"
+      );
 
- }
+    }
 
+    resources=response.resources || [];
 
- resources=response.resources || [];
+    render();
 
- render();
+  }
+  catch(error){
 
+    console.log(error);
 
- }
- catch(error){
+    if($("resources")){
 
- console.log(error);
+      $("resources").innerHTML =
+        "Error loading resources: "+error.message;
 
- $("resources").innerHTML =
- "Error loading resources: "+error.message;
+    }
 
- }
+  }
 
 }
 
 
+// ===============================
+// DISPLAY + SEARCH
+// ===============================
 
-// DISPLAY + SEARCH RESOURCES
 function render(){
 
-  let box = $("resources");
+  let box=$("resources");
 
-  if(!box) return;
+  if(!box)return;
 
-  let searchBox = $("search");
+  let searchBox=$("search");
 
-  let query = searchBox
+  let query=searchBox
     ? searchBox.value.trim().toLowerCase()
     : "";
 
-  let filtered = resources.filter(function(r){
+  let filtered=resources.filter(function(r){
 
-    let text = [
+    let text=[
+
       r.title,
       r.type,
       r.department,
       r.semester,
       r.subject,
       r.year
+
     ]
     .join(" ")
     .toLowerCase();
@@ -180,25 +202,40 @@ function render(){
   });
 
 
-  if(filtered.length === 0){
+  // Count
+  if($("resourceCount")){
 
-    box.innerHTML = `
-      <div style="
-        padding:20px;
-        text-align:center;
-        color:#777;
-      ">
-        No resources found
-      </div>
-    `;
+    $("resourceCount").innerHTML =
+      filtered.length+" resource(s)";
 
-    return;
   }
 
 
-  box.innerHTML = filtered.map(function(r){
+  if(filtered.length===0){
+
+    box.innerHTML=`
+
+      <div style="
+        padding:25px;
+        text-align:center;
+        color:#777;
+      ">
+
+        No resources found
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  box.innerHTML=filtered.map(function(r){
 
     return `
+
       <div class="card">
 
         <h3>
@@ -241,17 +278,25 @@ function render(){
           role === "Librarian"
           ?
           `
+
           <button
+            type="button"
             onclick="deleteResource('${r.id}')"
+            style="
+              background:#c62828;
+              margin-top:10px;
+            "
           >
             🗑 Delete
           </button>
+
           `
           :
           ""
         }
 
       </div>
+
     `;
 
   }).join("");
@@ -259,172 +304,282 @@ function render(){
 }
 
 
+// ===============================
 // SEARCH
+// ===============================
+
 if($("search")){
 
-  $("search").addEventListener("input", function(){
+  $("search").addEventListener(
+    "input",
+    render
+  );
 
-    render();
+}
+
+
+// ===============================
+// UPLOAD RESOURCE
+// ===============================
+
+if($("uploadForm")){
+
+  $("uploadForm").onsubmit = async function(e){
+
+    e.preventDefault();
+
+    let file=$("file").files[0];
+
+    if(!file){
+
+      $("uploadMsg").innerHTML=
+        "Please select a file";
+
+      return;
+
+    }
+
+
+    $("uploadMsg").innerHTML=
+      "Uploading...";
+
+
+    try{
+
+      let data=await toBase64(file);
+
+      let response=await post({
+
+        action:"add",
+
+        token:token,
+
+        title:$("title").value.trim(),
+
+        type:$("rtype").value,
+
+        department:$("rdept").value,
+
+        semester:$("rsem").value,
+
+        subject:$("subject").value.trim(),
+
+        year:$("year").value.trim(),
+
+        fileName:file.name,
+
+        mimeType:file.type,
+
+        data:data
+
+      });
+
+
+      if(response.ok){
+
+        $("uploadMsg").innerHTML=
+          "✅ Uploaded successfully";
+
+        // Clear form
+        $("uploadForm").reset();
+
+        // Refresh resources
+        await loadResources();
+
+      }
+      else{
+
+        $("uploadMsg").innerHTML=
+          response.error || "Upload failed";
+
+      }
+
+    }
+    catch(error){
+
+      console.log(error);
+
+      $("uploadMsg").innerHTML=
+        "Upload error: "+error.message;
+
+    }
+
+  };
+
+}
+
+
+// ===============================
+// CREATE USER
+// ===============================
+
+if($("userForm")){
+
+  $("userForm").onsubmit=async function(e){
+
+    e.preventDefault();
+
+    try{
+
+      let response=await post({
+
+        action:"createUser",
+
+        token:token,
+
+        userId:$("newId").value.trim(),
+
+        name:$("newName").value.trim(),
+
+        password:$("newPass").value,
+
+        role:$("newRole").value,
+
+        department:$("newDept").value
+
+      });
+
+
+      if(response.ok){
+
+        $("userMsg").innerHTML=
+          "✅ User created successfully";
+
+        $("userForm").reset();
+
+      }
+      else{
+
+        $("userMsg").innerHTML=
+          response.error || "Could not create user";
+
+      }
+
+    }
+    catch(error){
+
+      $("userMsg").innerHTML=
+        error.message;
+
+    }
+
+  };
+
+}
+
+
+// ===============================
+// DELETE RESOURCE
+// ===============================
+
+async function deleteResource(id){
+
+  if(role !== "Librarian"){
+
+    alert("Only Librarian can delete resources.");
+
+    return;
+
+  }
+
+
+  if(!confirm(
+    "Are you sure you want to delete this resource?"
+  )){
+
+    return;
+
+  }
+
+
+  try{
+
+    let response=await post({
+
+      action:"delete",
+
+      token:token,
+
+      id:id
+
+    });
+
+
+    if(response.ok){
+
+      alert("✅ Resource deleted successfully");
+
+      await loadResources();
+
+    }
+    else{
+
+      alert(
+        response.error || "Delete failed"
+      );
+
+    }
+
+  }
+  catch(error){
+
+    console.log(error);
+
+    alert(
+      "Delete error: "+error.message
+    );
+
+  }
+
+}
+
+
+// ===============================
+// FILE → BASE64
+// ===============================
+
+function toBase64(file){
+
+  return new Promise(function(resolve,reject){
+
+    let reader=new FileReader();
+
+    reader.onload=function(){
+
+      resolve(
+        String(reader.result).split(",")[1]
+      );
+
+    };
+
+    reader.onerror=reject;
+
+    reader.readAsDataURL(file);
 
   });
 
 }
 
 
-
-
-// UPLOAD
-$("uploadForm").onsubmit = async function(e){
-
- e.preventDefault();
-
-
- let file=$("file").files[0];
-
-
- if(!file){
-
-  $("uploadMsg").innerHTML="Select file";
-
-  return;
-
- }
-
-
- $("uploadMsg").innerHTML="Uploading...";
-
-
- let data = await toBase64(file);
-
-
- let response = await post({
-
- action:"add",
-
- token:token,
-
- title:$("title").value,
-
- type:$("rtype").value,
-
- department:$("rdept").value,
-
- semester:$("rsem").value,
-
- subject:$("subject").value,
-
- year:$("year").value,
-
- fileName:file.name,
-
- mimeType:file.type,
-
- data:data
-
- });
-
-
- if(response.ok){
-
-  $("uploadMsg").innerHTML=
-  "Uploaded successfully";
-
-  loadResources();
-
- }
- else{
-
-  $("uploadMsg").innerHTML=response.error;
-
- }
-
-
-};
-
-
-
-// USER CREATE
-$("userForm").onsubmit = async function(e){
-
-e.preventDefault();
-
-
-let response=await post({
-
- action:"createUser",
-
- token:token,
-
- userId:$("newId").value,
-
- name:$("newName").value,
-
- password:$("newPass").value,
-
- role:$("newRole").value,
-
- department:$("newDept").value
-
-});
-
-
-if(response.ok){
-
-$("userMsg").innerHTML="User created";
-
-}
-else{
-
-$("userMsg").innerHTML=response.error;
-
-}
-
-
-};
-
-
-
-// FILE BASE64
-function toBase64(file){
-
-return new Promise((resolve,reject)=>{
-
-let reader=new FileReader();
-
-reader.onload=()=>{
-
-resolve(
-String(reader.result).split(",")[1]
-);
-
-};
-
-reader.onerror=reject;
-
-reader.readAsDataURL(file);
-
-});
-
-}
-
-
-
+// ===============================
 // SECURITY
+// ===============================
+
 function escapeHTML(text){
 
-return String(text || "")
-.replace(/[&<>"']/g,function(m){
+  return String(text || "")
+    .replace(/[&<>"']/g,function(m){
 
-return {
+      return {
 
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#039;"
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
 
-}[m];
+      }[m];
 
-});
+    });
 
 }
