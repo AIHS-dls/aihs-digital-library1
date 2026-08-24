@@ -584,40 +584,67 @@ function escapeHTML(text){
 
 }
 
-function loadUsers(){
+async function loadUsers(){
 
-  google.script.run
-  .withSuccessHandler(function(res){
+  try{
 
-    if(res.ok){
+    let response = await post({
 
-      let html = "";
+      action:"getUsers",
 
-      res.users.forEach(function(user){
+      token:token
+
+    });
+
+
+    if(response.ok){
+
+      let html="";
+
+
+      response.users.forEach(function(user){
 
         html += `
+
         <div class="userBox">
 
           <b>${user.name}</b><br>
+
           User ID: ${user.userId}<br>
+
           Role: ${user.role}<br>
+
           Department: ${user.department || "-"}<br>
 
         </div>
+
         <hr>
+
         `;
 
       });
 
-      document.getElementById("usersList").innerHTML = html;
 
-    } else {
+      $("usersList").innerHTML = html;
 
-      document.getElementById("usersList").innerHTML = res.error;
+
+    }
+    else{
+
+      $("usersList").innerHTML =
+      response.error;
 
     }
 
-  })
-  .getUsersFromWeb(token);
+
+  }
+  catch(error){
+
+    console.log(error);
+
+    $("usersList").innerHTML =
+    error.message;
+
+  }
 
 }
