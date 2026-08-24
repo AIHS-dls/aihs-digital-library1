@@ -70,9 +70,15 @@ if(response.role === "Librarian"){
   await loadUsers();
 
 }
+console.log("ROLE:", response.role);
 
-};
+if(response.role === "Librarian"){
 
+  console.log("CALLING LOAD USERS");
+
+  await loadUsers();
+
+}
 
 // ===============================
 // LOGOUT
