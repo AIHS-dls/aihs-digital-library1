@@ -259,33 +259,6 @@ function render(){
 }
 
 
- box.innerHTML =
- resources.map(r=>`
-
- <div class="card">
-
- <h3>${escapeHTML(r.title)}</h3>
-
- <p>
- ${escapeHTML(r.type || "")}
- </p>
-
- <p>
- ${escapeHTML(r.department || "")}
- </p>
-
-
- <a href="${r.url}" target="_blank">
- Open Resource
- </a>
-
-
- </div>
-
- `).join("");
-
-}
-
 // SEARCH
 if($("search")){
 
