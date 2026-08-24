@@ -590,43 +590,39 @@ function escapeHTML(text){
     });
 
 }
-
 async function loadUsers(){
+
+  console.log("LOAD USERS START");
 
   try{
 
     let response = await post({
 
       action:"getUsers",
-
       token:token
 
     });
 
 
+    console.log("USERS RESPONSE:", response);
+
+
     if(response.ok){
 
-      let html="";
-
+      let html = "";
 
       response.users.forEach(function(user){
 
         html += `
-
         <div class="userBox">
 
           <b>${user.name}</b><br>
-
           User ID: ${user.userId}<br>
-
           Role: ${user.role}<br>
-
           Department: ${user.department || "-"}<br>
 
         </div>
-
         <hr>
-
         `;
 
       });
@@ -635,22 +631,18 @@ async function loadUsers(){
       $("usersList").innerHTML = html;
 
 
-    }
-    else{
+    } else {
 
-      $("usersList").innerHTML =
-      response.error;
+      $("usersList").innerHTML = response.error;
 
     }
 
 
-  }
-  catch(error){
+  } catch(error){
 
-    console.log(error);
+    console.log("USERS ERROR:", error);
 
-    $("usersList").innerHTML =
-    error.message;
+    $("usersList").innerHTML = error.message;
 
   }
 
