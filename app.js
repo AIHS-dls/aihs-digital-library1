@@ -583,3 +583,41 @@ function escapeHTML(text){
     });
 
 }
+
+function loadUsers(){
+
+  google.script.run
+  .withSuccessHandler(function(res){
+
+    if(res.ok){
+
+      let html = "";
+
+      res.users.forEach(function(user){
+
+        html += `
+        <div class="userBox">
+
+          <b>${user.name}</b><br>
+          User ID: ${user.userId}<br>
+          Role: ${user.role}<br>
+          Department: ${user.department || "-"}<br>
+
+        </div>
+        <hr>
+        `;
+
+      });
+
+      document.getElementById("usersList").innerHTML = html;
+
+    } else {
+
+      document.getElementById("usersList").innerHTML = res.error;
+
+    }
+
+  })
+  .getUsersFromWeb(token);
+
+}
