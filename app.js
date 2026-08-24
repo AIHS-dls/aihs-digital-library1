@@ -63,6 +63,13 @@ $("loginForm").onsubmit = async function(e){
       error.message || "Login error";
 
   }
+  await loadResources();
+
+if(response.role === "Librarian"){
+
+  await loadUsers();
+
+}
 
 };
 
