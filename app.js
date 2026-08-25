@@ -60,6 +60,7 @@ $("loginForm").onsubmit = async function(e){
 
     await loadResources();
     await loadBestUsers();
+    await loadStaff();
     await loadEvents();
 
     if(response.role === "Librarian"){
