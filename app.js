@@ -644,8 +644,6 @@ cursor:pointer;
 </div>
 <hr>
 `;
-        <hr>
-        `;
 
       });
 
