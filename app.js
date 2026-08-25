@@ -52,33 +52,17 @@ $("loginForm").onsubmit = async function(e){
 
     }
 
-    await loadResources();
-
-  }
-  catch(error){
-
-    console.log(error);
-
-    $("loginMsg").innerHTML =
-      error.message || "Login error";
-
-  }
   await loadResources();
 
-if(response.role === "Librarian"){
+  if(response.role === "Librarian"){
 
-  await loadUsers();
+    console.log("CALLING LOAD USERS");
 
-}
-console.log("ROLE:", response.role);
-
-if(response.role === "Librarian"){
-
-  console.log("CALLING LOAD USERS");
-
-  await loadUsers();
+    await loadUsers();
 
 }
+
+    
 
 // ===============================
 // LOGOUT
