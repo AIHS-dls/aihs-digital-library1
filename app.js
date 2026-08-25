@@ -113,7 +113,7 @@ function searchUsers(){
 
   let boxes = document.querySelectorAll(".userBox");
 
-  boxes.forEach(box => {
+    boxes.forEach(box => {
 
     let text = box.innerText.toLowerCase();
 
@@ -125,6 +125,9 @@ function searchUsers(){
     }
 
   });
+
+}
+
 
   async function loadStaff(){
 
