@@ -174,6 +174,52 @@ function searchUsers(){
   }
 
 }
+  async function loadBestUsers(){
+
+  let response = await post({
+    action:"getBestUsers",
+    token:token
+  });
+
+
+  if(response.ok){
+
+    let html="";
+
+
+    response.bestUsers.forEach(function(user){
+
+      html += `
+
+      <div class="userBox">
+
+        <h3>🏆 ${user.rank}</h3>
+
+        <b>${user.studentName}</b><br>
+
+        Department: ${user.department || "-"}<br>
+
+        Books Issued: ${user.booksIssued || 0}<br>
+
+        Year: ${user.year || "-"}
+
+      </div>
+
+      `;
+
+    });
+
+
+    $("bestUsersList").innerHTML = html;
+
+
+  } else {
+
+    $("bestUsersList").innerHTML = response.error;
+
+  }
+
+}
 
 }
     
