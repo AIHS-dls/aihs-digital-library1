@@ -567,6 +567,68 @@ if($("uploadForm")){
 
 }
 
+$("staffForm").onsubmit = async function(e){
+
+  e.preventDefault();
+
+
+  $("staffMsg").innerHTML = "Adding Staff...";
+
+
+  try{
+
+    let response = await post({
+
+      action:"addStaff",
+
+      token:token,
+
+      name:$("staffName").value.trim(),
+
+      designation:$("staffDesignation").value.trim(),
+
+      qualification:$("staffQualification").value.trim(),
+
+      phone:$("staffPhone").value.trim(),
+
+      email:$("staffEmail").value.trim()
+
+    });
+
+
+    if(response.ok){
+
+      $("staffMsg").innerHTML =
+      "Staff added successfully";
+
+
+      $("staffForm").reset();
+
+
+      await loadStaff();
+
+
+    }
+    else{
+
+      $("staffMsg").innerHTML =
+      response.error;
+
+    }
+
+
+  }
+  catch(error){
+
+    console.log(error);
+
+    $("staffMsg").innerHTML =
+    error.message;
+
+  }
+
+};
+
 
 // ===============================
 // CREATE USER
