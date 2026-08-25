@@ -104,6 +104,27 @@ async function deleteUser(userId){
   }
 
 }
+
+function searchUsers(){
+
+  let value = $("userSearch").value.toLowerCase();
+
+  let boxes = document.querySelectorAll(".userBox");
+
+  boxes.forEach(box => {
+
+    let text = box.innerText.toLowerCase();
+
+    if(text.includes(value)){
+      box.style.display = "";
+    }
+    else{
+      box.style.display = "none";
+    }
+
+  });
+
+}
     
 
 // ===============================
