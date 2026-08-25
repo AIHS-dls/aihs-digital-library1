@@ -124,6 +124,56 @@ function searchUsers(){
 
   });
 
+  async function loadStaff(){
+
+  let response = await post({
+    action:"getStaff",
+    token:token
+  });
+
+
+  if(response.ok){
+
+    let html="";
+
+
+    response.staff.forEach(function(staff){
+
+      html += `
+
+      <div class="userBox">
+
+      <h3>${staff.name}</h3>
+
+      Designation: ${staff.designation}<br>
+
+      Qualification: ${staff.qualification}<br>
+
+      Phone: ${staff.phone}<br>
+
+      Email: ${staff.email}<br>
+
+      </div>
+
+      <hr>
+
+      `;
+
+    });
+
+
+    $("staffList").innerHTML = html;
+
+
+  }
+  else{
+
+    $("staffList").innerHTML=response.error;
+
+  }
+
+}
+
 }
     
 
