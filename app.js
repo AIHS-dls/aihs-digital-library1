@@ -25,24 +25,29 @@ $("loginForm").onsubmit = async function(e){
       password:$("password").value
     });
 
+
     if(!response || !response.ok){
 
       $("loginMsg").innerHTML =
         response?.error || "Login failed";
 
       return;
+
     }
+
 
     token=response.token;
     role=response.role;
 
+
     $("loginView").classList.add("hidden");
     $("appView").classList.remove("hidden");
+
 
     $("userInfo").innerHTML =
       response.userId+" • "+response.role;
 
-    // Librarian ಮಾತ್ರ Admin panel ನೋಡಬಹುದು
+
     if($("adminPanel")){
 
       $("adminPanel").classList.toggle(
@@ -52,16 +57,21 @@ $("loginForm").onsubmit = async function(e){
 
     }
 
-  await loadResources();
 
-  if(response.role === "Librarian"){
+    await loadResources();
 
-    console.log("CALLING LOAD USERS");
 
-    await loadUsers();
+  }
+  catch(error){
 
-}
+    console.log(error);
 
+    $("loginMsg").innerHTML =
+      error.message || "Login error";
+
+  }
+
+};
     
 
 // ===============================
