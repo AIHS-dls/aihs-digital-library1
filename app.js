@@ -78,6 +78,32 @@ $("loginForm").onsubmit = async function(e){
   }
 
 };
+
+async function deleteUser(userId){
+
+  if(!confirm("Delete this user?")){
+    return;
+  }
+
+  let response = await post({
+    action:"deleteUser",
+    token:token,
+    userId:userId
+  });
+
+  if(response.ok){
+
+    alert("User deleted successfully");
+
+    loadUsers();
+
+  } else {
+
+    alert(response.error || "Delete failed");
+
+  }
+
+}
     
 
 // ===============================
