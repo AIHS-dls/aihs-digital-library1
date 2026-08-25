@@ -61,6 +61,7 @@ $("loginForm").onsubmit = async function(e){
     await loadResources();
     await loadStaff();
     await loadBestUsers();
+    await loadEvents();
 
     if(response.role === "Librarian"){
 
@@ -808,6 +809,52 @@ cursor:pointer;
     console.log("USERS ERROR:", error);
 
     $("usersList").innerHTML = error.message;
+
+  }
+
+}
+
+async function loadEvents(){
+
+  let response = await post({
+    action:"getEvents",
+    token:token
+  });
+
+
+  if(response.ok){
+
+    let html="";
+
+
+    response.events.forEach(function(event){
+
+      html += `
+
+      <div class="userBox">
+
+        <h3>🎉 ${event.title}</h3>
+
+        <p>
+        Category: ${event.category || "-"}<br>
+        Date: ${event.date || "-"}<br><br>
+
+        ${event.description || ""}
+        </p>
+
+      </div>
+
+      `;
+
+    });
+
+
+    $("eventsList").innerHTML = html;
+
+
+  } else {
+
+    $("eventsList").innerHTML = response.error;
 
   }
 
