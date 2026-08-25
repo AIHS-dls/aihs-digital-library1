@@ -922,3 +922,20 @@ async function loadEvents(){
   }
 
 }
+
+function showSection(id){
+
+  let sections = document.querySelectorAll(".dashboard-section");
+
+  sections.forEach(function(section){
+    section.classList.add("hidden");
+  });
+
+
+  let selected = document.getElementById(id);
+
+  if(selected){
+    selected.classList.remove("hidden");
+  }
+
+}
