@@ -52,8 +52,29 @@
 
     <section id="adminPanel" class="admin hidden">
       <h2>Librarian Administration</h2>
+       <div class="dashboard-menu">
+
+<button onclick="showSection('userFormBox')">
+👤 Create User
+</button>
+
+<button onclick="showSection('uploadFormBox')">
+📤 Upload Resource
+</button>
+
+<button onclick="showSection('userManagement')">
+👥 Manage Users
+</button>
+
+<button onclick="showSection('resourceBox')">
+📚 Library Resources
+</button>
+
+</div>
       <div class="admin-grid">
-        <form id="userForm">
+        <div id="userFormBox" class="dashboard-section hidden">
+
+<form id="userForm">
           <h3>Create Student / Staff Account</h3>
           <input id="newId" placeholder="User ID" required>
           <input id="newName" placeholder="Full name" required>
@@ -63,7 +84,8 @@
           <button class="primary">Create Account</button>
           <div id="userMsg" class="msg"></div>
         </form>
-        <form id="uploadForm">
+          <div id="uploadFormBox" class="dashboard-section hidden">
+          <form id="uploadForm">
           <h3>Upload Library Resource</h3>
           <input id="title" placeholder="Title" required>
           <select id="rtype"><option>E-book</option><option>Question Paper</option><option>Notes</option><option>Journal</option><option>Other</option></select>
@@ -96,7 +118,7 @@ Add Staff
 <div id="staffMsg" class="msg"></div>
 
 </form>
-         <div class="glass" id="userManagement">
+         <div class="glass dashboard-section hidden" id="userManagement">
            <h2>Manage Users</h2>
 
 <input 
