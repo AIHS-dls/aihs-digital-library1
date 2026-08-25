@@ -620,14 +620,30 @@ async function loadUsers(){
       response.users.forEach(function(user){
 
         html += `
-        <div class="userBox">
+<div class="userBox">
 
-          <b>${user.name}</b><br>
-          User ID: ${user.userId}<br>
-          Role: ${user.role}<br>
-          Department: ${user.department || "-"}<br>
+<b>${user.name}</b><br>
+User ID: ${user.userId}<br>
+Role: ${user.role}<br>
+Department: ${user.department || "-"}<br>
 
-        </div>
+<button 
+onclick="deleteUser('${user.userId}')"
+style="
+background:#c62828;
+color:white;
+margin-top:10px;
+padding:8px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+">
+🗑 Delete
+</button>
+
+</div>
+<hr>
+`;
         <hr>
         `;
 
