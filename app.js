@@ -63,6 +63,13 @@ $("loginForm").onsubmit = async function(e){
     await loadStaff();
     await loadEvents();
 
+    if(response.role !== "Librarian"){
+
+  document.getElementById("resourceBox")
+  .classList.remove("hidden");
+
+}
+
     if(response.role === "Librarian"){
 
   await loadUsers();
