@@ -408,7 +408,7 @@ function render(){
 
     return `
 
-      <div class="card">
+      <div class="card public-resource-card" data-type="${resource.type}">
 
         <h3>
           📘 ${escapeHTML(r.title || "")}
@@ -1035,5 +1035,46 @@ function filterMenu(type){
  </div>
 
  `).join("");
+
+}
+
+function filterMenu(type){
+
+    document.getElementById("latestSection")
+    .scrollIntoView({
+        behavior:"smooth"
+    });
+
+
+    setTimeout(()=>{
+
+        if(type===""){
+            loadPublicResources();
+            return;
+        }
+
+
+        let cards=document.querySelectorAll(".public-resource-card");
+
+
+        cards.forEach(card=>{
+
+            let category=card.dataset.type;
+
+
+            if(category===type){
+
+                card.style.display="block";
+
+            }else{
+
+                card.style.display="none";
+
+            }
+
+        });
+
+
+    },500);
 
 }
