@@ -599,3 +599,99 @@ grid-template-columns:1fr;
 }
 
 }
+
+.public-header{
+background:#183b56;
+color:white;
+padding:15px 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.public-brand{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.public-brand img{
+width:65px;
+height:65px;
+background:white;
+border-radius:10px;
+}
+
+.public-brand h1{
+margin:0;
+font-size:26px;
+}
+
+.public-brand p{
+margin:3px 0;
+}
+
+
+.login-btn{
+
+background:white;
+color:#183b56;
+border:none;
+padding:10px 20px;
+border-radius:20px;
+font-weight:bold;
+cursor:pointer;
+
+}
+
+
+.menu{
+
+display:flex;
+gap:25px;
+background:#ffffff;
+padding:15px 5%;
+box-shadow:0 3px 10px #ddd;
+
+}
+
+
+.menu a{
+
+cursor:pointer;
+font-weight:600;
+color:#183b56;
+
+}
+
+
+.home-search{
+
+background:white;
+margin:25px auto;
+padding:25px;
+width:90%;
+border-radius:15px;
+
+}
+
+
+.home-search input{
+
+width:100%;
+padding:15px;
+border-radius:10px;
+border:1px solid #ccc;
+
+}
+
+
+.home-box{
+
+background:white;
+padding:25px;
+width:90%;
+margin:auto;
+border-radius:15px;
+
+}
