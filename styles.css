@@ -519,3 +519,24 @@ width:400px;
 max-width:90%;
 
 }
+
+.menu{
+display:flex;
+align-items:center;
+gap:30px;
+padding:15px 5%;
+background:white;
+flex-wrap:wrap;
+}
+
+.menu a{
+text-decoration:none;
+color:#183b56;
+font-weight:600;
+cursor:pointer;
+padding:8px 0;
+}
+
+.menu a:hover{
+color:#0b84ff;
+}
