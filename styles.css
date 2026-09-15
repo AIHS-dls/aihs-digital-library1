@@ -141,11 +141,7 @@ transform:translateY(-3px);
 
 display:flex;
 
-justify-content:center;
-
 gap:20px;
-
-flex-wrap:wrap;
 
 padding:15px 5%;
 
@@ -153,9 +149,11 @@ background:#183b56;
 
 position:sticky;
 
-top:100px;
+top:0;
 
-z-index:90;
+z-index:100;
+
+overflow-x:auto;
 
 }
 
@@ -168,7 +166,7 @@ text-decoration:none;
 
 font-weight:600;
 
-cursor:pointer;
+white-space:nowrap;
 
 padding:8px 15px;
 
@@ -186,7 +184,6 @@ background:white;
 color:#183b56;
 
 }
-
 
 
 /* ================= SEARCH ================= */
