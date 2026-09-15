@@ -540,3 +540,62 @@ padding:8px 0;
 .menu a:hover{
 color:#0b84ff;
 }
+
+.category-section{
+
+background:white;
+padding:30px;
+margin:25px 0;
+border-radius:20px;
+
+}
+
+
+.category-grid{
+
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+
+}
+
+
+.category-card{
+
+background:#f7fafc;
+padding:25px;
+border-radius:15px;
+text-align:center;
+box-shadow:0 5px 15px #0001;
+
+}
+
+
+.category-card h3{
+
+color:#183b56;
+
+}
+
+
+.category-card button{
+
+background:#183b56;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:20px;
+cursor:pointer;
+
+}
+
+
+@media(max-width:800px){
+
+.category-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
