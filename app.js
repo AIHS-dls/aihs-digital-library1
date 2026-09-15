@@ -1089,3 +1089,26 @@ document.getElementById("publicHome")
 .classList.remove("hidden");
 
 }
+
+document.getElementById("loginView")
+.addEventListener("click", function(e){
+
+    if(e.target === this){
+
+        closeLogin();
+
+    }
+
+});
+
+document.addEventListener("keydown",function(e){
+
+if(e.key==="Escape"){
+
+closeLogin();
+
+}
+
+});
+
+
