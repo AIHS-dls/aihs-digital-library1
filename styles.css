@@ -853,3 +853,20 @@ border-radius:20px;
 padding:25px;
 box-shadow:0 20px 50px rgba(0,0,0,.3);
 }
+
+.notice-box{
+background:white;
+padding:25px;
+border-radius:18px;
+margin:20px 0;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.notice-box h2{
+color:#183b56;
+}
+
+.notice-box li{
+padding:8px;
+font-size:16px;
+}
