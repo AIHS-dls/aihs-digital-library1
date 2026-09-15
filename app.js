@@ -1078,3 +1078,14 @@ function filterMenu(type){
     },500);
 
 }
+
+function closeLogin(){
+
+document.getElementById("loginView")
+.classList.add("hidden");
+
+
+document.getElementById("publicHome")
+.classList.remove("hidden");
+
+}
