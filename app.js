@@ -946,3 +946,10 @@ function showSection(id){
   }
 
 }
+
+function showLogin(){
+
+ document.getElementById("loginView")
+ .classList.remove("hidden");
+
+}
