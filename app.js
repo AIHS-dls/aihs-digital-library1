@@ -953,3 +953,36 @@ function showLogin(){
  .classList.remove("hidden");
 
 }
+
+async function loadPublicResources(){
+
+let response = await post({
+ action:"list"
+});
+
+
+if(response.ok){
+
+let box=document.getElementById("publicResources");
+
+box.innerHTML=response.resources.slice(0,6).map(r=>`
+
+<div class="card">
+
+<h3>📘 ${escapeHTML(r.title)}</h3>
+
+<p>${escapeHTML(r.type)}</p>
+
+<p>${escapeHTML(r.department || "")}</p>
+
+<a href="${r.url}" target="_blank">
+Open Resource
+</a>
+
+</div>
+
+`).join("");
+
+}
+
+}
