@@ -408,3 +408,114 @@ function showLogin(){
  .classList.remove("hidden");
 
 }
+
+/* PUBLIC HOME */
+
+.public-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 5%;
+background:#183b56;
+color:white;
+position:sticky;
+top:0;
+z-index:10;
+}
+
+.public-brand{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.public-brand img{
+width:60px;
+height:60px;
+object-fit:contain;
+background:white;
+border-radius:10px;
+}
+
+.public-brand h1{
+margin:0;
+font-size:26px;
+}
+
+.public-brand p{
+margin:3px 0;
+}
+
+
+.login-btn{
+background:white;
+color:#183b56;
+border:none;
+padding:10px 20px;
+border-radius:20px;
+font-weight:bold;
+cursor:pointer;
+}
+
+
+/* MENU */
+
+.menu{
+display:flex;
+gap:25px;
+padding:15px 5%;
+background:white;
+box-shadow:0 5px 15px #ddd;
+}
+
+.menu a{
+cursor:pointer;
+font-weight:600;
+}
+
+
+/* HOME SEARCH */
+
+.home-search{
+padding:50px 5%;
+text-align:center;
+}
+
+
+.home-search input{
+width:70%;
+padding:15px;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:16px;
+}
+
+
+
+/* LOGIN OVERLAY */
+
+.login-overlay{
+
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,.55);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+z-index:100;
+
+}
+
+
+.login-overlay .login-card{
+
+width:400px;
+max-width:90%;
+
+}
