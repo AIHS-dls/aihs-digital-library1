@@ -870,3 +870,33 @@ color:#183b56;
 padding:8px;
 font-size:16px;
 }
+
+.about-box,
+.contact-box{
+
+background:white;
+padding:25px;
+border-radius:18px;
+margin:20px 0;
+
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+}
+
+
+.about-box h2,
+.contact-box h2{
+
+color:#183b56;
+
+}
+
+
+.about-box p,
+.contact-box p{
+
+font-size:16px;
+line-height:1.6;
+color:#667085;
+
+}
