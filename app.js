@@ -39,7 +39,7 @@ $("loginForm").onsubmit = async function(e){
     token=response.token;
     role=response.role;
 
-
+    $("publicHome").classList.add("hidden");
     $("loginView").classList.add("hidden");
     $("appView").classList.remove("hidden");
 
