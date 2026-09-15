@@ -992,3 +992,17 @@ Open Resource
 }
 
 }
+
+function filterCategory(type){
+
+let searchBox=document.getElementById("publicSearch");
+
+if(searchBox){
+
+searchBox.value=type;
+
+}
+
+loadPublicResources();
+
+}
