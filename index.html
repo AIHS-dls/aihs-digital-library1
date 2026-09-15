@@ -29,44 +29,45 @@
 
 <nav class="menu">
 
-<a onclick="filterMenu('')">Home</a>
+<a href="#searchSection">
+Home
+</a>
 
-<a onclick="filterMenu('E-book')">
+<a href="#collectionsSection">
 eBooks
 </a>
 
-<a onclick="filterMenu('Question Paper')">
+<a href="#collectionsSection">
 Question Papers
 </a>
 
-<a onclick="filterMenu('Notes')">
+<a href="#collectionsSection">
 Notes
 </a>
 
-<a onclick="filterMenu('Journal')">
+<a href="#collectionsSection">
 Journals
 </a>
 
-<a>
+<a href="#collectionsSection">
 Databases & Software
 </a>
 
-<a>
+<a href="#latestSection">
 OA Resources
 </a>
 
-<a>
+<a href="#aboutSection">
 Ask Us
 </a>
 
-<a>
+<a href="#contactSection">
 Contact Us
 </a>
 
 </nav>
 
-<section class="home-search">
-
+<section id="searchSection" class="home-search">
 <h2>
 Search Library Resources
 </h2>
@@ -78,13 +79,11 @@ placeholder="Search books, notes, journals..."
 
 </section>
 
-<section class="home-box">
-
+<section id="collectionsSection" class="home-box">
 <h2>📚 Library Collections</h2>
-
 <div class="collection-grid">
 
-<div class="collection-card">
+<div class="collection-card
 <h1>📚</h1>
 <h3>E-Books</h3>
 <p>Digital books and textbooks</p>
@@ -124,8 +123,7 @@ placeholder="Search books, notes, journals..."
 
 </section>
 
-    <section class="notice-box">
-
+   <section id="noticeSection" class="notice-box">
 <h2>📢 Notice Board</h2>
 
 <ul>
@@ -137,8 +135,7 @@ placeholder="Search books, notes, journals..."
 
 </section>
     
-<section class="home-box">
-
+<section id="latestSection" class="home-box">
 <h2>
 📚 Latest Resources
 </h2>
@@ -149,7 +146,7 @@ Loading...
 
 </section>
 
-    <section class="about-box">
+ <section id="aboutSection" class="about-box">
 
 <h2>🏛 About Library</h2>
 
@@ -162,8 +159,7 @@ for students and faculty members.
 </section>
 
 
-<section class="contact-box">
-
+<section id="contactSection" class="contact-box">
 <h2>📞 Contact Us</h2>
 
 <p>
