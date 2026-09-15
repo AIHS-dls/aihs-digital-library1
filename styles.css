@@ -695,3 +695,38 @@ margin:auto;
 border-radius:15px;
 
 }
+
+.categories{
+background:white;
+padding:25px;
+margin-top:25px;
+border-radius:18px;
+}
+
+
+.category-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+
+.category-card{
+background:#f8fafc;
+padding:25px;
+border-radius:15px;
+text-align:center;
+font-size:18px;
+transition:.3s;
+}
+
+
+.category-card:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 25px #ddd;
+}
+
+
+.category-card h3{
+color:#183b56;
+}
