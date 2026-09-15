@@ -929,3 +929,9 @@ line-height:1.6;
 html{
 scroll-behavior:smooth;
 }
+
+.menu{
+position:sticky;
+top:70px;
+z-index:10;
+}
