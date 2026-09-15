@@ -935,3 +935,40 @@ position:sticky;
 top:70px;
 z-index:10;
 }
+
+html{
+scroll-behavior:smooth;
+}
+
+
+.menu{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+justify-content:center;
+background:#183b56;
+padding:12px;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+
+.menu a{
+color:white;
+text-decoration:none;
+padding:8px 14px;
+border-radius:8px;
+cursor:pointer;
+transition:.3s;
+}
+
+
+.menu a:hover{
+background:white;
+color:#183b56;
+}
+
+section{
+scroll-margin-top:80px;
+}
