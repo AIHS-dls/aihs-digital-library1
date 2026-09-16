@@ -44,19 +44,27 @@ $("loginForm").onsubmit = async function(e){
 
     token=response.token;
     role=response.role;
-    localStorage.setItem("user", response.userId);
     
-    if(pendingSection){
+    localStorage.setItem("user", response.userId);
+
+
+$("publicHome").classList.add("hidden");
+$("loginView").classList.add("hidden");
+$("appView").classList.remove("hidden");
+
+
+
+if(pendingSection){
+
+setTimeout(()=>{
 
 filterMenu(pendingSection);
 
 pendingSection="";
 
-}
+},500);
 
-    $("publicHome").classList.add("hidden");
-    $("loginView").classList.add("hidden");
-    $("appView").classList.remove("hidden");
+}
 
 
     $("userInfo").innerHTML =
@@ -1033,7 +1041,7 @@ function filterMenu(type){
         }
 
 
-        let cards=document.querySelectorAll(".public-resource-card");
+        let cards=document.querySelectorAll("#resources .card");
 
 
         cards.forEach(card=>{
