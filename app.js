@@ -1111,4 +1111,20 @@ closeLogin();
 
 });
 
+function openProtected(type){
+
+let user = localStorage.getItem("user");
+
+if(!user){
+
+showLogin();
+
+return;
+
+}
+
+filterMenu(type);
+
+}
+
 
