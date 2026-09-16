@@ -45,11 +45,7 @@ $("loginForm").onsubmit = async function(e){
     token=response.token;
     role=response.role;
     localStorage.setItem("user", response.userId);
-
-    $("publicHome").classList.add("hidden");
-    $("loginView").classList.add("hidden");
-    $("appView").classList.remove("hidden");
-
+    
     if(pendingSection){
 
 filterMenu(pendingSection);
@@ -57,6 +53,10 @@ filterMenu(pendingSection);
 pendingSection="";
 
 }
+
+    $("publicHome").classList.add("hidden");
+    $("loginView").classList.add("hidden");
+    $("appView").classList.remove("hidden");
 
 
     $("userInfo").innerHTML =
@@ -1090,22 +1090,3 @@ closeLogin();
 
 });
 
-function openProtected(type){
-
-let user = localStorage.getItem("user");
-
-
-if(!user){
-
-pendingSection = type;
-
-showLogin();
-
-return;
-
-}
-
-
-filterMenu(type);
-
-}
