@@ -1152,4 +1152,8 @@ events.events.map(e=>`
 
 }
 
+function openBooks(){
 
+window.location.href="ebooks.html";
+
+}
