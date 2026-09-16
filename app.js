@@ -47,28 +47,6 @@ $("loginForm").onsubmit = async function(e){
     
     localStorage.setItem("user", response.userId);
 
-    if(pendingSection){
-
-    let section = pendingSection;
-
-    pendingSection="";
-
-    setTimeout(function(){
-
-        filterMenu(section);
-
-    },300);
-
-}
-
-    if(pendingSection){
-
-    filterMenu(pendingSection);
-
-    pendingSection="";
-
-}
-
 
 $("loginView").classList.add("hidden");
 
@@ -87,10 +65,7 @@ if(response.role === "Student" || response.role === "Staff"){
 
     });
 
-    loadStudentDashboard();
-
 }
-
     $("userInfo").innerHTML =
       response.userId+" • "+response.role;
 
@@ -104,50 +79,34 @@ if(response.role === "Student" || response.role === "Staff"){
 
     }
 
-
-   if(response.role === "Librarian"){
+if(response.role === "Librarian"){
 
     await loadResources();
     await loadBestUsers();
     await loadStaff();
     await loadEvents();
-
     await loadUsers();
 
 }
 else{
 
-    loadStudentDashboard();
-
-}
-  document.querySelectorAll(".student-hide")
-  .forEach(function(el){
-
-    el.classList.add("hidden");
-
-  });
+    await loadStudentDashboard();
 
 }
 
 
-if(response.role === "Librarian"){
-
-  await loadUsers();
-
 }
-
-
-  }
-  catch(error){
+catch(error){
 
     console.log(error);
 
     $("loginMsg").innerHTML =
       error.message || "Login error";
 
-  }
+}
 
 };
+ 
 
 async function deleteUser(userId){
 
