@@ -72,15 +72,9 @@ $("loginForm").onsubmit = async function(e){
 
 $("loginView").classList.add("hidden");
 
-$("publicHome").classList.remove("hidden");
+$("studentDashboard").classList.remove("hidden");
 
 $("appView").classList.remove("hidden");
-
-document.getElementById("searchSection")
-.scrollIntoView({
-    behavior:"smooth"
-});
-
 
 
     $("userInfo").innerHTML =
