@@ -1018,38 +1018,6 @@ loadPublicResources();
 
 function filterMenu(type){
 
- if(type==""){
-   loadPublicResources();
-   return;
- }
-
-
- let filtered = resources.filter(r =>
- r.type === type
- );
-
-
- document.getElementById("publicResources").innerHTML =
- filtered.map(r=>`
-
- <div class="card">
-
- <h3>📘 ${r.title}</h3>
-
- <p>${r.type}</p>
-
- <a href="${r.url}" target="_blank">
- Open
- </a>
-
- </div>
-
- `).join("");
-
-}
-
-function filterMenu(type){
-
     document.getElementById("latestSection")
     .scrollIntoView({
         behavior:"smooth"
