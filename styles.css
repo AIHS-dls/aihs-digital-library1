@@ -694,3 +694,15 @@ cursor:pointer;
 position:relative;
 
 }
+
+.collection-card{
+text-decoration:none;
+color:#172033;
+display:block;
+cursor:pointer;
+}
+
+.collection-card:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 25px #ddd;
+}
