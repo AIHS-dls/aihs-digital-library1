@@ -417,7 +417,7 @@ function render(){
 
     return `
 
-      <div class="card public-resource-card" data-type="${resource.type}">
+      <div class="card public-resource-card" data-type="${r.type}">
 
         <h3>
           📘 ${escapeHTML(r.title || "")}
