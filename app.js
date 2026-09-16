@@ -262,7 +262,8 @@ if($("logout")){
 
   $("logout").onclick=function(){
 
-    location.reload();
+    localStorage.removeItem("user");
+location.reload();
 
   };
 
