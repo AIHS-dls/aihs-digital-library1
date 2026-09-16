@@ -1,115 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-<title>AIHS Digital Library - E-Books</title>
+<title>AIHS E-Books</title>
 
 <link rel="stylesheet" href="styles.css">
 
 </head>
 
-
 <body>
 
 
-<header class="public-header">
-
-
-<div class="public-brand">
+<header>
 
 <img src="logo.jpg">
 
-<div>
 <h1>AIHS Digital Library</h1>
-<p>Acharya Institute of Health Sciences</p>
-</div>
 
-</div>
-
-
-<a href="index.html" class="login-btn">
-⬅ Home
-</a>
-
+<p>E-Books</p>
 
 </header>
 
 
-
-<section class="home-box">
-
-
-<h2>📚 E-Books</h2>
-
-<p>
-Digital books and reference materials
-</p>
+<h2>📚 Select Department</h2>
 
 
-
-<div class="grid">
-
+<div class="collection-grid">
 
 
-<div class="card">
+<div class="collection-card" onclick="openDept('BPT')">
 
-<h3>📘 Anatomy</h3>
-
-<p>
-Medical Anatomy Reference Books
-</p>
-
-<a href="#">
-Open Book
-</a>
+<h1>📘</h1>
+<h3>BPT</h3>
 
 </div>
 
 
 
-<div class="card">
+<div class="collection-card" onclick="openDept('BMLT')">
 
-<h3>📗 Physiology</h3>
-
-<p>
-Physiology Text Books
-</p>
-
-<a href="#">
-Open Book
-</a>
+<h1>📘</h1>
+<h3>BMLT</h3>
 
 </div>
 
 
 
-<div class="card">
+<div class="collection-card" onclick="openDept('BMIT')">
 
-<h3>📕 Biochemistry</h3>
-
-<p>
-Health Science Digital Books
-</p>
-
-<a href="#">
-Open Book
-</a>
+<h1>📘</h1>
+<h3>BMIT</h3>
 
 </div>
 
 
 
+<div class="collection-card" onclick="openDept('MPT')">
+
+<h1>📘</h3>
+<h3>MPT</h3>
+
 </div>
 
 
-</section>
+
+<div class="collection-card" onclick="openDept('MHA')">
+
+<h1>📘</h1>
+<h3>MHA</h3>
+
+</div>
 
 
+</div>
+
+
+<div id="booksList"></div>
+
+
+
+<script src="ebooks.js"></script>
 
 </body>
-
 </html>
