@@ -95,19 +95,25 @@ loadStudentDashboard();
     }
 
 
-    await loadResources();
-    await loadBestUsers();
-    await loadStaff();
-    await loadEvents();
+   await loadResources();
+await loadBestUsers();
+await loadStaff();
+await loadEvents();
 
-    if(response.role !== "Librarian"){
 
-  document.getElementById("resourceBox")
-  .classList.remove("hidden");
+if(response.role !== "Librarian"){
+
+  document.querySelectorAll(".student-hide")
+  .forEach(function(el){
+
+    el.classList.add("hidden");
+
+  });
 
 }
 
-    if(response.role === "Librarian"){
+
+if(response.role === "Librarian"){
 
   await loadUsers();
 
@@ -1169,3 +1175,5 @@ events.events.map(e=>`
 }
 
 }
+
+
