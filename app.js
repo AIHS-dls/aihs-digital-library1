@@ -1090,3 +1090,22 @@ closeLogin();
 
 });
 
+function openProtected(type){
+
+alert("Clicked: " + type);
+
+let user = localStorage.getItem("user");
+
+if(!user){
+
+pendingSection = type;
+
+showLogin();
+
+return;
+
+}
+
+filterMenu(type);
+
+}
