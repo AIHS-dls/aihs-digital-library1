@@ -1155,17 +1155,13 @@ events.events.map(e=>`
 
 function openBooks(){
 
-    let savedUser = localStorage.getItem("user");
-
-
-    if(!savedUser){
+    if(!localStorage.getItem("user")){
 
         showLogin();
 
         return;
 
     }
-
 
     window.location.href="ebooks.html";
 
