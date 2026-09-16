@@ -72,14 +72,24 @@ $("loginForm").onsubmit = async function(e){
 
 $("loginView").classList.add("hidden");
 
-$("studentDashboard").classList.remove("hidden");
-
 $("appView").classList.remove("hidden");
 
-    $("studentDashboard").classList.remove("hidden");
 
-loadStudentDashboard();
+if(response.role === "Student" || response.role === "Staff"){
 
+    $("studentDashboard")
+    .classList.remove("hidden");
+
+    document.querySelectorAll(".student-hide")
+    .forEach(function(el){
+
+        el.classList.add("hidden");
+
+    });
+
+    loadStudentDashboard();
+
+}
 
     $("userInfo").innerHTML =
       response.userId+" • "+response.role;
@@ -95,14 +105,21 @@ loadStudentDashboard();
     }
 
 
-   await loadResources();
-await loadBestUsers();
-await loadStaff();
-await loadEvents();
+   if(response.role === "Librarian"){
 
+    await loadResources();
+    await loadBestUsers();
+    await loadStaff();
+    await loadEvents();
 
-if(response.role !== "Librarian"){
+    await loadUsers();
 
+}
+else{
+
+    loadStudentDashboard();
+
+}
   document.querySelectorAll(".student-hide")
   .forEach(function(el){
 
