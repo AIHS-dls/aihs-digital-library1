@@ -49,6 +49,20 @@ $("loginForm").onsubmit = async function(e){
 
     if(pendingSection){
 
+    let section = pendingSection;
+
+    pendingSection="";
+
+    setTimeout(function(){
+
+        filterMenu(section);
+
+    },300);
+
+}
+
+    if(pendingSection){
+
     filterMenu(pendingSection);
 
     pendingSection="";
@@ -968,8 +982,11 @@ let pendingSection = "";
 
 function showLogin(){
 
- document.getElementById("loginView")
- .classList.remove("hidden");
+    document.getElementById("loginView")
+    .classList.remove("hidden");
+
+    document.getElementById("publicHome")
+    .classList.remove("hidden");
 
 }
 
@@ -1022,42 +1039,26 @@ loadPublicResources();
 
 function filterMenu(type){
 
-    document.getElementById("latestSection")
-    .scrollIntoView({
-        behavior:"smooth"
-    });
+    let cards=document.querySelectorAll("#resources .card");
 
 
-    setTimeout(()=>{
+    cards.forEach(card=>{
 
-        if(type===""){
-            loadPublicResources();
-            return;
+        let category=card.dataset.type;
+
+
+        if(category===type){
+
+            card.style.display="block";
+
+        }else{
+
+            card.style.display="none";
+
         }
 
+    });
 
-        let cards=document.querySelectorAll("#resources .card");
-
-
-        cards.forEach(card=>{
-
-            let category=card.dataset.type;
-
-
-            if(category===type){
-
-                card.style.display="block";
-
-            }else{
-
-                card.style.display="none";
-
-            }
-
-        });
-
-
-    },500);
 
 }
 
@@ -1091,23 +1092,16 @@ closeLogin();
 
 function openProtected(type){
 
-let user = localStorage.getItem("user");
+    if(!token){
 
-console.log("Selected Category:", type);
-console.log("User:", user);
+        pendingSection = type;
 
+        showLogin();
 
-if(!user){
+        return;
 
-pendingSection = type;
+    }
 
-showLogin();
-
-return;
-
-}
-
-
-filterMenu(type);
+    filterMenu(type);
 
 }
