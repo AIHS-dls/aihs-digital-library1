@@ -290,13 +290,64 @@ Email: librarian@aihs.ac.in
       <h1>Welcome to AIHS Digital Library</h1>
       <p>Access E-books, Question Papers, Notes, Journals and other academic resources.</p>
     </section>
-
     <section class="toolbar">
       <input id="search" placeholder="Search books, subjects, question papers...">
       <select id="type"><option value="">All Resources</option><option>E-book</option><option>Question Paper</option><option>Notes</option><option>Journal</option><option>Other</option></select>
       <select id="department"><option value="">All Departments</option><option>BPT</option><option>MPT</option><option>BMLT</option><option>BMIT</option><option>MHA</option><option>ATOT</option></select>
       <select id="semester"><option value="">All Semesters</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select>
     </section>
+
+    <section id="studentDashboard" class="dashboard-section">
+
+<h2>📚 Library Collections</h2>
+
+<div class="collection-grid">
+
+<div class="collection-card" onclick="filterMenu('E-book')">
+<h1>📚</h1>
+<h3>E-Books</h3>
+<p>Digital Books</p>
+</div>
+
+
+<div class="collection-card" onclick="filterMenu('Question Paper')">
+<h1>📄</h1>
+<h3>Question Papers</h3>
+<p>Previous Papers</p>
+</div>
+
+
+<div class="collection-card" onclick="filterMenu('Notes')">
+<h1>📝</h1>
+<h3>Notes</h3>
+<p>Study Materials</p>
+</div>
+
+
+<div class="collection-card" onclick="filterMenu('Journal')">
+<h1>📖</h1>
+<h3>Journals</h3>
+<p>Research Articles</p>
+</div>
+
+</div>
+
+
+<h2>📚 Latest Resources</h2>
+
+<div id="studentLatestResources" class="grid">
+
+</div>
+
+
+<h2>🎉 Library Events</h2>
+
+<div id="studentEvents" class="grid">
+
+</div>
+
+
+</section>
 
     <section id="adminPanel" class="admin hidden">
       <h2>Librarian Administration</h2>
