@@ -1,4 +1,4 @@
-const API="ನಿಮ್ಮ Apps Script URL";
+const API="https://script.google.com/macros/s/AKfycbx2TIiEbBuAkNPZ-6wsyeuwGMb05kwE5HFgH9cdWaYCaMzroaYkU5Vw_IfNDBFaSHuBDA/exec";
 
 
 let allBooks=[];
