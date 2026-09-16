@@ -1013,10 +1013,8 @@ function showLogin(){
     document.getElementById("loginView")
     .classList.remove("hidden");
 
-    document.getElementById("publicHome")
-    .classList.remove("hidden");
-
 }
+
 
 async function loadPublicResources(){
 
