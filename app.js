@@ -47,6 +47,14 @@ $("loginForm").onsubmit = async function(e){
     
     localStorage.setItem("user", response.userId);
 
+    if(pendingSection){
+
+    filterMenu(pendingSection);
+
+    pendingSection="";
+
+}
+
 
 $("publicHome").classList.add("hidden");
 $("loginView").classList.add("hidden");
@@ -1058,10 +1066,6 @@ function closeLogin(){
 document.getElementById("loginView")
 .classList.add("hidden");
 
-
-document.getElementById("publicHome")
-.classList.remove("hidden");
-
 }
 
 document.getElementById("loginView")
@@ -1089,13 +1093,20 @@ function openProtected(type){
 
 let user = localStorage.getItem("user");
 
+console.log("Selected Category:", type);
+console.log("User:", user);
+
+
 if(!user){
+
+pendingSection = type;
 
 showLogin();
 
 return;
 
 }
+
 
 filterMenu(type);
 
