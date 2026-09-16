@@ -52,6 +52,8 @@ $("loginView").classList.add("hidden");
 
 $("appView").classList.remove("hidden");
 
+ $("publicHome").classList.add("hidden");   
+
 
 if(response.role === "Student" || response.role === "Staff"){
 
