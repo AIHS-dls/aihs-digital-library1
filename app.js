@@ -76,6 +76,10 @@ $("studentDashboard").classList.remove("hidden");
 
 $("appView").classList.remove("hidden");
 
+    $("studentDashboard").classList.remove("hidden");
+
+loadStudentDashboard();
+
 
     $("userInfo").innerHTML =
       response.userId+" • "+response.role;
@@ -1104,5 +1108,64 @@ function openProtected(type){
     }
 
     filterMenu(type);
+
+}
+
+async function loadStudentDashboard(){
+
+let response = await post({
+action:"list",
+token:token
+});
+
+
+if(response.ok){
+
+let box=document.getElementById("studentLatestResources");
+
+box.innerHTML=response.resources.slice(0,6).map(r=>`
+
+<div class="card">
+
+<h3>📘 ${escapeHTML(r.title)}</h3>
+
+<p>${escapeHTML(r.type)}</p>
+
+<p>${escapeHTML(r.department || "")}</p>
+
+<a href="${r.url}" target="_blank">
+Open Resource
+</a>
+
+</div>
+
+`).join("");
+
+}
+
+
+
+let events = await post({
+action:"getEvents",
+token:token
+});
+
+
+if(events.ok){
+
+document.getElementById("studentEvents").innerHTML =
+events.events.map(e=>`
+
+<div class="card">
+
+<h3>🎉 ${e.title}</h3>
+
+<p>${e.description || ""}</p>
+
+</div>
+
+`).join("");
+
+}
 
 }
