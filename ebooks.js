@@ -1,7 +1,53 @@
-const API="https://script.google.com/macros/s/AKfycbx2TIiEbBuAkNPZ-6wsyeuwGMb05kwE5HFgH9cdWaYCaMzroaYkU5Vw_IfNDBFaSHuBDA/exec";
+const API="ನಿಮ್ಮ Apps Script URL";
 
 
-function openDept(dept){
+let allBooks=[];
+
+
+// Load all E-books
+
+async function loadAllBooks(){
+
+let response = await fetch(API,{
+method:"POST",
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+body:JSON.stringify({
+
+action:"list"
+
+})
+
+});
+
+
+let data=await response.json();
+
+
+if(data.ok){
+
+allBooks=data.resources.filter(function(r){
+
+return r.type==="E-book";
+
+});
+
+}
+
+}
+
+
+
+async function openDept(dept){
+
+
+if(allBooks.length===0){
+
+await loadAllBooks();
+
+}
+
 
 let box=document.getElementById("booksList");
 
@@ -10,19 +56,22 @@ box.innerHTML=`
 
 <h2>📚 ${dept} E-Books</h2>
 
-<button onclick="loadBooks('${dept}','1')">
+
+<h3>Select Year</h3>
+
+<button onclick="showBooks('${dept}','1')">
 1st Year
 </button>
 
-<button onclick="loadBooks('${dept}','2')">
+<button onclick="showBooks('${dept}','2')">
 2nd Year
 </button>
 
-<button onclick="loadBooks('${dept}','3')">
+<button onclick="showBooks('${dept}','3')">
 3rd Year
 </button>
 
-<button onclick="loadBooks('${dept}','4')">
+<button onclick="showBooks('${dept}','4')">
 4th Year
 </button>
 
@@ -35,74 +84,51 @@ box.innerHTML=`
 
 
 
-async function loadBooks(dept,year){
+
+function showBooks(dept,year){
 
 
-let response = await fetch(API,{
+let books=allBooks.filter(function(book){
 
-method:"POST",
-
-headers:{
-"Content-Type":"text/plain;charset=utf-8"
-},
-
-body:JSON.stringify({
-
-action:"list",
-
-type:"E-book",
-
-department:dept,
-
-year:year
-
-})
+return book.department===dept &&
+book.year==year;
 
 });
-
-
-let data=await response.json();
-
 
 
 let box=document.getElementById("bookResult");
 
 
-if(data.ok){
+if(books.length===0){
+
+box.innerHTML="<h3>No Books Found</h3>";
+
+return;
+
+}
 
 
-box.innerHTML=data.resources.map(r=>`
+
+box.innerHTML=books.map(function(book){
+
+return `
 
 <div class="card">
 
-
 <h3>
 
-<a href="${r.url}" target="_blank">
+<a href="${book.url}" target="_blank">
 
-📘 ${r.title}
+📘 ${book.title}
 
 </a>
 
 </h3>
 
-
 </div>
 
+`;
 
-`).join("");
-
-
-}
-
-else{
-
-
-box.innerHTML="No Books Found";
-
-
-}
-
-
+}).join("");
 
 }
