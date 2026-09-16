@@ -54,19 +54,6 @@ $("appView").classList.remove("hidden");
 
 
 
-if(pendingSection){
-
-setTimeout(()=>{
-
-filterMenu(pendingSection);
-
-pendingSection="";
-
-},500);
-
-}
-
-
     $("userInfo").innerHTML =
       response.userId+" • "+response.role;
 
@@ -1102,20 +1089,13 @@ function openProtected(type){
 
 let user = localStorage.getItem("user");
 
-console.log("User:", user);
-console.log("Selected:", type);
-
-
 if(!user){
-
-pendingSection = type;
 
 showLogin();
 
 return;
 
 }
-
 
 filterMenu(type);
 
