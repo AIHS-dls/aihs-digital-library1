@@ -1092,9 +1092,11 @@ closeLogin();
 
 function openProtected(type){
 
-alert("Clicked: " + type);
-
 let user = localStorage.getItem("user");
+
+console.log("User:", user);
+console.log("Selected:", type);
+
 
 if(!user){
 
@@ -1105,6 +1107,7 @@ showLogin();
 return;
 
 }
+
 
 filterMenu(type);
 
