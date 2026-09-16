@@ -49,6 +49,14 @@ $("loginForm").onsubmit = async function(e){
     $("loginView").classList.add("hidden");
     $("appView").classList.remove("hidden");
 
+    if(pendingSection){
+
+filterMenu(pendingSection);
+
+pendingSection="";
+
+}
+
 
     $("userInfo").innerHTML =
       response.userId+" • "+response.role;
@@ -952,6 +960,8 @@ function showSection(id){
 
 }
 
+let pendingSection = "";
+
 function showLogin(){
 
  document.getElementById("loginView")
@@ -1115,7 +1125,10 @@ function openProtected(type){
 
 let user = localStorage.getItem("user");
 
+
 if(!user){
+
+pendingSection = type;
 
 showLogin();
 
@@ -1123,8 +1136,7 @@ return;
 
 }
 
+
 filterMenu(type);
 
 }
-
-
