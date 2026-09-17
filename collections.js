@@ -160,16 +160,12 @@ style="background:#c62828;color:white">
 
 async function deleteResource(id){
 
-
 if(!confirm("Delete this resource?")){
-
 return;
-
 }
 
 
-
-let response=await fetch(API,{
+let response = await fetch(API,{
 
 method:"POST",
 
@@ -181,39 +177,32 @@ body:JSON.stringify({
 
 action:"delete",
 
-id:id
+id:id,
+
+token:localStorage.getItem("token")
 
 })
 
 });
 
 
-let data=await response.json();
-
+let data = await response.json();
 
 
 if(data.ok){
 
-
-alert("Resource Deleted");
-
+alert("✅ Resource Deleted");
 
 loadResources();
 
-
 }
-
 else{
-
 
 alert(data.error);
 
-
 }
 
-
 }
-
 
 
 
