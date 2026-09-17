@@ -1,14 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
 
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>
-Library Administration
+AIHS Library Administration
 </title>
 
 <link rel="stylesheet" href="styles.css">
@@ -20,7 +15,6 @@ Library Administration
 
 
 <header>
-
 
 <div class="brand">
 
@@ -41,24 +35,12 @@ Acharya Institute of Health Sciences
 </div>
 
 
-<div class="userbar">
-
-<span>
-admin • Librarian
-</span>
-
-
-<button onclick="backAdmin()">
+<button onclick="location.href='index.html'">
 ⬅ Back
 </button>
 
 
-</div>
-
-
 </header>
-
-
 
 
 
@@ -67,51 +49,63 @@ admin • Librarian
 
 <section class="hero">
 
-
 <h1>
 📚 Library Administration
 </h1>
-
-
-<p>
-Manage Library Collections and Users
-</p>
 
 
 </section>
 
 
 
+<div class="collection-grid">
 
 
-<section class="admin-dashboard">
+<div class="collection-card"
+onclick="location.href='collections.html'">
 
+<h1>
+📖
+</h1>
 
-
-<div class="admin-card"
-onclick="openCollections()">
-
-
-
-<h2>
-📖 Library Collections
-</h2>
-
+<h3>
+Manage Library Collections
+</h3>
 
 <p>
-Add, View and Delete Books, Notes, Journals and Question Papers
+Add, Edit, Delete Books, Notes, Journals
 </p>
-
 
 </div>
 
 
 
 
+<div class="collection-card"
+onclick="showUsers()">
 
-<div class="admin-card"
-onclick="openUsers()">
+<h1>
+👥
+</h1>
 
+<h3>
+Manage Library Users
+</h3>
+
+<p>
+Add and Delete Students / Staff
+</p>
+
+</div>
+
+
+
+</div>
+
+
+
+<section id="usersBox"
+class="dashboard-section hidden">
 
 
 <h2>
@@ -119,54 +113,22 @@ onclick="openUsers()">
 </h2>
 
 
-<p>
-Add and Delete Student / Staff Accounts
-</p>
+<div id="adminUsers">
 
+Loading Users...
 
 </div>
 
 
-
-
 </section>
-
 
 
 </main>
 
 
 
-<script>
-
-
-function openCollections(){
-
-window.location.href="collections.html";
-
-}
-
-
-
-function openUsers(){
-
-window.location.href="users.html";
-
-}
-
-
-
-function backAdmin(){
-
-window.location.href="admin.html";
-
-}
-
-
-</script>
-
+<script src="admin.js"></script>
 
 
 </body>
-
 </html>
