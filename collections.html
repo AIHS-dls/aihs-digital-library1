@@ -4,8 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>
 Library Collections
@@ -46,7 +45,7 @@ Acharya Institute of Health Sciences
 admin • Librarian
 </span>
 
-<button class="back-button" onclick="backAdmin()">
+<button onclick="backAdmin()">
 ⬅ Back
 </button>
 
@@ -57,11 +56,10 @@ admin • Librarian
 
 
 
-
 <main>
 
 
-<section class="admin-title">
+<section class="hero">
 
 <h1>
 📚 Library Collections
@@ -76,156 +74,100 @@ Manage E-Books, Notes, Question Papers, Journals and Databases
 
 
 
+<section class="collection-dashboard">
 
-<section class="resource-upload-card">
 
+<div class="collection-card"
+onclick="openCollection('ebooks-admin.html')">
 
-<h2>
-📤 Add Resource
-</h2>
+<h1>📚</h1>
 
+<h3>
+E-Books
+</h3>
 
-<div class="form-grid">
-
-
-<input 
-id="title"
-placeholder="Resource Title"
->
-
-
-
-<select id="type">
-
-<option>
-E-book
-</option>
-
-<option>
-Question Paper
-</option>
-
-<option>
-Notes
-</option>
-
-<option>
-Journal
-</option>
-
-<option>
-Database
-</option>
-
-</select>
-
-
-
-
-<select id="department">
-
-<option value="">
-Select Department
-</option>
-
-<option>BPT</option>
-
-<option>BMLT</option>
-
-<option>BMIT</option>
-
-<option>MPT</option>
-
-<option>MHA</option>
-
-<option>ATOT</option>
-
-</select>
-
-
-
-
-
-<select id="year">
-
-<option value="">
-Select Year
-</option>
-
-<option>1st Year</option>
-
-<option>2nd Year</option>
-
-<option>3rd Year</option>
-
-<option>4th Year</option>
-
-</select>
-
-
-
-
-
-<input 
-id="subject"
-placeholder="Subject"
->
-
-
-
-
-<input 
-id="file"
-type="file"
->
-
-
-
-</div>
-
-
-
-<button class="upload-btn"
-onclick="uploadResource()">
-
-📤 Upload Resource
-
-</button>
-
-
-
-<div id="msg"></div>
-
-
-
-</section>
-
-
-
-
-
-
-
-
-<section class="resource-list-box">
-
-
-<h2>
-📖 Uploaded Resources
-</h2>
-
-
-<div id="resourceList">
-
+<p id="ebookCount">
 Loading...
+</p>
+
+</div>
+
+
+
+<div class="collection-card"
+onclick="openCollection('notes-admin.html')">
+
+<h1>📝</h1>
+
+<h3>
+Notes
+</h3>
+
+<p id="notesCount">
+Loading...
+</p>
+
+</div>
+
+
+
+
+<div class="collection-card"
+onclick="openCollection('questionpapers-admin.html')">
+
+<h1>📄</h1>
+
+<h3>
+Question Papers
+</h3>
+
+<p id="qpCount">
+Loading...
+</p>
+
+</div>
+
+
+
+
+
+<div class="collection-card"
+onclick="openCollection('journals-admin.html')">
+
+<h1>📖</h1>
+
+<h3>
+Journals
+</h3>
+
+<p id="journalCount">
+Loading...
+</p>
+
+</div>
+
+
+
+
+
+<div class="collection-card"
+onclick="openCollection('database-admin.html')">
+
+<h1>💻</h1>
+
+<h3>
+Academic Databases
+</h3>
+
+<p id="databaseCount">
+Loading...
+</p>
 
 </div>
 
 
 
 </section>
-
-
 
 
 
