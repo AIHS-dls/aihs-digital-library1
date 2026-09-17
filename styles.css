@@ -712,3 +712,20 @@ box-shadow:0 10px 25px #ddd;
     height:120px;
     object-fit:contain;
 }
+
+.big-search{
+
+width:80%;
+max-width:700px;
+
+padding:18px;
+
+font-size:18px;
+
+border-radius:12px;
+
+border:1px solid #ccc;
+
+margin-top:20px;
+
+}
