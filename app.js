@@ -46,6 +46,7 @@ $("loginForm").onsubmit = async function(e){
     role=response.role;
     
     localStorage.setItem("user", response.userId);
+    localStorage.setItem("token", response.token);
 
 
 $("loginView").classList.add("hidden");
