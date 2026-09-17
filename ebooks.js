@@ -59,19 +59,19 @@ box.innerHTML=`
 
 <h3>Select Year</h3>
 
-<button onclick="showBooks('${dept}','1')">
+<button onclick="showBooks('${dept}','1st Year')">
 1st Year
 </button>
 
-<button onclick="showBooks('${dept}','2')">
+<button onclick="showBooks('${dept}','2nd Year')">
 2nd Year
 </button>
 
-<button onclick="showBooks('${dept}','3')">
+<button onclick="showBooks('${dept}','3rd Year')">
 3rd Year
 </button>
 
-<button onclick="showBooks('${dept}','4')">
+<button onclick="showBooks('${dept}','4th Year')">
 4th Year
 </button>
 
