@@ -11,7 +11,9 @@ let uploading = false;
 // ===============================
 
 async function loadResources(){
-
+  
+document.getElementById("resourceList").innerHTML =
+"⏳ Loading Resources...";
 
 let response = await fetch(API,{
 
@@ -32,7 +34,21 @@ token:localStorage.getItem("token")
 });
 
 
-let data=await response.json();
+let data;
+
+try{
+
+data = await response.json();
+
+}
+catch(error){
+
+document.getElementById("resourceList").innerHTML =
+"❌ Server response error";
+
+return;
+
+}
 
 
 if(data.ok){
@@ -496,5 +512,11 @@ button.innerHTML="📤 Upload Resource";
 
 }
 
+
+}
+
+function backAdmin(){
+
+window.location.href="administration.html";
 
 }
