@@ -3,6 +3,8 @@ const API="https://script.google.com/macros/s/AKfycbx2TIiEbBuAkNPZ-6wsyeuwGMb05k
 
 let resources=[];
 
+let uploading = false;
+
 
 // ===============================
 // LOAD RESOURCES
@@ -275,6 +277,15 @@ alert(
 async function uploadResource(){
 
 
+if(uploading){
+
+alert("Upload already in progress...");
+
+return;
+
+}
+
+
 let file=document.getElementById("file").files[0];
 
 
@@ -287,21 +298,53 @@ return;
 }
 
 
+uploading=true;
+
+
+let button=document.querySelector(".upload-btn");
+
+if(button){
+
+button.disabled=true;
+
+button.innerHTML="Uploading...";
+
+}
+
+
 
 document.getElementById("msg").innerHTML=
-"Uploading...";
+"⏳ Uploading Resource...";
 
+
+
+try{
+
+
+let base64=await new Promise((resolve,reject)=>{
 
 
 let reader=new FileReader();
 
 
-reader.onload=async function(){
+reader.onload=function(){
+
+resolve(
+reader.result.split(",")[1]
+);
+
+};
 
 
+reader.onerror=reject;
 
-let base64=
-reader.result.split(",")[1];
+
+reader.readAsDataURL(file);
+
+
+});
+
+
 
 
 
@@ -319,7 +362,7 @@ body:JSON.stringify({
 action:"add",
 
 title:
-document.getElementById("title").value,
+document.getElementById("title").value.trim(),
 
 
 type:
@@ -335,7 +378,7 @@ document.getElementById("year").value,
 
 
 subject:
-document.getElementById("subject").value,
+document.getElementById("subject").value.trim(),
 
 
 fileName:file.name,
@@ -349,7 +392,6 @@ data:base64
 
 })
 
-
 });
 
 
@@ -362,48 +404,63 @@ if(data.ok){
 
 
 document.getElementById("msg").innerHTML=
-"✅ Uploaded Successfully";
+"✅ Resource Uploaded Successfully";
 
 
-loadResources();
+document.getElementById("title").value="";
+
+document.getElementById("subject").value="";
+
+document.getElementById("file").value="";
+
+
+await loadResources();
 
 
 }
-
 else{
 
 
 document.getElementById("msg").innerHTML=
-data.error;
+"❌ "+data.error;
 
 
 }
 
 
 
-};
+}
+
+catch(error){
 
 
-reader.readAsDataURL(file);
+console.log(error);
 
+
+document.getElementById("msg").innerHTML=
+"Upload Error";
 
 
 }
 
 
 
+finally{
 
 
-function backAdmin(){
+uploading=false;
 
-window.location.href="administration.html";
+
+if(button){
+
+button.disabled=false;
+
+button.innerHTML="📤 Upload Resource";
 
 }
 
 
+}
 
-window.onload=function(){
 
-loadResources();
-
-};
+}
