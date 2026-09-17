@@ -361,6 +361,8 @@ body:JSON.stringify({
 
 action:"add",
 
+token: localStorage.getItem("token"),
+
 title:
 document.getElementById("title").value.trim(),
 
