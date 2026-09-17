@@ -361,105 +361,260 @@ Email: librarian@aihs.ac.in
 </section>
 
     <section id="adminPanel" class="admin hidden">
-      <h2>Librarian Administration</h2>
-       <div class="dashboard-menu">
+
+<h2>📚 Librarian Administration</h2>
+
+
+<div class="dashboard-menu">
 
 <button onclick="showSection('userFormBox')">
 👤 Create User
 </button>
 
+
 <button onclick="showSection('uploadFormBox')">
 📤 Upload Resource
 </button>
+
 
 <button onclick="showSection('userManagement')">
 👥 Manage Users
 </button>
 
+
 <button onclick="showSection('resourceBox')">
-📚 Library Resources
+📚 Library Collections
 </button>
+
 
 </div>
-      <div class="admin-grid">
-        <div id="userFormBox" class="dashboard-section hidden">
+
+
+
+<div class="admin-grid">
+
+
+
+<!-- CREATE USER -->
+
+<div id="userFormBox" class="dashboard-section hidden">
+
 
 <form id="userForm">
-          <h3>Create Student / Staff Account</h3>
-          <input id="newId" placeholder="User ID" required>
-          <input id="newName" placeholder="Full name" required>
-          <input id="newPass" placeholder="Password" required>
-          <select id="newRole"><option>Student</option><option>Staff</option></select>
-          <input id="newDept" placeholder="Department">
-          <button class="primary">Create Account</button>
-          <div id="userMsg" class="msg"></div>
-        </form>
-          </div>
-          <div id="uploadFormBox" class="dashboard-section hidden">
-          <form id="uploadForm">
-          <h3>Upload Library Resource</h3>
-          <input id="title" placeholder="Title" required>
-          <select id="rtype"><option>E-book</option><option>Question Paper</option><option>Notes</option><option>Journal</option><option>Other</option></select>
-          <input id="subject" placeholder="Subject">
-          <select id="year">
-<option value="">Select Year</option>
-<option>1st Year</option>
-<option>2nd Year</option>
-<option>3rd Year</option>
-<option>4th Year</option>
+
+<h3>Create Student / Staff Account</h3>
+
+
+<input id="newId" placeholder="User ID" required>
+
+
+<input id="newName" placeholder="Full Name" required>
+
+
+<input id="newPass" placeholder="Password" required>
+
+
+<select id="newRole">
+
+<option>Student</option>
+
+<option>Staff</option>
+
 </select>
-          <select id="rdept"><option value="">Department</option><option>BPT</option><option>MPT</option><option>BMLT</option><option>BMIT</option><option>MHA</option><option>ATOT</option></select>
-          <input id="rsem" placeholder="Semester">
-          <input id="file" type="file" required>
-          <button class="primary">Upload Resource</button>
-          <div id="uploadMsg" class="msg"></div>
-        </form>
-            </div>
-         <form id="staffForm">
 
-<h3>Add Library Staff</h3>
 
-<input id="staffName" placeholder="Staff Name" required>
+<input id="newDept" placeholder="Department">
 
-<input id="staffDesignation" placeholder="Designation">
-
-<input id="staffQualification" placeholder="Qualification">
-
-<input id="staffPhone" placeholder="Phone">
-
-<input id="staffEmail" placeholder="Email">
 
 <button class="primary">
-Add Staff
+Create Account
 </button>
 
-<div id="staffMsg" class="msg"></div>
+
+<div id="userMsg" class="msg"></div>
+
 
 </form>
-         <div class="glass dashboard-section hidden" id="userManagement">
-           <h2>Manage Users</h2>
+
+
+</div>
+
+
+
+
+
+<!-- UPLOAD RESOURCE -->
+
+<div id="uploadFormBox" class="dashboard-section hidden">
+
+
+<form id="uploadForm">
+
+
+<h3>📤 Upload Library Resource</h3>
+
+
+
+<input id="title" placeholder="Resource Title" required>
+
+
+
+<select id="rtype">
+
+<option>E-book</option>
+
+<option>Question Paper</option>
+
+<option>Notes</option>
+
+<option>Journal</option>
+
+<option>Database</option>
+
+<option>Other</option>
+
+</select>
+
+
+
+
+<select id="rdept">
+
+<option value="">
+Select Department
+</option>
+
+<option>BPT</option>
+
+<option>BMLT</option>
+
+<option>BMIT</option>
+
+<option>MPT</option>
+
+<option>MHA</option>
+
+<option>ATOT</option>
+
+</select>
+
+
+
+
+<select id="year">
+
+<option value="">
+Select Year
+</option>
+
+<option>1st Year</option>
+
+<option>2nd Year</option>
+
+<option>3rd Year</option>
+
+<option>4th Year</option>
+
+</select>
+
+
+
+
+<input id="subject" placeholder="Subject">
+
+
+<input id="rsem" placeholder="Semester">
+
+
+<input id="file" type="file" required>
+
+
+
+<button class="primary">
+
+Upload Resource
+
+</button>
+
+
+
+<div id="uploadMsg" class="msg"></div>
+
+
+</form>
+
+
+</div>
+
+
+
+
+
+
+<!-- MANAGE USERS -->
+
+
+<div class="glass dashboard-section hidden" id="userManagement">
+
+
+<h2>👥 Manage Users</h2>
+
 
 <input 
 id="userSearch"
 type="text"
 placeholder="🔍 Search Students / Staff..."
 onkeyup="searchUsers()"
-style="
-width:90%;
-padding:10px;
-margin:10px 0;
-border-radius:5px;
-">
-           <div id="usersList">
-          Loading users...
-      </div>
+>
+
+
+<div id="usersList">
+
+Loading users...
 
 </div>
 
-      </div>
-    </section>
 
-   <section id="resourceBox" class="dashboard-section hidden student-hide">
+</div>
+
+
+
+
+
+
+
+<!-- LIBRARY COLLECTIONS -->
+
+
+<section id="resourceBox" 
+class="dashboard-section hidden student-hide">
+
+
+<div class="section-head">
+
+<h2>
+📚 Library Collections
+</h2>
+
+
+</div>
+
+
+<div id="resources" class="grid">
+
+</div>
+
+
+</section>
+
+
+
+</div>
+
+
+</section>
+
+      <section id="resourceBox" class="dashboard-section hidden student-hide">
 
   <div class="section-head">
     <h2>📚 Library Resources</h2>
