@@ -1,0 +1,409 @@
+const API="https://script.google.com/macros/s/AKfycbx2TIiEbBuAkNPZ-6wsyeuwGMb05kwE5HFgH9cdWaYCaMzroaYkU5Vw_IfNDBFaSHuBDA/exec";
+
+
+let resources=[];
+
+
+// ===============================
+// LOAD RESOURCES
+// ===============================
+
+async function loadResources(){
+
+
+let response = await fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"list"
+
+})
+
+});
+
+
+let data=await response.json();
+
+
+if(data.ok){
+
+
+resources=data.resources.filter(function(r){
+
+return r.type!="Database";
+
+});
+
+
+displayResources();
+
+
+}
+
+
+}
+
+
+
+
+
+// ===============================
+// DISPLAY
+// ===============================
+
+
+function displayResources(){
+
+
+let box=document.getElementById("resourceList");
+
+
+if(resources.length===0){
+
+box.innerHTML="No Resources Found";
+
+return;
+
+}
+
+
+
+box.innerHTML=resources.map(function(r){
+
+
+return `
+
+
+<div class="card">
+
+
+<h3>
+📘 ${r.title}
+</h3>
+
+
+<p>
+Type: ${r.type}
+</p>
+
+
+<p>
+Department: ${r.department || "-"}
+</p>
+
+
+<p>
+Year: ${r.year || "-"}
+</p>
+
+
+<p>
+Subject: ${r.subject || "-"}
+</p>
+
+
+
+<a href="${r.url}" target="_blank">
+
+Open PDF
+
+</a>
+
+
+<br><br>
+
+
+<button onclick="editResource('${r.id}')">
+
+✏ Edit
+
+</button>
+
+
+<button 
+onclick="deleteResource('${r.id}')"
+style="background:#c62828;color:white">
+
+🗑 Delete
+
+</button>
+
+
+
+</div>
+
+
+`;
+
+
+}).join("");
+
+}
+
+
+
+
+// ===============================
+// DELETE
+// ===============================
+
+
+async function deleteResource(id){
+
+
+if(!confirm("Delete this resource?")){
+
+return;
+
+}
+
+
+
+let response=await fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"delete",
+
+id:id
+
+})
+
+});
+
+
+let data=await response.json();
+
+
+
+if(data.ok){
+
+
+alert("Resource Deleted");
+
+
+loadResources();
+
+
+}
+
+else{
+
+
+alert(data.error);
+
+
+}
+
+
+}
+
+
+
+
+// ===============================
+// EDIT
+// ===============================
+
+
+function editResource(id){
+
+
+let resource=resources.find(function(r){
+
+return r.id==id;
+
+});
+
+
+if(!resource){
+
+return;
+
+}
+
+
+
+document.getElementById("title").value=
+resource.title;
+
+
+document.getElementById("type").value=
+resource.type;
+
+
+document.getElementById("department").value=
+resource.department;
+
+
+document.getElementById("year").value=
+resource.year;
+
+
+document.getElementById("subject").value=
+resource.subject;
+
+
+
+alert(
+"Edit details and upload new file"
+);
+
+
+}
+
+
+
+
+// ===============================
+// UPLOAD
+// ===============================
+
+
+async function uploadResource(){
+
+
+let file=document.getElementById("file").files[0];
+
+
+if(!file){
+
+alert("Select File");
+
+return;
+
+}
+
+
+
+document.getElementById("msg").innerHTML=
+"Uploading...";
+
+
+
+let reader=new FileReader();
+
+
+reader.onload=async function(){
+
+
+
+let base64=
+reader.result.split(",")[1];
+
+
+
+let response=await fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+
+body:JSON.stringify({
+
+action:"add",
+
+title:
+document.getElementById("title").value,
+
+
+type:
+document.getElementById("type").value,
+
+
+department:
+document.getElementById("department").value,
+
+
+year:
+document.getElementById("year").value,
+
+
+subject:
+document.getElementById("subject").value,
+
+
+fileName:file.name,
+
+
+mimeType:file.type,
+
+
+data:base64
+
+
+})
+
+
+});
+
+
+
+let data=await response.json();
+
+
+
+if(data.ok){
+
+
+document.getElementById("msg").innerHTML=
+"✅ Uploaded Successfully";
+
+
+loadResources();
+
+
+}
+
+else{
+
+
+document.getElementById("msg").innerHTML=
+data.error;
+
+
+}
+
+
+
+};
+
+
+reader.readAsDataURL(file);
+
+
+
+}
+
+
+
+
+
+function backAdmin(){
+
+window.location.href="administration.html";
+
+}
+
+
+
+window.onload=function(){
+
+loadResources();
+
+};
