@@ -973,3 +973,200 @@ margin-top:20px;
     transform:scale(1.05);
 
 }
+
+/* ===============================
+   ADMIN COLLECTION PAGE PREMIUM
+================================ */
+
+
+body{
+    background:#f8fafc;
+}
+
+
+/* Back button */
+
+.back-btn{
+
+    background:#1e3a8a;
+
+    color:white;
+
+    padding:10px 22px;
+
+    border-radius:25px;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+
+
+/* Page title */
+
+.admin-page-title{
+
+    text-align:center;
+
+    margin:35px 0;
+
+}
+
+
+.admin-page-title h1{
+
+    font-size:32px;
+
+    color:#1e3a8a;
+
+}
+
+
+.admin-page-title p{
+
+    color:#64748b;
+
+    font-size:17px;
+
+}
+
+
+
+/* Add Resource Card */
+
+#uploadForm,
+.upload-box{
+
+    max-width:700px;
+
+    margin:40px auto;
+
+    padding:40px;
+
+    background:white;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,0.12);
+
+    border:1px solid #e2e8f0;
+
+}
+
+
+
+#uploadForm h2,
+#uploadForm h3{
+
+    text-align:center;
+
+    color:#1e3a8a;
+
+    margin-bottom:30px;
+
+}
+
+
+
+/* Inputs */
+
+#uploadForm input,
+#uploadForm select{
+
+    width:100%;
+
+    padding:14px;
+
+    margin:12px 0;
+
+    border-radius:12px;
+
+    border:1px solid #cbd5e1;
+
+    font-size:16px;
+
+}
+
+
+
+#uploadForm input:focus,
+#uploadForm select:focus{
+
+    outline:none;
+
+    border-color:#2563eb;
+
+    box-shadow:
+    0 0 8px rgba(37,99,235,0.25);
+
+}
+
+
+
+/* Upload button */
+
+#uploadForm button{
+
+    width:100%;
+
+    padding:15px;
+
+    margin-top:20px;
+
+    border:none;
+
+    border-radius:30px;
+
+    background:linear-gradient(
+    135deg,
+    #2563eb,
+    #1e40af
+    );
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+
+#uploadForm button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+
+/* Uploaded Resources */
+
+#resources{
+
+    margin-top:40px;
+
+}
+
+
+
+#resources .card{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:18px;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,0.08);
+
+    margin-bottom:20px;
+
+}
