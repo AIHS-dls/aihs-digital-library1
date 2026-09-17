@@ -1432,3 +1432,178 @@ grid-template-columns:1fr;
 }
 
 }
+
+.collection-dashboard{
+
+display:grid;
+grid-template-columns:repeat(6,1fr);
+gap:25px;
+margin:40px auto;
+max-width:1200px;
+
+}
+
+
+/* First row 3 cards */
+
+.collection-dashboard .collection-card:nth-child(1),
+.collection-dashboard .collection-card:nth-child(2),
+.collection-dashboard .collection-card:nth-child(3){
+
+grid-column:span 2;
+
+}
+
+
+/* Second row 2 cards */
+
+.collection-dashboard .collection-card:nth-child(4),
+.collection-dashboard .collection-card:nth-child(5){
+
+grid-column:span 3;
+
+}
+
+
+
+.collection-dashboard .collection-card{
+
+
+padding:35px 25px;
+
+border-radius:25px;
+
+text-align:center;
+
+background:linear-gradient(
+135deg,
+#ffffff,
+#f1f6ff
+);
+
+box-shadow:
+0 15px 35px rgba(0,0,0,0.12);
+
+border:1px solid rgba(255,255,255,0.7);
+
+transition:0.3s;
+
+cursor:pointer;
+
+}
+
+
+
+.collection-dashboard .collection-card:hover{
+
+
+transform:translateY(-8px);
+
+box-shadow:
+0 20px 45px rgba(0,0,0,0.18);
+
+
+}
+
+
+
+.collection-dashboard h1{
+
+font-size:50px;
+
+margin-bottom:15px;
+
+}
+
+
+
+.collection-dashboard h3{
+
+font-size:22px;
+
+color:#123b6d;
+
+margin:10px;
+
+}
+
+
+
+.collection-dashboard p{
+
+font-size:17px;
+
+font-weight:600;
+
+color:#555;
+
+}
+
+
+
+
+/* Individual card colors */
+
+
+.collection-dashboard .collection-card:nth-child(1){
+
+background:
+linear-gradient(135deg,#e3f2fd,#ffffff);
+
+}
+
+
+
+.collection-dashboard .collection-card:nth-child(2){
+
+background:
+linear-gradient(135deg,#fff3e0,#ffffff);
+
+}
+
+
+
+.collection-dashboard .collection-card:nth-child(3){
+
+background:
+linear-gradient(135deg,#f3e5f5,#ffffff);
+
+}
+
+
+
+.collection-dashboard .collection-card:nth-child(4){
+
+background:
+linear-gradient(135deg,#e8f5e9,#ffffff);
+
+}
+
+
+
+.collection-dashboard .collection-card:nth-child(5){
+
+background:
+linear-gradient(135deg,#fffde7,#ffffff);
+
+}
+
+
+
+
+@media(max-width:900px){
+
+.collection-dashboard{
+
+grid-template-columns:1fr;
+
+}
+
+
+.collection-dashboard .collection-card:nth-child(n){
+
+grid-column:span 1;
+
+}
+
+}
