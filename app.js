@@ -17,7 +17,11 @@ const $ = id => document.getElementById(id);
 // LOGIN
 // ===============================
 
-$("loginForm").onsubmit = async function(e){
+let loginForm = $("loginForm");
+
+if(loginForm){
+
+loginForm.onsubmit = async function(e){
 
   e.preventDefault();
 
@@ -108,6 +112,8 @@ catch(error){
 }
 
 };
+
+}
  
 
 async function deleteUser(userId){
@@ -319,7 +325,7 @@ async function loadResources(){
     let response = await post({
 
       action:"list",
-      token:token
+      token:localStorage.getItem("token")
 
     });
 
