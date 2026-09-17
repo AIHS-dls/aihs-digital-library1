@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+Library Administration
+</title>
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+
+<div class="brand">
+
+<img src="logo.jpg">
+
+<div>
+
+<strong>
+AIHS Digital Library
+</strong>
+
+<small>
+Acharya Institute of Health Sciences
+</small>
+
+</div>
+
+</div>
+
+
+<div class="userbar">
+
+<span>
+admin • Librarian
+</span>
+
+
+<button onclick="backAdmin()">
+⬅ Back
+</button>
+
+
+</div>
+
+
+</header>
+
+
+
+
+
+<main>
+
+
+<section class="hero">
+
+
+<h1>
+📚 Library Administration
+</h1>
+
+
+<p>
+Manage Library Collections and Users
+</p>
+
+
+</section>
+
+
+
+
+
+<section class="admin-dashboard">
+
+
+
+<div class="admin-card"
+onclick="openCollections()">
+
+
+
+<h2>
+📖 Library Collections
+</h2>
+
+
+<p>
+Add, View and Delete Books, Notes, Journals and Question Papers
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="admin-card"
+onclick="openUsers()">
+
+
+
+<h2>
+👥 Library Users
+</h2>
+
+
+<p>
+Add and Delete Student / Staff Accounts
+</p>
+
+
+</div>
+
+
+
+
+</section>
+
+
+
+</main>
+
+
+
+<script>
+
+
+function openCollections(){
+
+window.location.href="collections.html";
+
+}
+
+
+
+function openUsers(){
+
+window.location.href="users.html";
+
+}
+
+
+
+function backAdmin(){
+
+window.location.href="admin.html";
+
+}
+
+
+</script>
+
+
+
+</body>
+
+</html>
