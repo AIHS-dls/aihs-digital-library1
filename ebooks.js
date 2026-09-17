@@ -1,21 +1,28 @@
 const API="https://script.google.com/macros/s/AKfycbx2TIiEbBuAkNPZ-6wsyeuwGMb05kwE5HFgH9cdWaYCaMzroaYkU5Vw_IfNDBFaSHuBDA/exec";
 
 
-let allBooks=[];
+let ebooks=[];
 
 
-// Load all E-books
+// ===============================
+// LOAD E-BOOKS
+// ===============================
 
-async function loadAllBooks(){
+async function loadEbooks(){
+
 
 let response = await fetch(API,{
+
 method:"POST",
+
 headers:{
 "Content-Type":"text/plain;charset=utf-8"
 },
+
 body:JSON.stringify({
 
 action:"list",
+
 token:localStorage.getItem("token")
 
 })
@@ -28,114 +35,47 @@ let data=await response.json();
 
 if(data.ok){
 
-allBooks=data.resources.filter(function(r){
 
-return r.type==="E-book";
+ebooks=data.resources.filter(function(r){
 
-});
-
-}
-
-}
-
-
-
-async function openDept(dept){
-
-
-if(allBooks.length===0){
-
-await loadAllBooks();
-
-}
-
-
-let box=document.getElementById("booksList");
-
-
-box.innerHTML=`
-
-<button onclick="location.reload()">
-⬅ Back to Departments
-</button>
-
-<h2>📚 ${dept} E-Books</h2>
-
-<h3>Select Year</h3>
-
-${years}
-
-<div id="bookResult"></div>
-
-`;
-
-let years = "";
-
-if(dept === "BPT"){
-
-years = `
-<button onclick="showBooks('${dept}','1st Year')">1st Year</button>
-<button onclick="showBooks('${dept}','2nd Year')">2nd Year</button>
-<button onclick="showBooks('${dept}','3rd Year')">3rd Year</button>
-<button onclick="showBooks('${dept}','4th Year')">4th Year</button>
-`;
-
-}
-
-else if(
-dept === "BMLT" ||
-dept === "BMIT"
-){
-
-years = `
-<button onclick="showBooks('${dept}','1st Year')">1st Year</button>
-<button onclick="showBooks('${dept}','2nd Year')">2nd Year</button>
-<button onclick="showBooks('${dept}','3rd Year')">3rd Year</button>
-`;
-
-}
-
-else if(
-dept === "MPT" ||
-dept === "MHA"
-){
-
-years = `
-<button onclick="showBooks('${dept}','1st Year')">1st Year</button>
-<button onclick="showBooks('${dept}','2nd Year')">2nd Year</button>
-`;
-
-}
-
-<div id="bookResult"></div>
-
-`;
-
-}
-
-function showBooks(dept,year){
-
-
-let books = allBooks.filter(function(book){
-
-return book.department === dept &&
-book.year === year;
+return r.type=="E-book";
 
 });
 
 
-let box=document.getElementById("bookResult");
+displayEbooks();
 
 
-if(books.length===0){
+}
 
-box.innerHTML = `
+else{
 
-<h3>
-No Books Found
-</h3>
+document.getElementById("ebookList").innerHTML=
+data.error;
 
-`;
+}
+
+
+}
+
+
+
+
+// ===============================
+// DISPLAY
+// ===============================
+
+
+function displayEbooks(list=ebooks){
+
+
+let box=document.getElementById("ebookList");
+
+
+if(list.length===0){
+
+box.innerHTML=
+"No E-Books Found";
 
 return;
 
@@ -143,40 +83,372 @@ return;
 
 
 
-box.innerHTML = `
+box.innerHTML=list.map(function(r){
 
-<h2>
-📚 ${dept} - ${year}
-</h2>
-
-${books.map(function(book){
 
 return `
 
+
 <div class="card">
 
+
 <h3>
+📘 ${r.title}
+</h3>
 
-<a href="${book.url}" target="_blank">
 
-📖 ${book.title}
+<p>
+Department : ${r.department || "-"}
+</p>
+
+
+<p>
+Year : ${r.year || "-"}
+</p>
+
+
+<p>
+Subject : ${r.subject || "-"}
+</p>
+
+
+
+<a href="${r.url}" target="_blank">
+
+📖 Open PDF
 
 </a>
 
-</h3>
 
-<p>
-Open PDF
-</p>
+<br><br>
+
+
+<button onclick="editEbook('${r.id}')">
+
+✏ Edit
+
+</button>
+
+
+
+<button 
+onclick="deleteEbook('${r.id}')"
+style="background:#c62828;color:white">
+
+🗑 Delete
+
+</button>
+
 
 </div>
 
-`;
-
-}).join("")}
 
 `;
+
+
+}).join("");
 
 }
 
 
+
+// ===============================
+// SEARCH
+// ===============================
+
+
+function searchBooks(){
+
+
+let value=document
+.getElementById("searchBook")
+.value
+.toLowerCase();
+
+
+
+let result=ebooks.filter(function(r){
+
+
+return (
+
+r.title.toLowerCase()
+.includes(value)
+
+);
+
+
+});
+
+
+displayEbooks(result);
+
+
+}
+
+
+
+
+// ===============================
+// UPLOAD
+// ===============================
+
+
+async function uploadEbook(){
+
+
+let file=document
+.getElementById("file")
+.files[0];
+
+
+if(!file){
+
+alert("Select PDF File");
+
+return;
+
+}
+
+
+
+document.getElementById("msg").innerHTML=
+"Uploading...";
+
+
+
+let reader=new FileReader();
+
+
+
+reader.onload=async function(){
+
+
+let base64=
+reader.result.split(",")[1];
+
+
+
+let response=await fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+
+body:JSON.stringify({
+
+action:"add",
+
+token:localStorage.getItem("token"),
+
+
+title:
+document.getElementById("title").value,
+
+
+type:"E-book",
+
+
+department:
+document.getElementById("department").value,
+
+
+year:
+document.getElementById("year").value,
+
+
+subject:
+document.getElementById("subject").value,
+
+
+fileName:file.name,
+
+
+mimeType:file.type,
+
+
+data:base64
+
+
+})
+
+
+});
+
+
+
+let data=await response.json();
+
+
+
+if(data.ok){
+
+
+document.getElementById("msg").innerHTML=
+"✅ E-Book Uploaded Successfully";
+
+
+document.getElementById("title").value="";
+
+document.getElementById("subject").value="";
+
+document.getElementById("file").value="";
+
+
+loadEbooks();
+
+
+}
+
+else{
+
+
+document.getElementById("msg").innerHTML=
+"❌ "+data.error;
+
+
+}
+
+
+
+};
+
+
+reader.readAsDataURL(file);
+
+
+}
+
+
+
+// ===============================
+// DELETE
+// ===============================
+
+
+async function deleteEbook(id){
+
+
+if(!confirm("Delete this E-Book?"))
+return;
+
+
+
+let response=await fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+
+body:JSON.stringify({
+
+action:"delete",
+
+id:id,
+
+token:localStorage.getItem("token")
+
+})
+
+
+});
+
+
+let data=await response.json();
+
+
+
+if(data.ok){
+
+alert("✅ Deleted");
+
+loadEbooks();
+
+}
+
+else{
+
+alert(data.error);
+
+}
+
+
+}
+
+
+
+
+// ===============================
+// EDIT
+// ===============================
+
+
+function editEbook(id){
+
+
+let book=ebooks.find(function(r){
+
+return r.id==id;
+
+});
+
+
+if(!book)
+return;
+
+
+
+document.getElementById("title").value=
+book.title;
+
+
+document.getElementById("subject").value=
+book.subject;
+
+
+document.getElementById("department").value=
+book.department;
+
+
+document.getElementById("year").value=
+book.year;
+
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+
+alert(
+"Edit details and upload new PDF"
+);
+
+
+}
+
+
+
+
+function backCollections(){
+
+window.location.href="collections.html";
+
+}
+
+
+
+window.onload=function(){
+
+loadEbooks();
+
+};
