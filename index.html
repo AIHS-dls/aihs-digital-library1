@@ -360,68 +360,50 @@ Email: librarian@aihs.ac.in
 
 </section>
 
-    <section id="adminPanel" class="admin hidden">
+   <section id="adminPanel" class="admin hidden">
 
-<h2>📚 Librarian Administration</h2>
+<h2>📚 Library Administration</h2>
 
-
-<div class="dashboard-menu">
-
-<button onclick="showSection('userFormBox')">
-👤 Create User
-</button>
+<div class="collection-grid">
 
 
-<button onclick="showSection('uploadFormBox')">
-📤 Upload Resource
-</button>
+<div class="collection-card"
+onclick="openAdminPage('libraryAdmin.html')">
 
+<h1>📚</h1>
 
-<button onclick="showSection('userManagement')">
-👥 Manage Users
-</button>
+<h3>
+Library Administration
+</h3>
 
-
-<button onclick="showSection('resourceBox')">
-📚 Library Collections
-</button>
-
+<p>
+Manage Books, Notes, Journals, Users
+</p>
 
 </div>
 
 
 
-<div class="admin-grid">
+<div class="collection-card"
+onclick="openAdminPage('eventsAdmin.html')">
+
+<h1>🎉</h1>
+
+<h3>
+Library Events
+</h3>
+
+<p>
+Add and Delete Events
+</p>
+
+</div>
 
 
-
-<!-- CREATE USER -->
-
-<div id="userFormBox" class="dashboard-section hidden">
+</div>
 
 
-<form id="userForm">
-
-<h3>Create Student / Staff Account</h3>
-
-
-<input id="newId" placeholder="User ID" required>
-
-
-<input id="newName" placeholder="Full Name" required>
-
-
-<input id="newPass" placeholder="Password" required>
-
-
-<select id="newRole">
-
-<option>Student</option>
-
-<option>Staff</option>
-
-</select>
-
+</section>
 
 <input id="newDept" placeholder="Department">
 
