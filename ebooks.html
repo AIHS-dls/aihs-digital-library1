@@ -1,93 +1,178 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
 
-<title>AIHS E-Books</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>
+AIHS E-Book Collection
+</title>
 
 <link rel="stylesheet" href="styles.css">
 
 </head>
+
 
 <body>
 
 
 <header>
 
-<img src="logo.jpg" class="ebook-logo">
+<div class="brand">
 
-<h1>AIHS Digital Library</h1>
+<img src="logo.jpg">
 
-<p>E-Books</p>
+<div>
+<strong>
+AIHS Digital Library
+</strong>
+
+<small>
+Acharya Institute of Health Sciences
+</small>
+
+</div>
+
+</div>
+
+
+<div class="userbar">
+
+<span>
+admin • Librarian
+</span>
+
+<button onclick="backCollections()">
+⬅ Back
+</button>
+
+</div>
+
 
 </header>
 
 
-<h2>📚 Select Department</h2>
+
+<main>
 
 
-<div class="collection-grid">
+<section class="hero">
+
+<h1>
+📚 E-Book Collection
+</h1>
+
+<p>
+Manage Digital Books - Upload, Edit and Delete
+</p>
+
+</section>
 
 
-<div class="collection-card" onclick="openDept('BPT')">
 
-<h1>📘</h1>
-<h3>BPT</h3>
+<section class="admin-box upload-box">
+
+
+<h2>
+📤 Upload New E-Book
+</h2>
+
+
+<input id="title"
+placeholder="Book Title">
+
+
+<input id="subject"
+placeholder="Subject">
+
+
+<select id="department">
+
+<option value="">
+Select Department
+</option>
+
+<option>BPT</option>
+<option>BMLT</option>
+<option>BMIT</option>
+<option>MPT</option>
+<option>MHA</option>
+<option>ATOT</option>
+
+</select>
+
+
+
+<select id="year">
+
+<option value="">
+Select Year
+</option>
+
+<option>1st Year</option>
+<option>2nd Year</option>
+<option>3rd Year</option>
+<option>4th Year</option>
+
+</select>
+
+
+
+<input id="file"
+type="file">
+
+
+
+<button class="primary"
+onclick="uploadEbook()">
+
+📤 Upload E-Book
+
+</button>
+
+
+<div id="msg"></div>
+
+
+</section>
+
+
+
+
+<section class="admin-box">
+
+
+<h2>
+📖 Available E-Books
+</h2>
+
+
+<input id="searchBook"
+placeholder="🔍 Search E-Books..."
+onkeyup="searchBooks()">
+
+
+
+<div id="ebookList">
+
+Loading...
 
 </div>
 
 
-
-<div class="collection-card" onclick="openDept('BMLT')">
-
-<h1>📘</h1>
-<h3>BMLT</h3>
-
-</div>
+</section>
 
 
 
-<div class="collection-card" onclick="openDept('BMIT')">
-
-<h1>📘</h1>
-<h3>BMIT</h3>
-
-</div>
+</main>
 
 
-
-<div class="collection-card" onclick="openDept('MPT')">
-
-<h1>📘</h3>
-<h3>MPT</h3>
-
-</div>
-
-
-
-<div class="collection-card" onclick="openDept('MHA')">
-
-<h1>📘</h1>
-<h3>MHA</h3>
-
-</div>
-
-
-</div>
-
-
-<div id="booksList"></div>
-
-  <script>
-
-if(!localStorage.getItem("user")){
-
-window.location.href="index.html";
-
-}
-
-</script>
 
 <script src="ebooks.js"></script>
 
+
 </body>
+
 </html>
