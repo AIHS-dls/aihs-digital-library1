@@ -1178,3 +1178,9 @@ function openBooks(){
     window.location.href="ebooks.html";
 
 }
+
+function openAdminPage(page){
+
+window.location.href = page;
+
+}
