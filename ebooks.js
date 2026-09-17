@@ -54,6 +54,9 @@ let box=document.getElementById("booksList");
 
 
 box.innerHTML=`
+<button onclick="location.reload()">
+⬅ Back to Departments
+</button>
 
 <h2>📚 ${dept} E-Books</h2>
 
