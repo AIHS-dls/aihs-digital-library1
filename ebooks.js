@@ -90,8 +90,8 @@ function showBooks(dept,year){
 
 let books=allBooks.filter(function(book){
 
-return book.department===dept &&
-book.year==year;
+return book.department === dept &&
+book.year === year;
 
 });
 
