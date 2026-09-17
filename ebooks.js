@@ -54,31 +54,58 @@ let box=document.getElementById("booksList");
 
 
 box.innerHTML=`
+
 <button onclick="location.reload()">
 ⬅ Back to Departments
 </button>
 
 <h2>📚 ${dept} E-Books</h2>
 
-
 <h3>Select Year</h3>
 
-<button onclick="showBooks('${dept}','1st Year')">
-1st Year
-</button>
+${years}
 
-<button onclick="showBooks('${dept}','2nd Year')">
-2nd Year
-</button>
+<div id="bookResult"></div>
 
-<button onclick="showBooks('${dept}','3rd Year')">
-3rd Year
-</button>
+`;
 
-<button onclick="showBooks('${dept}','4th Year')">
-4th Year
-</button>
+let years = "";
 
+if(dept === "BPT"){
+
+years = `
+<button onclick="showBooks('${dept}','1st Year')">1st Year</button>
+<button onclick="showBooks('${dept}','2nd Year')">2nd Year</button>
+<button onclick="showBooks('${dept}','3rd Year')">3rd Year</button>
+<button onclick="showBooks('${dept}','4th Year')">4th Year</button>
+`;
+
+}
+
+else if(
+dept === "BMLT" ||
+dept === "BMIT"
+){
+
+years = `
+<button onclick="showBooks('${dept}','1st Year')">1st Year</button>
+<button onclick="showBooks('${dept}','2nd Year')">2nd Year</button>
+<button onclick="showBooks('${dept}','3rd Year')">3rd Year</button>
+`;
+
+}
+
+else if(
+dept === "MPT" ||
+dept === "MHA"
+){
+
+years = `
+<button onclick="showBooks('${dept}','1st Year')">1st Year</button>
+<button onclick="showBooks('${dept}','2nd Year')">2nd Year</button>
+`;
+
+}
 
 <div id="bookResult"></div>
 
