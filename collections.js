@@ -45,6 +45,15 @@ return r.type!="Database";
 });
 
 
+// Latest uploaded first
+
+resources.sort(function(a,b){
+
+return new Date(b.createdAt) - new Date(a.createdAt);
+
+});
+
+
 displayResources();
 
 
@@ -64,7 +73,6 @@ displayResources();
 
 function displayResources(){
 
-
 let box=document.getElementById("resourceList");
 
 
@@ -77,12 +85,46 @@ return;
 }
 
 
+let categories=[
+"E-book",
+"Notes",
+"Question Paper",
+"Journal"
+];
 
-box.innerHTML=resources.map(function(r){
+
+let html="";
 
 
-return `
+categories.forEach(function(cat){
 
+
+let books=resources.filter(function(r){
+
+return r.type===cat;
+
+});
+
+
+if(books.length>0){
+
+
+html += `
+
+<div class="resource-category">
+
+<h2>
+📚 ${cat}
+</h2>
+
+
+`;
+
+
+books.forEach(function(r){
+
+
+html += `
 
 <div class="card">
 
@@ -90,11 +132,6 @@ return `
 <h3>
 📘 ${r.title}
 </h3>
-
-
-<p>
-Type: ${r.type}
-</p>
 
 
 <p>
@@ -112,32 +149,24 @@ Subject: ${r.subject || "-"}
 </p>
 
 
-
 <a href="${r.url}" target="_blank">
-
-Open PDF
-
+📖 Open PDF
 </a>
 
 
-<br><br>
-
+<div>
 
 <button onclick="editResource('${r.id}')">
-
 ✏ Edit
-
 </button>
 
 
-<button 
-onclick="deleteResource('${r.id}')"
+<button onclick="deleteResource('${r.id}')"
 style="background:#c62828;color:white">
-
 🗑 Delete
-
 </button>
 
+</div>
 
 
 </div>
@@ -146,10 +175,22 @@ style="background:#c62828;color:white">
 `;
 
 
-}).join("");
+});
+
+
+html += `</div>`;
+
 
 }
 
+
+});
+
+
+box.innerHTML=html;
+
+
+}
 
 
 
