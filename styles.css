@@ -729,3 +729,103 @@ border:1px solid #ccc;
 margin-top:20px;
 
 }
+
+/* =========================
+   ADMIN DASHBOARD PREMIUM
+========================= */
+
+#adminPanel{
+    padding:40px 20px;
+}
+
+
+#adminPanel > h2{
+    text-align:center;
+    font-size:30px;
+    margin-bottom:35px;
+    color:#1e3a8a;
+}
+
+
+
+#adminPanel .collection-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+    gap:35px;
+
+    max-width:900px;
+
+    margin:auto;
+
+}
+
+
+
+#adminPanel .collection-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:35px 25px;
+
+    text-align:center;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.12);
+
+    cursor:pointer;
+
+    transition:0.3s ease;
+
+    border:1px solid #eee;
+
+}
+
+
+
+#adminPanel .collection-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 18px 40px rgba(0,0,0,0.18);
+
+}
+
+
+
+#adminPanel .collection-card h1{
+
+    font-size:55px;
+
+    margin-bottom:15px;
+
+}
+
+
+
+#adminPanel .collection-card h3{
+
+    font-size:22px;
+
+    color:#123b75;
+
+    margin-bottom:12px;
+
+}
+
+
+
+#adminPanel .collection-card p{
+
+    color:#666;
+
+    font-size:16px;
+
+    line-height:1.5;
+
+}
