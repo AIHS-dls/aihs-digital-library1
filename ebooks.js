@@ -113,13 +113,10 @@ years = `
 
 }
 
-
-
-
 function showBooks(dept,year){
 
 
-let books=allBooks.filter(function(book){
+let books = allBooks.filter(function(book){
 
 return book.department === dept &&
 book.year === year;
@@ -132,7 +129,13 @@ let box=document.getElementById("bookResult");
 
 if(books.length===0){
 
-box.innerHTML="<h3>No Books Found</h3>";
+box.innerHTML = `
+
+<h3>
+No Books Found
+</h3>
+
+`;
 
 return;
 
@@ -140,7 +143,13 @@ return;
 
 
 
-box.innerHTML=books.map(function(book){
+box.innerHTML = `
+
+<h2>
+📚 ${dept} - ${year}
+</h2>
+
+${books.map(function(book){
 
 return `
 
@@ -150,16 +159,24 @@ return `
 
 <a href="${book.url}" target="_blank">
 
-📘 ${book.title}
+📖 ${book.title}
 
 </a>
 
 </h3>
 
+<p>
+Open PDF
+</p>
+
 </div>
 
 `;
 
-}).join("");
+}).join("")}
+
+`;
 
 }
+
+
