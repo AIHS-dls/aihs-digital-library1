@@ -40,6 +40,8 @@ try{
 
 data = await response.json();
 
+  console.log(data);
+
 }
 catch(error){
 
@@ -520,3 +522,9 @@ function backAdmin(){
 window.location.href="administration.html";
 
 }
+
+window.onload = function(){
+
+loadResources();
+
+};
