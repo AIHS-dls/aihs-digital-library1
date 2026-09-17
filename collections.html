@@ -46,12 +46,11 @@ Acharya Institute of Health Sciences
 admin • Librarian
 </span>
 
-<button onclick="backAdmin()">
+<button class="back-button" onclick="backAdmin()">
 ⬅ Back
 </button>
 
 </div>
-
 
 </header>
 
@@ -62,18 +61,15 @@ admin • Librarian
 <main>
 
 
-<section class="hero">
-
+<section class="admin-title">
 
 <h1>
 📚 Library Collections
 </h1>
 
-
 <p>
-Manage E-Books, Notes, Question Papers and Journals
+Manage E-Books, Notes, Question Papers, Journals and Databases
 </p>
-
 
 </section>
 
@@ -81,13 +77,15 @@ Manage E-Books, Notes, Question Papers and Journals
 
 
 
-<section class="admin-box">
+<section class="resource-upload-card">
 
 
 <h2>
 📤 Add Resource
 </h2>
 
+
+<div class="form-grid">
 
 
 <input 
@@ -126,31 +124,21 @@ Database
 
 <select id="department">
 
-
 <option value="">
 Select Department
 </option>
 
-<option>
-BPT
-</option>
+<option>BPT</option>
 
-<option>
-BMLT
-</option>
+<option>BMLT</option>
 
-<option>
-BMIT
-</option>
+<option>BMIT</option>
 
-<option>
-MPT
-</option>
+<option>MPT</option>
 
-<option>
-MHA
-</option>
+<option>MHA</option>
 
+<option>ATOT</option>
 
 </select>
 
@@ -160,27 +148,17 @@ MHA
 
 <select id="year">
 
-
 <option value="">
 Select Year
 </option>
 
-<option>
-1st Year
-</option>
+<option>1st Year</option>
 
-<option>
-2nd Year
-</option>
+<option>2nd Year</option>
 
-<option>
-3rd Year
-</option>
+<option>3rd Year</option>
 
-<option>
-4th Year
-</option>
-
+<option>4th Year</option>
 
 </select>
 
@@ -203,11 +181,14 @@ type="file"
 
 
 
+</div>
 
-<button class="primary"
+
+
+<button class="upload-btn"
 onclick="uploadResource()">
 
-Upload Resource
+📤 Upload Resource
 
 </button>
 
@@ -226,7 +207,7 @@ Upload Resource
 
 
 
-<section class="admin-box">
+<section class="resource-list-box">
 
 
 <h2>
@@ -247,14 +228,12 @@ Loading...
 
 
 
+
 </main>
 
 
 
-
-
 <script src="collections.js"></script>
-
 
 
 </body>
