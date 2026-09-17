@@ -1090,6 +1090,16 @@ function openProtected(type){
 
     }
 
+
+    if(type === "E-book"){
+
+        window.location.href = "ebooks.html";
+
+        return;
+
+    }
+
+
     filterMenu(type);
 
 }
