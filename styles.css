@@ -706,3 +706,9 @@ cursor:pointer;
 transform:translateY(-5px);
 box-shadow:0 10px 25px #ddd;
 }
+
+.ebook-logo{
+    width:120px;
+    height:120px;
+    object-fit:contain;
+}
