@@ -531,6 +531,7 @@ if($("uploadForm")){
 
     $("uploadMsg").innerHTML=
       "Uploading...";
+    $("uploadForm").querySelector("button").disabled=true;
 
 
     try{
@@ -563,19 +564,19 @@ if($("uploadForm")){
 
       });
 
+if(response.ok){
 
-      if(response.ok){
+$("uploadMsg").innerHTML =
+"✅ Resource uploaded successfully";
 
-        $("uploadMsg").innerHTML=
-          "✅ Uploaded successfully";
+$("uploadForm").querySelector("button").disabled=false;
 
-        // Clear form
-        $("uploadForm").reset();
+$("uploadForm").reset();
 
-        // Refresh resources
-        await loadResources();
+await loadResources();
 
-      }
+}
+     
       else{
 
         $("uploadMsg").innerHTML=
