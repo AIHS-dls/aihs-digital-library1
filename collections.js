@@ -23,7 +23,9 @@ headers:{
 
 body:JSON.stringify({
 
-action:"list"
+action:"list",
+
+token:localStorage.getItem("token")
 
 })
 
