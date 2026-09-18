@@ -78,53 +78,110 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // ===============================
-// LOAD COLLECTION COUNTS
+// LOAD ADMIN COLLECTION COUNTS
 // ===============================
 
-document.addEventListener("DOMContentLoaded", function(){
-
-    let ebooks = JSON.parse(localStorage.getItem("ebooks")) || [];
-    let notes = JSON.parse(localStorage.getItem("notes")) || [];
-    let questionpapers = JSON.parse(localStorage.getItem("questionpapers")) || [];
-    let journals = JSON.parse(localStorage.getItem("journals")) || [];
-    let databases = JSON.parse(localStorage.getItem("databases")) || [];
+const API =
+"https://script.google.com/macros/s/AKfycbx2TIiEbBuAkNPZ-6wsyeuwGMb05kwE5HFgH9cdWaYCaMzroaYkU5Vw_IfNDBFaSHuBDA/exec";
 
 
-    let ebookCount = document.getElementById("ebookCount");
-    let notesCount = document.getElementById("notesCount");
-    let qpCount = document.getElementById("qpCount");
-    let journalCount = document.getElementById("journalCount");
-    let databaseCount = document.getElementById("databaseCount");
+async function loadCollectionCounts(){
+
+try{
 
 
-    if(ebookCount){
-        ebookCount.innerHTML =
-        "Manage E-Books<br><b>"+ebooks.length+"</b> Books";
-    }
+const response = await fetch(API,{
 
+method:"POST",
 
-    if(notesCount){
-        notesCount.innerHTML =
-        "Manage Notes<br><b>"+notes.length+"</b> Notes";
-    }
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
 
+body:JSON.stringify({
 
-    if(qpCount){
-        qpCount.innerHTML =
-        "Manage Question Papers<br><b>"+questionpapers.length+"</b> Papers";
-    }
+action:"list",
 
+token:localStorage.getItem("token")
 
-    if(journalCount){
-        journalCount.innerHTML =
-        "Manage Journals<br><b>"+journals.length+"</b> Journals";
-    }
-
-
-    if(databaseCount){
-        databaseCount.innerHTML =
-        "Manage Databases<br><b>"+databases.length+"</b> Databases";
-    }
-
+})
 
 });
+
+
+const data = await response.json();
+
+
+if(!data.ok){
+console.log("Count Error",data.error);
+return;
+}
+
+
+
+let resources=data.resources || [];
+
+
+
+let ebooks =
+resources.filter(r=>r.type==="E-book").length;
+
+
+let notes =
+resources.filter(r=>r.type==="Notes").length;
+
+
+let questionpapers =
+resources.filter(r=>r.type==="Question Paper").length;
+
+
+let journals =
+resources.filter(r=>r.type==="Journal").length;
+
+
+let databases =
+resources.filter(r=>r.type==="Database").length;
+
+
+
+document.getElementById("ebookCount").innerHTML =
+"Manage E-Books<br><b>"+ebooks+" Books</b>";
+
+
+document.getElementById("notesCount").innerHTML =
+"Manage Notes<br><b>"+notes+" Notes</b>";
+
+
+document.getElementById("qpCount").innerHTML =
+"Manage Question Papers<br><b>"+questionpapers+" Papers</b>";
+
+
+document.getElementById("journalCount").innerHTML =
+"Manage Journals<br><b>"+journals+" Journals</b>";
+
+
+document.getElementById("databaseCount").innerHTML =
+"Manage Databases<br><b>"+databases+" Databases</b>";
+
+
+
+}
+
+catch(error){
+
+console.log(error);
+
+}
+
+
+}
+
+
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
+loadCollectionCounts();
+
+}
+);
