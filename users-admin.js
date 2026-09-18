@@ -192,7 +192,7 @@ return;
 
 
 let userId =
-"USER" + Date.now();
+document.getElementById("userId").value.trim();
 
 
 let password =
@@ -244,17 +244,27 @@ if(data.ok){
 alert(
 "User Added Successfully\n\nUser ID: "
 + userId +
-"\nPassword: 123456"
+"\nPassword: "
++ password
 );
 
 
+
+document.getElementById("userId").value="";
+
+document.getElementById("password").value="";
 
 document.getElementById("userName").value="";
 
 document.getElementById("department").value="";
 
+document.getElementById("year").value="";
 
-loadUsers();
+
+location.reload();
+
+
+}
 
 
 }
