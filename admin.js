@@ -76,3 +76,55 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+// ===============================
+// LOAD COLLECTION COUNTS
+// ===============================
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    let ebooks = JSON.parse(localStorage.getItem("ebooks")) || [];
+    let notes = JSON.parse(localStorage.getItem("notes")) || [];
+    let questionpapers = JSON.parse(localStorage.getItem("questionpapers")) || [];
+    let journals = JSON.parse(localStorage.getItem("journals")) || [];
+    let databases = JSON.parse(localStorage.getItem("databases")) || [];
+
+
+    let ebookCount = document.getElementById("ebookCount");
+    let notesCount = document.getElementById("notesCount");
+    let qpCount = document.getElementById("qpCount");
+    let journalCount = document.getElementById("journalCount");
+    let databaseCount = document.getElementById("databaseCount");
+
+
+    if(ebookCount){
+        ebookCount.innerHTML =
+        "Manage E-Books<br><b>"+ebooks.length+"</b> Books";
+    }
+
+
+    if(notesCount){
+        notesCount.innerHTML =
+        "Manage Notes<br><b>"+notes.length+"</b> Notes";
+    }
+
+
+    if(qpCount){
+        qpCount.innerHTML =
+        "Manage Question Papers<br><b>"+questionpapers.length+"</b> Papers";
+    }
+
+
+    if(journalCount){
+        journalCount.innerHTML =
+        "Manage Journals<br><b>"+journals.length+"</b> Journals";
+    }
+
+
+    if(databaseCount){
+        databaseCount.innerHTML =
+        "Manage Databases<br><b>"+databases.length+"</b> Databases";
+    }
+
+
+});
