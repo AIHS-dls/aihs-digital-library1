@@ -158,6 +158,122 @@ Delete
 }
 
 
+// =====================================
+// ADD USER
+// =====================================
+
+async function addUser(){
+
+
+let type =
+document.getElementById("userType").value;
+
+
+let name =
+document.getElementById("userName").value.trim();
+
+
+let department =
+document.getElementById("department").value.trim();
+
+
+
+if(!name || !department){
+
+alert("Enter Name and Department");
+
+return;
+
+}
+
+
+
+let userId =
+"USER" + Date.now();
+
+
+let password =
+"123456";
+
+
+
+try{
+
+
+const response = await fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"createUser",
+
+token:localStorage.getItem("token"),
+
+userId:userId,
+
+name:name,
+
+password:password,
+
+role:type,
+
+department:department
+
+})
+
+});
+
+
+const data = await response.json();
+
+
+
+if(data.ok){
+
+
+alert(
+"User Added Successfully\n\nUser ID: "
++ userId +
+"\nPassword: 123456"
+);
+
+
+
+document.getElementById("userName").value="";
+
+document.getElementById("department").value="";
+
+
+loadUsers();
+
+
+}
+
+else{
+
+alert(data.error);
+
+}
+
+
+}
+
+catch(error){
+
+console.log(error);
+
+alert("User Add Error");
+
+}
+
+
+}
+
 
 
 
@@ -239,3 +355,5 @@ function(){
 loadUsers();
 
 });
+
+
