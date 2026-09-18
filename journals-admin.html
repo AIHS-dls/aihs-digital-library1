@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+AIHS Journals Administration
+</title>
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+
+<div class="brand">
+
+<img src="logo.jpg">
+
+
+<div>
+
+<strong>
+AIHS Digital Library
+</strong>
+
+
+<small>
+Acharya Institute of Health Sciences
+</small>
+
+
+</div>
+
+</div>
+
+
+
+
+<div class="userbar">
+
+<span>
+admin • Librarian
+</span>
+
+
+<button onclick="backAdministration()">
+
+⬅ Back
+
+</button>
+
+
+</div>
+
+
+</header>
+
+
+
+
+
+<main>
+
+
+<section class="hero">
+
+<h1>
+📖 Journals Administration
+</h1>
+
+
+<p>
+Manage Academic Journals
+</p>
+
+
+</section>
+
+
+
+
+
+
+<section class="admin-box">
+
+
+<h2>
+📤 Add Journal
+</h2>
+
+
+
+
+<input
+id="title"
+placeholder="Journal Title"
+>
+
+
+
+
+<input
+id="journalLink"
+placeholder="Journal Website Link (https://...)"
+>
+
+
+
+
+<button
+class="primary upload-btn"
+onclick="uploadJournal()">
+
+📤 Add Journal
+
+</button>
+
+
+
+<div id="msg"></div>
+
+
+</section>
+
+
+
+
+
+
+
+<section class="admin-box">
+
+
+<h2>
+📖 Journal Collection
+</h2>
+
+
+<div id="resourceList">
+
+Loading Journals...
+
+</div>
+
+
+</section>
+
+
+
+</main>
+
+
+
+
+
+
+<script src="journals-admin.js"></script>
+
+
+</body>
+
+</html>
