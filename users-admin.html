@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>
+AIHS Digital Library - User Management
+</title>
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="brand">
+
+<img src="logo.jpg">
+
+<div>
+
+<strong>
+AIHS Digital Library
+</strong>
+
+<small>
+Acharya Institute of Health Sciences
+</small>
+
+</div>
+
+</div>
+
+
+<button class="back-button" onclick="location.href='administration.html'">
+⬅ Back
+</button>
+
+
+</header>
+
+
+
+
+<main>
+
+
+<section class="admin-title">
+
+<h1>
+👥 Library User Management
+</h1>
+
+<p>
+Add, Edit and Manage Students & Staff
+</p>
+
+</section>
+
+
+
+
+
+<section class="user-management-box">
+
+
+<div class="user-form-card">
+
+
+<h2>
+➕ Add User
+</h2>
+
+
+<select id="userType">
+
+<option value="Student">
+Student
+</option>
+
+<option value="Staff">
+Staff
+</option>
+
+</select>
+
+
+
+<input 
+id="userName"
+placeholder="Enter Name">
+
+
+
+<input 
+id="department"
+placeholder="Department">
+
+
+
+<input 
+id="year"
+placeholder="Year (Students only)">
+
+
+
+<button onclick="addUser()">
+
+Save User
+
+</button>
+
+
+</div>
+
+
+
+
+
+<section class="user-list-card">
+
+
+<h2>
+👨‍🎓 Students List
+</h2>
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+
+<th>Department</th>
+
+<th>Year</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="studentList">
+
+
+</tbody>
+
+
+</table>
+
+
+</section>
+
+
+
+
+
+<section class="user-list-card">
+
+
+<h2>
+👨‍🏫 Staff List
+</h2>
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+
+<th>Department</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="staffList">
+
+
+</tbody>
+
+
+</table>
+
+
+</section>
+
+
+</section>
+
+
+</main>
+
+
+
+
+<script src="users-admin.js"></script>
+
+
+</body>
+
+
+</html>
