@@ -1914,67 +1914,94 @@ grid-template-columns:1fr;
 
 }
 
-/* ADMINISTRATION BOX LAYOUT */
-
-.admin-cards {
-
-    display: grid !important;
-
-    grid-template-columns: repeat(3, 1fr) !important;
-
-    gap: 30px;
-
-    margin-top: 40px;
-
-}
+/* ===============================
+   ADMINISTRATION DASHBOARD FINAL
+================================ */
 
 
+.admin-cards{
 
-.admin-cards .collection-card {
+    display:grid !important;
 
-    min-height: 230px !important;
+    grid-template-columns:repeat(3,1fr) !important;
 
-    padding: 35px !important;
+    gap:35px;
 
-    border-radius: 22px;
+    max-width:1200px;
 
-    text-align: center;
-
-    background: white;
-
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-
-    transition: .3s;
+    margin:40px auto;
 
 }
 
 
 
-.admin-cards .collection-card:hover {
+.admin-cards .collection-card{
 
-    transform: translateY(-8px);
+    min-height:260px !important;
+
+    padding:45px 30px !important;
+
+    border-radius:25px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:white;
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,0.12);
 
 }
 
 
 
-.admin-cards .card-icon {
+.admin-cards .card-icon{
 
-    font-size: 60px;
+    font-size:65px;
 
-    margin-bottom: 20px;
+    margin-bottom:20px;
+
+}
+
+
+
+.admin-cards h3{
+
+    font-size:24px;
+
+    color:#1e3a8a;
 
 }
 
 
 
-.admin-cards h3 {
+.admin-cards p{
 
-    font-size: 24px;
+    text-align:center;
+
+    font-size:16px;
+
+    color:#64748b;
 
 }
 
 
+/* Sixth card align */
+
+.admin-cards .collection-card:nth-child(6){
+
+    grid-column:2 / 3;
+
+}
+
+
+
+/* Tablet */
 
 @media(max-width:900px){
 
@@ -1987,11 +2014,20 @@ grid-template-columns:repeat(2,1fr) !important;
 }
 
 
+
+/* Mobile */
+
 @media(max-width:600px){
 
 .admin-cards{
 
 grid-template-columns:1fr !important;
+
+}
+
+.admin-cards .collection-card:nth-child(6){
+
+grid-column:auto;
 
 }
 
