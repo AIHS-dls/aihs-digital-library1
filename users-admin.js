@@ -1,29 +1,53 @@
-let users=[];
+// =====================================
+// AIHS DIGITAL LIBRARY
+// USER MANAGEMENT
+// =====================================
 
 
-function addUser(){
+const API =
+"https://script.google.com/macros/s/AKfycbx2TIiEbBuAkNPZ-6wsyeuwGMb05kwE5HFgH9cdWaYCaMzroaYkU5Vw_IfNDBFaSHuBDA/exec";
 
 
-let type =
-document.getElementById("userType").value;
-
-
-let name =
-document.getElementById("userName").value;
-
-
-let dept =
-document.getElementById("department").value;
-
-
-let year =
-document.getElementById("year").value;
+let users = [];
 
 
 
-if(!name || !dept){
+// =====================================
+// LOAD USERS
+// =====================================
 
-alert("Please enter Name and Department");
+async function loadUsers(){
+
+
+try{
+
+
+const response = await fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"listUsers",
+
+token:localStorage.getItem("token")
+
+})
+
+});
+
+
+const data = await response.json();
+
+
+
+if(!data.ok){
+
+console.log(data.error);
 
 return;
 
@@ -31,18 +55,201 @@ return;
 
 
 
-users.push({
+users = data.users || [];
+
+
+
+displayUsers();
+
+
+
+}
+
+catch(error){
+
+console.log(error);
+
+}
+
+
+}
+
+
+
+
+// =====================================
+// DISPLAY USERS
+// =====================================
+
+
+function displayUsers(){
+
+
+let students =
+users.filter(
+u=>u.type==="Student"
+);
+
+
+let staff =
+users.filter(
+u=>u.type==="Staff"
+);
+
+
+
+document.getElementById("studentList").innerHTML =
+
+students.map(u=>`
+
+<tr>
+
+<td>${u.name}</td>
+
+<td>${u.department}</td>
+
+<td>${u.year || "-"}</td>
+
+<td>
+
+<button class="edit-btn"
+onclick="editUser('${u.id}')">
+
+Edit
+
+</button>
+
+
+<button class="delete-btn"
+onclick="deleteUser('${u.id}')">
+
+Delete
+
+</button>
+
+
+</td>
+
+
+</tr>
+
+
+`).join("");
+
+
+
+
+
+document.getElementById("staffList").innerHTML =
+
+
+staff.map(u=>`
+
+<tr>
+
+<td>${u.name}</td>
+
+<td>${u.department}</td>
+
+<td>
+
+
+<button class="edit-btn"
+onclick="editUser('${u.id}')">
+
+Edit
+
+</button>
+
+
+<button class="delete-btn"
+onclick="deleteUser('${u.id}')">
+
+Delete
+
+</button>
+
+
+</td>
+
+</tr>
+
+
+`).join("");
+
+
+
+}
+
+
+
+
+
+// =====================================
+// ADD USER
+// =====================================
+
+
+async function addUser(){
+
+
+let type =
+document.getElementById("userType").value;
+
+
+let name =
+document.getElementById("userName").value.trim();
+
+
+let department =
+document.getElementById("department").value.trim();
+
+
+let year =
+document.getElementById("year").value.trim();
+
+
+
+if(!name || !department){
+
+alert("Enter Name and Department");
+
+return;
+
+}
+
+
+
+await fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"addUser",
+
+token:localStorage.getItem("token"),
 
 type:type,
+
 name:name,
-department:dept,
+
+department:department,
+
 year:year
+
+
+})
 
 });
 
 
 
-displayUsers();
+alert("User Added Successfully");
 
 
 
@@ -51,98 +258,105 @@ document.getElementById("department").value="";
 document.getElementById("year").value="";
 
 
+
+loadUsers();
+
+
 }
 
 
 
 
-function displayUsers(){
+
+// =====================================
+// DELETE USER
+// =====================================
 
 
-let students =
-document.getElementById("studentList");
+async function deleteUser(id){
 
 
-let staff =
-document.getElementById("staffList");
+if(!confirm("Delete User?")){
 
-
-
-students.innerHTML="";
-staff.innerHTML="";
-
-
-
-users.forEach((u,index)=>{
-
-
-if(u.type==="Student"){
-
-
-students.innerHTML += `
-
-<tr>
-
-<td>${u.name}</td>
-
-<td>${u.department}</td>
-
-<td>${u.year}</td>
-
-<td>
-
-<button onclick="deleteUser(${index})">
-Delete
-</button>
-
-</td>
-
-</tr>
-
-`;
+return;
 
 }
 
 
-else{
 
+await fetch(API,{
 
-staff.innerHTML +=`
+method:"POST",
 
-<tr>
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
 
-<td>${u.name}</td>
+body:JSON.stringify({
 
-<td>${u.department}</td>
+action:"deleteUser",
 
-<td>
+id:id,
 
-<button onclick="deleteUser(${index})">
-Delete
-</button>
+token:localStorage.getItem("token")
 
-</td>
-
-</tr>
-
-`;
-
-}
-
+})
 
 });
 
 
+
+loadUsers();
+
+
 }
 
 
 
 
 
-function deleteUser(index){
+// =====================================
+// EDIT USER
+// =====================================
 
-users.splice(index,1);
 
-displayUsers();
+function editUser(id){
+
+
+let user =
+users.find(u=>u.id==id);
+
+
+if(!user)return;
+
+
+
+document.getElementById("userName").value=user.name;
+
+document.getElementById("department").value=user.department;
+
+document.getElementById("year").value=user.year || "";
+
+
+
+alert("Edit details and click Save User");
+
 
 }
+
+
+
+
+
+// =====================================
+// PAGE LOAD
+// =====================================
+
+
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
+loadUsers();
+
+});
