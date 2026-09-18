@@ -2032,3 +2032,64 @@ grid-column:auto;
 }
 
 }
+
+/* FINAL ADMINISTRATION GRID FIX */
+
+.collection-dashboard{
+
+    display:grid !important;
+
+    grid-template-columns:repeat(3, 1fr) !important;
+
+    gap:30px !important;
+
+    width:100%;
+
+    max-width:1200px;
+
+    margin:40px auto;
+
+}
+
+
+.collection-dashboard .collection-card{
+
+    width:auto !important;
+
+    min-height:260px !important;
+
+    display:flex !important;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:35px !important;
+
+}
+
+
+/* Mobile */
+
+@media(max-width:900px){
+
+.collection-dashboard{
+
+grid-template-columns:repeat(2,1fr) !important;
+
+}
+
+}
+
+
+@media(max-width:600px){
+
+.collection-dashboard{
+
+grid-template-columns:1fr !important;
+
+}
+
+}
