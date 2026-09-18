@@ -1745,354 +1745,7 @@ grid-column:span 1;
 
 
 
-/* Collection Dashboard Boxes */
-
-
-.collection-dashboard{
-
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:30px;
-
-    margin-top:30px;
-
-}
-
-
-
-.collection-card{
-
-    min-height:180px;
-
-    padding:35px;
-
-    border-radius:22px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    cursor:pointer;
-
-    transition:0.3s;
-
-    box-shadow:0 10px 25px rgba(0,0,0,0.1);
-
-}
-
-
-
-.collection-card:hover{
-
-    transform:translateY(-8px);
-
-}
-
-
-
-/* Mobile */
-
-@media(max-width:900px){
-
-.collection-dashboard{
-
-grid-template-columns:1fr;
-
-}
-
-}
-
-/* ===============================
-   ADMIN COLLECTION DASHBOARD
-=============================== */
-
-.collection-grid,
-.collection-dashboard {
-
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-    margin-top: 30px;
-
-}
-
-
-.collection-card {
-
-    min-height: 220px;
-    padding: 35px 25px;
-
-    border-radius: 20px;
-
-    text-align: center;
-
-    cursor: pointer;
-
-    transition: 0.3s ease;
-
-    background: linear-gradient(
-        135deg,
-        #ffffff,
-        #eef5ff
-    );
-
-    box-shadow: 
-    0 8px 25px rgba(0,0,0,0.12);
-
-}
-
-
-.collection-card:hover {
-
-    transform: translateY(-8px);
-
-    box-shadow:
-    0 15px 35px rgba(0,0,0,0.20);
-
-}
-
-
-
-.card-icon,
-.collection-card h1 {
-
-    font-size: 55px;
-
-    margin-bottom: 15px;
-
-}
-
-
-
-.collection-card h3 {
-
-    font-size: 22px;
-
-    margin: 10px 0;
-
-}
-
-
-
-.collection-card p {
-
-    font-size: 16px;
-
-    color:#555;
-
-}
-
-
-/* Mobile */
-
-@media(max-width:900px){
-
-.collection-grid,
-.collection-dashboard{
-
-grid-template-columns:repeat(2,1fr);
-
-}
-
-}
-
-
-@media(max-width:600px){
-
-.collection-grid,
-.collection-dashboard{
-
-grid-template-columns:1fr;
-
-}
-
-}
-
-/* ===============================
-   ADMINISTRATION DASHBOARD FINAL
-================================ */
-
-
-.admin-cards{
-
-    display:grid !important;
-
-    grid-template-columns:repeat(3,1fr) !important;
-
-    gap:35px;
-
-    max-width:1200px;
-
-    margin:40px auto;
-
-}
-
-
-
-.admin-cards .collection-card{
-
-    min-height:260px !important;
-
-    padding:45px 30px !important;
-
-    border-radius:25px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    background:white;
-
-    box-shadow:
-    0 15px 35px rgba(0,0,0,0.12);
-
-}
-
-
-
-.admin-cards .card-icon{
-
-    font-size:65px;
-
-    margin-bottom:20px;
-
-}
-
-
-
-.admin-cards h3{
-
-    font-size:24px;
-
-    color:#1e3a8a;
-
-}
-
-
-
-.admin-cards p{
-
-    text-align:center;
-
-    font-size:16px;
-
-    color:#64748b;
-
-}
-
-
-/* Sixth card align */
-
-.admin-cards .collection-card:nth-child(6){
-
-    grid-column:2 / 3;
-
-}
-
-
-
-/* Tablet */
-
-@media(max-width:900px){
-
-.admin-cards{
-
-grid-template-columns:repeat(2,1fr) !important;
-
-}
-
-}
-
-
-
-/* Mobile */
-
-@media(max-width:600px){
-
-.admin-cards{
-
-grid-template-columns:1fr !important;
-
-}
-
-.admin-cards .collection-card:nth-child(6){
-
-grid-column:auto;
-
-}
-
-}
-
-/* FINAL ADMINISTRATION GRID FIX */
-
-.collection-dashboard{
-
-    display:grid !important;
-
-    grid-template-columns:repeat(3, 1fr) !important;
-
-    gap:30px !important;
-
-    width:100%;
-
-    max-width:1200px;
-
-    margin:40px auto;
-
-}
-
-
-.collection-dashboard .collection-card{
-
-    width:auto !important;
-
-    min-height:260px !important;
-
-    display:flex !important;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    padding:35px !important;
-
-}
-
-
-/* Mobile */
-
-@media(max-width:900px){
-
-.collection-dashboard{
-
-grid-template-columns:repeat(2,1fr) !important;
-
-}
-
-}
-
-
-@media(max-width:600px){
-
-.collection-dashboard{
-
-grid-template-columns:1fr !important;
-
-}
-
-}
+/* ===== FINAL LIBRARY COLLECTION LAYOUT ===== */
 
 .collection-dashboard{
 
@@ -2149,6 +1802,7 @@ transition:.3s;
 }
 
 
+
 .collection-dashboard .collection-card:hover,
 .user-card:hover{
 
@@ -2168,6 +1822,28 @@ margin-bottom:20px;
 
 
 
+.collection-dashboard h3,
+.user-card h3{
+
+font-size:24px;
+
+color:#1e3a8a;
+
+}
+
+
+
+.collection-dashboard p,
+.user-card p{
+
+font-size:16px;
+
+color:#64748b;
+
+}
+
+
+
 @media(max-width:900px){
 
 .collection-dashboard{
@@ -2177,6 +1853,7 @@ grid-template-columns:repeat(2,1fr);
 }
 
 }
+
 
 
 @media(max-width:600px){
