@@ -196,7 +196,7 @@ document.getElementById("userId").value.trim();
 
 
 let password =
-"123456";
+document.getElementById("password").value.trim();
 
 
 
