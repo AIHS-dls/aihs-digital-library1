@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AIHS Notes Administration</title>
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="brand">
+
+<img src="logo.jpg" alt="AIHS Logo">
+
+<div>
+
+<strong>
+AIHS Digital Library
+</strong>
+
+<small>
+Acharya Institute of Health Sciences
+</small>
+
+</div>
+
+</div>
+
+
+<div class="userbar">
+
+<span>
+admin • Librarian
+</span>
+
+<button onclick="backAdministration()">
+⬅ Back
+</button>
+
+</div>
+
+</header>
+
+
+
+
+<main>
+
+
+<section class="hero">
+
+<h1>
+📝 Notes Administration
+</h1>
+
+
+<p>
+Upload, Edit and Delete Notes
+</p>
+
+
+</section>
+
+
+
+
+<section class="admin-box">
+
+
+<h2>
+📤 Add Notes
+</h2>
+
+
+
+<input
+id="title"
+placeholder="Notes Title"
+>
+
+
+
+<select id="department">
+
+<option value="">
+Select Department
+</option>
+
+<option>BPT</option>
+<option>BMLT</option>
+<option>BMIT</option>
+<option>MPT</option>
+<option>MHA</option>
+<option>ATOT</option>
+
+</select>
+
+
+
+
+<select id="year">
+
+<option value="">
+Select Year
+</option>
+
+<option>1st Year</option>
+<option>2nd Year</option>
+<option>3rd Year</option>
+<option>4th Year</option>
+
+</select>
+
+
+
+
+<input
+id="subject"
+placeholder="Subject"
+>
+
+
+
+
+<input
+id="file"
+type="file"
+accept=".pdf"
+>
+
+
+
+
+<button
+class="primary upload-btn"
+onclick="uploadNotes()"
+>
+
+📤 Upload Notes
+
+</button>
+
+
+
+<div id="msg"></div>
+
+
+</section>
+
+
+
+
+
+
+<section class="admin-box">
+
+
+<h2>
+📖 Notes Collection
+</h2>
+
+
+<div id="resourceList">
+
+Loading Notes...
+
+</div>
+
+
+</section>
+
+
+
+</main>
+
+
+
+
+<script src="notes-admin.js"></script>
+
+
+</body>
+
+</html>
