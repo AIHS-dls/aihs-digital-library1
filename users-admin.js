@@ -158,7 +158,7 @@ Delete
 }
 
 
-// =====================================
+ // =====================================
 // ADD USER
 // =====================================
 
@@ -169,6 +169,14 @@ let type =
 document.getElementById("userType").value;
 
 
+let userId =
+document.getElementById("userId").value.trim();
+
+
+let password =
+document.getElementById("password").value.trim();
+
+
 let name =
 document.getElementById("userName").value.trim();
 
@@ -176,27 +184,19 @@ document.getElementById("userName").value.trim();
 let department =
 document.getElementById("department").value.trim();
 
+
 let year =
-document.getElementById("year").value.trim();
+document.getElementById("year").value;
 
 
 
-if(!name || !department){
+if(!userId || !password || !name || !department){
 
-alert("Enter Name and Department");
+alert("Please fill all details");
 
 return;
 
 }
-
-
-
-let userId =
-document.getElementById("userId").value.trim();
-
-
-let password =
-document.getElementById("password").value.trim();
 
 
 
@@ -227,11 +227,12 @@ role:type,
 
 department:department,
 
-year:year  
+year:year
 
 })
 
 });
+
 
 
 const data = await response.json();
@@ -261,34 +262,37 @@ document.getElementById("department").value="";
 document.getElementById("year").value="";
 
 
-location.reload();
+// Refresh list
+loadUsers();
 
 
 }
 
-
-}
 
 else{
 
+
 alert(data.error);
 
+
 }
+
 
 
 }
 
 catch(error){
 
+
 console.log(error);
 
 alert("User Add Error");
 
-}
-
 
 }
 
+
+}
 
 
 
