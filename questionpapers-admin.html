@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+AIHS Question Papers Administration
+</title>
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="brand">
+
+<img src="logo.jpg" alt="AIHS Logo">
+
+<div>
+
+<strong>
+AIHS Digital Library
+</strong>
+
+<small>
+Acharya Institute of Health Sciences
+</small>
+
+</div>
+
+</div>
+
+
+<div class="userbar">
+
+<span>
+admin • Librarian
+</span>
+
+
+<button onclick="backAdministration()">
+
+⬅ Back
+
+</button>
+
+
+</div>
+
+</header>
+
+
+
+
+
+<main>
+
+
+<section class="hero">
+
+
+<h1>
+📄 Question Papers Administration
+</h1>
+
+
+<p>
+Upload, Edit and Delete Previous Year Question Papers
+</p>
+
+
+</section>
+
+
+
+
+
+
+<section class="admin-box">
+
+
+<h2>
+📤 Add Question Paper
+</h2>
+
+
+
+<input
+id="title"
+placeholder="Question Paper Title"
+>
+
+
+
+
+<select id="department">
+
+
+<option value="">
+Select Department
+</option>
+
+
+<option>BPT</option>
+<option>BMLT</option>
+<option>BMIT</option>
+<option>MPT</option>
+<option>MHA</option>
+<option>ATOT</option>
+
+
+</select>
+
+
+
+
+<select id="year">
+
+
+<option value="">
+Select Year
+</option>
+
+
+<option>1st Year</option>
+<option>2nd Year</option>
+<option>3rd Year</option>
+<option>4th Year</option>
+
+
+</select>
+
+
+
+
+<input
+id="subject"
+placeholder="Subject"
+>
+
+
+
+
+<input
+id="file"
+type="file"
+accept=".pdf"
+>
+
+
+
+
+<button
+class="primary upload-btn"
+onclick="uploadQuestionPaper()">
+
+📤 Upload Question Paper
+
+</button>
+
+
+
+<div id="msg"></div>
+
+
+</section>
+
+
+
+
+
+
+<section class="admin-box">
+
+
+<h2>
+📖 Question Papers Collection
+</h2>
+
+
+<div id="resourceList">
+
+Loading Question Papers...
+
+</div>
+
+
+</section>
+
+
+
+</main>
+
+
+
+
+
+<script src="questionpapers-admin.js"></script>
+
+
+</body>
+
+</html>
