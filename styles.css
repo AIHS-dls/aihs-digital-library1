@@ -1807,3 +1807,109 @@ grid-template-columns:1fr;
 }
 
 }
+
+/* ===============================
+   ADMIN COLLECTION DASHBOARD
+=============================== */
+
+.collection-grid,
+.collection-dashboard {
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-top: 30px;
+
+}
+
+
+.collection-card {
+
+    min-height: 220px;
+    padding: 35px 25px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #eef5ff
+    );
+
+    box-shadow: 
+    0 8px 25px rgba(0,0,0,0.12);
+
+}
+
+
+.collection-card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,0.20);
+
+}
+
+
+
+.card-icon,
+.collection-card h1 {
+
+    font-size: 55px;
+
+    margin-bottom: 15px;
+
+}
+
+
+
+.collection-card h3 {
+
+    font-size: 22px;
+
+    margin: 10px 0;
+
+}
+
+
+
+.collection-card p {
+
+    font-size: 16px;
+
+    color:#555;
+
+}
+
+
+/* Mobile */
+
+@media(max-width:900px){
+
+.collection-grid,
+.collection-dashboard{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+
+@media(max-width:600px){
+
+.collection-grid,
+.collection-dashboard{
+
+grid-template-columns:1fr;
+
+}
+
+}
