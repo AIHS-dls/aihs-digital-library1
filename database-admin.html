@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+AIHS Academic Databases Administration
+</title>
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+
+<div class="brand">
+
+<img src="logo.jpg">
+
+
+<div>
+
+<strong>
+AIHS Digital Library
+</strong>
+
+
+<small>
+Acharya Institute of Health Sciences
+</small>
+
+
+</div>
+
+</div>
+
+
+
+
+<div class="userbar">
+
+<span>
+admin • Librarian
+</span>
+
+
+<button onclick="backAdministration()">
+
+⬅ Back
+
+</button>
+
+
+</div>
+
+
+</header>
+
+
+
+
+
+<main>
+
+
+
+<section class="hero">
+
+
+<h1>
+💻 Academic Databases Administration
+</h1>
+
+
+<p>
+Manage Online Academic Databases
+</p>
+
+
+</section>
+
+
+
+
+
+
+
+<section class="admin-box">
+
+
+<h2>
+📤 Add Database
+</h2>
+
+
+
+<input
+id="title"
+placeholder="Database Name"
+>
+
+
+
+
+<input
+id="databaseLink"
+placeholder="Database Website Link (https://...)"
+>
+
+
+
+
+<button
+class="primary upload-btn"
+onclick="uploadDatabase()">
+
+💻 Add Database
+
+</button>
+
+
+
+<div id="msg"></div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<section class="admin-box">
+
+
+<h2>
+💻 Available Databases
+</h2>
+
+
+
+<div id="resourceList">
+
+Loading Databases...
+
+</div>
+
+
+</section>
+
+
+
+
+</main>
+
+
+
+
+
+<script src="database-admin.js"></script>
+
+
+</body>
+
+</html>
