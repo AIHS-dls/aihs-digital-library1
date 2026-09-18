@@ -225,9 +225,9 @@ password:password,
 
 role:type,
 
-department:department
+department:department,
 
-year:year,  
+year:year  
 
 })
 
