@@ -95,7 +95,7 @@ students.map(u=>`
 
 <td>${u.department}</td>
 
-<td>-</td>
+<td>${u.year || "-"}</td>
 
 <td>
 
@@ -176,6 +176,9 @@ document.getElementById("userName").value.trim();
 let department =
 document.getElementById("department").value.trim();
 
+let year =
+document.getElementById("year").value.trim();
+
 
 
 if(!name || !department){
@@ -223,6 +226,8 @@ password:password,
 role:type,
 
 department:department
+
+year:year,  
 
 })
 
