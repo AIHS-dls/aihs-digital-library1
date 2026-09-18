@@ -1913,3 +1913,86 @@ grid-template-columns:1fr;
 }
 
 }
+
+/* ADMINISTRATION BOX LAYOUT */
+
+.admin-cards {
+
+    display: grid !important;
+
+    grid-template-columns: repeat(3, 1fr) !important;
+
+    gap: 30px;
+
+    margin-top: 40px;
+
+}
+
+
+
+.admin-cards .collection-card {
+
+    min-height: 230px !important;
+
+    padding: 35px !important;
+
+    border-radius: 22px;
+
+    text-align: center;
+
+    background: white;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+
+    transition: .3s;
+
+}
+
+
+
+.admin-cards .collection-card:hover {
+
+    transform: translateY(-8px);
+
+}
+
+
+
+.admin-cards .card-icon {
+
+    font-size: 60px;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+.admin-cards h3 {
+
+    font-size: 24px;
+
+}
+
+
+
+@media(max-width:900px){
+
+.admin-cards{
+
+grid-template-columns:repeat(2,1fr) !important;
+
+}
+
+}
+
+
+@media(max-width:600px){
+
+.admin-cards{
+
+grid-template-columns:1fr !important;
+
+}
+
+}
