@@ -2100,3 +2100,311 @@ grid-template-columns:1fr;
 }
 
 }
+
+/* =====================================
+   USER MANAGEMENT PREMIUM DESIGN
+===================================== */
+
+
+.user-management-box{
+
+    max-width:1200px;
+    margin:40px auto;
+
+}
+
+
+/* Add User Card */
+
+.user-form-card{
+
+    background:white;
+
+    max-width:600px;
+
+    margin:0 auto 40px;
+
+    padding:35px;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,0.12);
+
+    text-align:center;
+
+}
+
+
+.user-form-card h2{
+
+    color:#1e3a8a;
+
+    font-size:26px;
+
+    margin-bottom:25px;
+
+}
+
+
+.user-form-card h2 i{
+
+    font-size:35px;
+
+    margin-right:10px;
+
+}
+
+
+
+.user-form-card select,
+.user-form-card input{
+
+    width:100%;
+
+    padding:15px;
+
+    margin:10px 0;
+
+    border-radius:12px;
+
+    border:1px solid #ddd;
+
+    font-size:16px;
+
+}
+
+
+.user-form-card button{
+
+    width:100%;
+
+    padding:15px;
+
+    margin-top:15px;
+
+    border:none;
+
+    border-radius:30px;
+
+    background:linear-gradient(
+    135deg,
+    #2563eb,
+    #1e40af
+    );
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+
+.user-form-card button:hover{
+
+    transform:translateY(-3px);
+
+}
+
+
+
+/* Students and Staff side by side */
+
+
+.user-list-container{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:30px;
+
+}
+
+
+
+/* Common List Card */
+
+
+.user-list-card{
+
+    padding:30px;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,0.12);
+
+    background:white;
+
+}
+
+
+
+.user-list-card h2{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.user-list-card h2 i{
+
+    font-size:35px;
+
+    margin-right:10px;
+
+}
+
+
+
+/* Student Color */
+
+
+.student-box{
+
+    background:
+    linear-gradient(
+    135deg,
+    #e3f2fd,
+    white
+    );
+
+}
+
+
+
+.student-box h2{
+
+    color:#1565c0;
+
+}
+
+
+
+/* Staff Color */
+
+
+.staff-box{
+
+    background:
+    linear-gradient(
+    135deg,
+    #e8f5e9,
+    white
+    );
+
+}
+
+
+
+.staff-box h2{
+
+    color:#2e7d32;
+
+}
+
+
+
+/* Table Design */
+
+
+.user-list-card table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    background:white;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+}
+
+
+
+.user-list-card th{
+
+    background:#1e3a8a;
+
+    color:white;
+
+    padding:14px;
+
+}
+
+
+
+.user-list-card td{
+
+    padding:14px;
+
+    text-align:center;
+
+    border-bottom:1px solid #eee;
+
+}
+
+
+
+/* Buttons */
+
+
+.user-list-card button{
+
+    padding:8px 15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    margin:3px;
+
+}
+
+
+
+.edit-btn{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+
+
+.delete-btn{
+
+    background:#c62828;
+
+    color:white;
+
+}
+
+
+
+/* Mobile */
+
+
+@media(max-width:800px){
+
+.user-list-container{
+
+grid-template-columns:1fr;
+
+}
+
+}
