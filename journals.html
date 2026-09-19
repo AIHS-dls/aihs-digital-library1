@@ -2,45 +2,27 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIHS Journal Collection</title>
 
-<title>AIHS Journal Collection</title>
-
-<link rel="stylesheet" href="styles.css">
-
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 
 <body>
 
-
-<header>
+<header class="topbar">
 
     <div class="brand">
-
         <img src="logo.jpg" alt="AIHS Logo">
-
-        <div>
-
-            <strong>
-                AIHS Digital Library
-            </strong>
-
-            <small>
-                Acharya Institute of Health Sciences
-            </small>
-
-        </div>
-
+        <span>AIHS Digital Library</span>
     </div>
 
-
-    <div class="userbar">
+    <div class="header-right">
 
         <span id="userInfo">
-            Loading...
+            User
         </span>
 
         <button onclick="backToDashboard()">
@@ -56,146 +38,80 @@
 </header>
 
 
+<main class="container">
 
-<main>
+    <!-- HERO -->
 
+    <section class="hero">
 
-<section class="hero">
+        <h1>📖 Journal Collection</h1>
 
-    <h1>
-        📖 Journal Collection
-    </h1>
+        <p>
+            Access important physiotherapy and academic journals.
+        </p>
 
-    <p id="pageDescription">
-        Loading...
-    </p>
-
-</section>
+    </section>
 
 
+    <!-- SEARCH -->
 
-<!-- ===============================
-     LIBRARIAN UPLOAD
-     =============================== -->
+    <section class="card">
 
-<section
-    id="uploadSection"
-    class="admin-box upload-box"
-    style="display:none;"
->
+        <h2>🔎 Search Journals</h2>
 
-    <h2>
-        📤 Upload New Journal
-    </h2>
+        <input
+            type="text"
+            id="searchJournal"
+            placeholder="Search Journal Title..."
+            oninput="searchJournals()"
+        >
 
-
-    <input
-        id="title"
-        type="text"
-        placeholder="Journal Title"
-    >
+    </section>
 
 
-    <input
-        id="subject"
-        type="text"
-        placeholder="Subject / Research Area"
-    >
+    <!-- JOURNAL LIST -->
 
+    <section class="card">
 
-    <select id="department">
+        <h2>📚 Available Journals</h2>
 
-        <option value="">
-            Select Department
-        </option>
+        <div class="table-container">
 
-        <option value="BPT">BPT</option>
-        <option value="BMLT">BMLT</option>
-        <option value="BMIT">BMIT</option>
-        <option value="MPT">MPT</option>
-        <option value="MHA">MHA</option>
-        <option value="ATOT">ATOT</option>
+            <table class="resource-table">
 
-    </select>
+                <thead>
 
+                    <tr>
 
-    <select id="year">
+                        <th>SL</th>
 
-        <option value="">
-            Select Year
-        </option>
+                        <th>Journal Titles</th>
 
-        <option value="1st Year">
-            1st Year
-        </option>
+                        <th>Website Link</th>
 
-        <option value="2nd Year">
-            2nd Year
-        </option>
+                    </tr>
 
-        <option value="3rd Year">
-            3rd Year
-        </option>
+                </thead>
 
-        <option value="4th Year">
-            4th Year
-        </option>
+                <tbody id="journalList">
 
-    </select>
+                    <tr>
 
+                        <td colspan="3">
+                            Loading journals...
+                        </td>
 
-    <input
-        id="file"
-        type="file"
-        accept="application/pdf,.pdf"
-    >
+                    </tr>
 
+                </tbody>
 
-    <button
-        class="primary"
-        type="button"
-        onclick="uploadJournal()"
-    >
-        📤 Upload Journal
-    </button>
+            </table>
 
+        </div>
 
-    <div id="msg"></div>
-
-</section>
-
-
-
-<!-- ===============================
-     JOURNAL LIST
-     =============================== -->
-
-<section class="admin-box">
-
-    <h2>
-        📖 Available Journals
-    </h2>
-
-
-    <input
-        id="searchJournal"
-        type="text"
-        placeholder="🔍 Search Journals by title, subject, department or year..."
-        oninput="searchJournals()"
-    >
-
-
-    <div id="journalList">
-
-        Loading...
-
-    </div>
-
-</section>
-
+    </section>
 
 </main>
-
 
 
 <script src="journals.js"></script>
@@ -215,59 +131,27 @@ document.addEventListener(
 
 
         const userInfo =
-            document.getElementById("userInfo");
-
-
-        if(userInfo){
-
-            userInfo.textContent =
-                (user || "User") +
-                " • " +
-                (role || "User");
-
-        }
-
-
-        const description =
             document.getElementById(
-                "pageDescription"
+                "userInfo"
             );
 
 
-        if(role === "Librarian"){
+        if(user){
 
-            document.getElementById(
-                "uploadSection"
-            ).style.display = "block";
-
-
-            if(description){
-
-                description.textContent =
-                    "Manage Journals - Upload, Edit and Delete";
-
-            }
+            userInfo.textContent =
+                user + " • " + (role || "");
 
         }
         else{
 
-            if(description){
-
-                description.textContent =
-                    "Browse Academic Journals and Research Articles";
-
-            }
+            userInfo.textContent =
+                "Guest";
 
         }
 
     }
 );
 
-
-
-/* =================================
-   BACK
-   ================================= */
 
 function backToDashboard(){
 
@@ -280,12 +164,9 @@ function backToDashboard(){
         window.location.href =
             "administration.html";
 
-        return;
-
     }
 
-
-    if(
+    else if(
         role === "Student" ||
         role === "Staff"
     ){
@@ -293,21 +174,17 @@ function backToDashboard(){
         window.location.href =
             "index.html?dashboard=1";
 
-        return;
+    }
+
+    else{
+
+        window.location.href =
+            "index.html";
 
     }
 
-
-    window.location.href =
-        "index.html";
-
 }
 
-
-
-/* =================================
-   LOGOUT
-   ================================= */
 
 function logoutUser(){
 
@@ -317,13 +194,13 @@ function logoutUser(){
 
     localStorage.removeItem("role");
 
+
     window.location.href =
         "index.html";
 
 }
 
 </script>
-
 
 </body>
 
