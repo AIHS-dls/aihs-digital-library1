@@ -51,6 +51,7 @@ loginForm.onsubmit = async function(e){
     
     localStorage.setItem("user", response.userId);
     localStorage.setItem("token", response.token);
+    localStorage.setItem("role", response.role);
   
 $("loginView").classList.add("hidden");
 
