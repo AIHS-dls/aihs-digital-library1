@@ -1,7 +1,20 @@
+```javascript
 const API="https://script.google.com/macros/s/AKfycbx2TIiEbBuAkNPZ-6wsyeuwGMb05kwE5HFgH9cdWaYCaMzroaYkU5Vw_IfNDBFaSHuBDA/exec";
 
 
 let ebooks=[];
+
+
+// ===============================
+// CHECK LIBRARIAN
+// ===============================
+
+function isLibrarian(){
+
+    return localStorage.getItem("role") === "Librarian";
+
+}
+
 
 
 // ===============================
@@ -10,143 +23,160 @@ let ebooks=[];
 
 async function loadEbooks(){
 
+    try{
 
-let response = await fetch(API,{
+        let response = await fetch(API,{
 
-method:"POST",
+            method:"POST",
 
-headers:{
-"Content-Type":"text/plain;charset=utf-8"
-},
+            headers:{
+                "Content-Type":"text/plain;charset=utf-8"
+            },
 
-body:JSON.stringify({
+            body:JSON.stringify({
 
-action:"list",
+                action:"list",
 
-token:localStorage.getItem("token")
+                token:localStorage.getItem("token")
 
-})
+            })
 
-});
-
-
-let data=await response.json();
+        });
 
 
-if(data.ok){
+        let data=await response.json();
 
 
-ebooks=data.resources.filter(function(r){
+        if(data.ok){
 
-return r.type=="E-book";
+            ebooks=data.resources.filter(function(r){
 
-});
+                return r.type=="E-book";
+
+            });
 
 
-displayEbooks();
+            displayEbooks();
 
+        }
+
+        else{
+
+            document.getElementById("ebookList").innerHTML=
+                data.error;
+
+        }
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        document.getElementById("ebookList").innerHTML=
+            "Unable to load E-Books";
+
+    }
 
 }
-
-else{
-
-document.getElementById("ebookList").innerHTML=
-data.error;
-
-}
-
-
-}
-
 
 
 
 // ===============================
-// DISPLAY
+// DISPLAY E-BOOKS
 // ===============================
-
 
 function displayEbooks(list=ebooks){
 
-
-let box=document.getElementById("ebookList");
-
-
-if(list.length===0){
-
-box.innerHTML=
-"No E-Books Found";
-
-return;
-
-}
+    let box=document.getElementById("ebookList");
 
 
+    if(list.length===0){
 
-box.innerHTML=list.map(function(r){
+        box.innerHTML=
+            "No E-Books Found";
 
+        return;
 
-return `
-
-
-<div class="card">
-
-
-<h3>
-📘 ${r.title}
-</h3>
+    }
 
 
-<p>
-Department : ${r.department || "-"}
-</p>
+    box.innerHTML=list.map(function(r){
+
+        let adminButtons="";
 
 
-<p>
-Year : ${r.year || "-"}
-</p>
+        // ===============================
+        // LIBRARIAN ONLY BUTTONS
+        // ===============================
+
+        if(isLibrarian()){
+
+            adminButtons=`
+
+                <br><br>
+
+                <button
+                onclick="editEbook('${r.id}')">
+
+                ✏ Edit
+
+                </button>
 
 
-<p>
-Subject : ${r.subject || "-"}
-</p>
+                <button
+                onclick="deleteEbook('${r.id}')"
+                style="background:#c62828;color:white">
+
+                🗑 Delete
+
+                </button>
+
+            `;
+
+        }
 
 
+        return `
 
-<a href="${r.url}" target="_blank">
+        <div class="card">
 
-📖 Open PDF
-
-</a>
-
-
-<br><br>
+            <h3>
+                📘 ${r.title}
+            </h3>
 
 
-<button onclick="editEbook('${r.id}')">
-
-✏ Edit
-
-</button>
+            <p>
+                Department : ${r.department || "-"}
+            </p>
 
 
-
-<button 
-onclick="deleteEbook('${r.id}')"
-style="background:#c62828;color:white">
-
-🗑 Delete
-
-</button>
+            <p>
+                Year : ${r.year || "-"}
+            </p>
 
 
-</div>
+            <p>
+                Subject : ${r.subject || "-"}
+            </p>
 
 
-`;
+            <a
+            href="${r.url}"
+            target="_blank">
+
+                📖 Open PDF
+
+            </a>
 
 
-}).join("");
+            ${adminButtons}
+
+        </div>
+
+        `;
+
+    }).join("");
 
 }
 
@@ -156,299 +186,362 @@ style="background:#c62828;color:white">
 // SEARCH
 // ===============================
 
-
 function searchBooks(){
 
-
-let value=document
-.getElementById("searchBook")
-.value
-.toLowerCase();
-
+    let value=document
+        .getElementById("searchBook")
+        .value
+        .toLowerCase();
 
 
-let result=ebooks.filter(function(r){
+    let result=ebooks.filter(function(r){
+
+        return (
+
+            (r.title || "")
+            .toLowerCase()
+            .includes(value)
+
+        );
+
+    });
 
 
-return (
-
-r.title.toLowerCase()
-.includes(value)
-
-);
-
-
-});
-
-
-displayEbooks(result);
-
+    displayEbooks(result);
 
 }
 
 
 
-
 // ===============================
-// UPLOAD
+// UPLOAD E-BOOK
+// LIBRARIAN ONLY
 // ===============================
-
 
 async function uploadEbook(){
 
 
-let file=document
-.getElementById("file")
-.files[0];
+    // ===============================
+    // ROLE SECURITY
+    // ===============================
 
+    if(!isLibrarian()){
 
-if(!file){
+        alert(
+            "Access Denied\n\nOnly Librarian can upload E-Books."
+        );
 
-alert("Select PDF File");
+        return;
 
-return;
+    }
 
-}
 
+    let file=document
+        .getElementById("file")
+        .files[0];
 
 
-document.getElementById("msg").innerHTML=
-"Uploading...";
+    if(!file){
 
+        alert("Select PDF File");
 
+        return;
 
-let reader=new FileReader();
+    }
 
 
+    document.getElementById("msg").innerHTML=
+        "Uploading...";
 
-reader.onload=async function(){
 
+    let reader=new FileReader();
 
-let base64=
-reader.result.split(",")[1];
 
+    reader.onload=async function(){
 
+        try{
 
-let response=await fetch(API,{
+            let base64=
+                reader.result.split(",")[1];
 
-method:"POST",
 
-headers:{
-"Content-Type":"text/plain;charset=utf-8"
-},
+            let response=await fetch(API,{
 
+                method:"POST",
 
-body:JSON.stringify({
+                headers:{
+                    "Content-Type":"text/plain;charset=utf-8"
+                },
 
-action:"add",
 
-token:localStorage.getItem("token"),
+                body:JSON.stringify({
 
+                    action:"add",
 
-title:
-document.getElementById("title").value,
+                    token:localStorage.getItem("token"),
 
 
-type:"E-book",
+                    title:
+                    document.getElementById("title").value.trim(),
 
 
-department:
-document.getElementById("department").value,
+                    type:"E-book",
 
 
-year:
-document.getElementById("year").value,
+                    department:
+                    document.getElementById("department").value,
 
 
-subject:
-document.getElementById("subject").value,
+                    year:
+                    document.getElementById("year").value,
 
 
-fileName:file.name,
+                    subject:
+                    document.getElementById("subject").value.trim(),
 
 
-mimeType:file.type,
+                    fileName:file.name,
 
 
-data:base64
+                    mimeType:file.type,
 
 
-})
+                    data:base64
 
+                })
 
-});
+            });
 
 
+            let data=await response.json();
 
-let data=await response.json();
 
+            if(data.ok){
 
+                document.getElementById("msg").innerHTML=
+                    "✅ E-Book Uploaded Successfully";
 
-if(data.ok){
 
+                document.getElementById("title").value="";
 
-document.getElementById("msg").innerHTML=
-"✅ E-Book Uploaded Successfully";
+                document.getElementById("subject").value="";
 
+                document.getElementById("file").value="";
 
-document.getElementById("title").value="";
 
-document.getElementById("subject").value="";
+                loadEbooks();
 
-document.getElementById("file").value="";
+            }
 
+            else{
 
-loadEbooks();
+                document.getElementById("msg").innerHTML=
+                    "❌ "+data.error;
 
+            }
 
-}
+        }
 
-else{
+        catch(error){
 
+            console.log(error);
 
-document.getElementById("msg").innerHTML=
-"❌ "+data.error;
+            document.getElementById("msg").innerHTML=
+                "❌ Upload Error";
 
+        }
 
-}
+    };
 
 
-
-};
-
-
-reader.readAsDataURL(file);
-
+    reader.readAsDataURL(file);
 
 }
 
 
 
 // ===============================
-// DELETE
+// DELETE E-BOOK
+// LIBRARIAN ONLY
 // ===============================
-
 
 async function deleteEbook(id){
 
 
-if(!confirm("Delete this E-Book?"))
-return;
+    if(!isLibrarian()){
+
+        alert(
+            "Access Denied\n\nOnly Librarian can delete E-Books."
+        );
+
+        return;
+
+    }
 
 
+    if(!confirm("Delete this E-Book?")){
 
-let response=await fetch(API,{
+        return;
 
-method:"POST",
-
-headers:{
-"Content-Type":"text/plain;charset=utf-8"
-},
+    }
 
 
-body:JSON.stringify({
+    try{
 
-action:"delete",
+        let response=await fetch(API,{
 
-id:id,
+            method:"POST",
 
-token:localStorage.getItem("token")
-
-})
-
-
-});
+            headers:{
+                "Content-Type":"text/plain;charset=utf-8"
+            },
 
 
-let data=await response.json();
+            body:JSON.stringify({
+
+                action:"delete",
+
+                id:id,
+
+                token:localStorage.getItem("token")
+
+            })
+
+        });
 
 
+        let data=await response.json();
 
-if(data.ok){
 
-alert("✅ Deleted");
+        if(data.ok){
 
-loadEbooks();
+            alert("✅ Deleted");
+
+            loadEbooks();
+
+        }
+
+        else{
+
+            alert(data.error);
+
+        }
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        alert("Delete Error");
+
+    }
 
 }
-
-else{
-
-alert(data.error);
-
-}
-
-
-}
-
 
 
 
 // ===============================
-// EDIT
+// EDIT E-BOOK
+// LIBRARIAN ONLY
 // ===============================
-
 
 function editEbook(id){
 
 
-let book=ebooks.find(function(r){
+    if(!isLibrarian()){
 
-return r.id==id;
+        alert(
+            "Access Denied\n\nOnly Librarian can edit E-Books."
+        );
 
-});
+        return;
 
-
-if(!book)
-return;
-
-
-
-document.getElementById("title").value=
-book.title;
+    }
 
 
-document.getElementById("subject").value=
-book.subject;
+    let book=ebooks.find(function(r){
+
+        return r.id==id;
+
+    });
 
 
-document.getElementById("department").value=
-book.department;
+    if(!book){
+
+        return;
+
+    }
 
 
-document.getElementById("year").value=
-book.year;
+    document.getElementById("title").value=
+        book.title;
 
 
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
+    document.getElementById("subject").value=
+        book.subject;
 
 
-alert(
-"Edit details and upload new PDF"
-);
+    document.getElementById("department").value=
+        book.department;
 
+
+    document.getElementById("year").value=
+        book.year;
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+
+    alert(
+        "Edit details and upload new PDF"
+    );
 
 }
 
 
 
+// ===============================
+// BACK TO COLLECTIONS
+// ===============================
 
 function backCollections(){
 
-window.location.href="collections.html";
+    let role=
+        localStorage.getItem("role");
+
+
+    if(role==="Librarian"){
+
+        window.location.href=
+            "administration.html";
+
+    }
+
+    else{
+
+        window.location.href=
+            "index.html";
+
+    }
 
 }
 
 
 
+// ===============================
+// PAGE LOAD
+// ===============================
+
 window.onload=function(){
 
-loadEbooks();
+    loadEbooks();
 
 };
+```
