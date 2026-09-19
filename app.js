@@ -375,26 +375,27 @@ async function loadResources(){
 
 }
 
-
 // ===============================
 // DISPLAY + SEARCH
 // ===============================
 
 function render(){
 
-  let box=$("resources");
+  let box = $("resources");
 
-  if(!box)return;
+  if(!box) return;
 
-  let searchBox=$("search");
 
-  let query=searchBox
+  let searchBox = $("search");
+
+  let query = searchBox
     ? searchBox.value.trim().toLowerCase()
     : "";
 
-  let filtered=resources.filter(function(r){
 
-    let text=[
+  let filtered = resources.filter(function(r){
+
+    let text = [
 
       r.title,
       r.type,
@@ -407,23 +408,31 @@ function render(){
     .join(" ")
     .toLowerCase();
 
+
     return text.includes(query);
 
   });
 
 
-  // Count
+  // ===============================
+  // COUNT
+  // ===============================
+
   if($("resourceCount")){
 
     $("resourceCount").innerHTML =
-      filtered.length+" resource(s)";
+      filtered.length + " resource(s)";
 
   }
 
 
-  if(filtered.length===0){
+  // ===============================
+  // NO RESULTS
+  // ===============================
 
-    box.innerHTML=`
+  if(filtered.length === 0){
+
+    box.innerHTML = `
 
       <div style="
         padding:25px;
@@ -442,47 +451,63 @@ function render(){
   }
 
 
-  box.innerHTML=filtered.map(function(r){
+  // ===============================
+  // DISPLAY
+  // ===============================
+
+  box.innerHTML = filtered.map(function(r){
 
     return `
 
-      <div class="card public-resource-card" data-type="${r.type}">
+      <div
+      class="card public-resource-card"
+      data-type="${escapeHTML(r.type || "")}"
+      >
 
         <h3>
           📘 ${escapeHTML(r.title || "")}
         </h3>
+
 
         <p>
           <b>Type:</b>
           ${escapeHTML(r.type || "Other")}
         </p>
 
+
         <p>
           <b>Department:</b>
           ${escapeHTML(r.department || "-")}
         </p>
+
 
         <p>
           <b>Semester:</b>
           ${escapeHTML(r.semester || "-")}
         </p>
 
+
         <p>
           <b>Subject:</b>
           ${escapeHTML(r.subject || "-")}
         </p>
+
 
         <p>
           <b>Year:</b>
           ${escapeHTML(r.year || "-")}
         </p>
 
+
         <a
           href="${r.url}"
           target="_blank"
         >
+
           📖 Open Resource
+
         </a>
+
 
         ${
           role === "Librarian"
@@ -497,7 +522,9 @@ function render(){
               margin-top:10px;
             "
           >
+
             🗑 Delete
+
           </button>
 
           `
@@ -1255,93 +1282,129 @@ async function loadStudentDashboard(){
                 response.resources || [];
 
 
-            /*
-             * Latest Resources
-             */
+    // ===============================
+// LATEST RESOURCES
+// ONE FROM EACH CATEGORY
+// ===============================
 
-            let latestBox =
-                document.getElementById(
-                    "studentLatestResources"
-                );
-
-
-            if(latestBox){
-
-                let latest =
-                    resources.slice(0,6);
+let latestBox =
+    document.getElementById(
+        "studentLatestResources"
+    );
 
 
-                if(latest.length === 0){
+if(latestBox){
 
-                    latestBox.innerHTML =
-                        "<p>No resources available.</p>";
+    let latest = [];
 
-                }
-                else{
+    let types = [
 
-                    latestBox.innerHTML =
-                        latest.map(function(r){
+        "E-book",
+        "Notes",
+        "Question Paper",
+        "Journal",
+        "Database"
 
-                            return `
+    ];
 
-                            <div
-                            class="card"
-                            data-type="${escapeHTML(r.type || "")}"
-                            >
 
-                            <h3>
-                            📘 ${escapeHTML(
-                                r.title || ""
-                            )}
-                            </h3>
+    types.forEach(function(type){
 
-                            <p>
-                            <b>Type:</b>
-                            ${escapeHTML(
-                                r.type || "-"
-                            )}
-                            </p>
+        let item =
+            resources.find(function(r){
 
-                            <p>
-                            <b>Department:</b>
-                            ${escapeHTML(
-                                r.department || "-"
-                            )}
-                            </p>
+                return r.type === type;
 
-                            <p>
-                            <b>Year:</b>
-                            ${escapeHTML(
-                                r.year || "-"
-                            )}
-                            </p>
+            });
 
-                            <p>
-                            <b>Subject:</b>
-                            ${escapeHTML(
-                                r.subject || "-"
-                            )}
-                            </p>
 
-                            <a
-                            href="${r.url}"
-                            target="_blank"
-                            >
+        if(item){
 
-                            📖 Open Resource
+            latest.push(item);
 
-                            </a>
+        }
 
-                            </div>
+    });
 
-                            `;
 
-                        }).join("");
+    if(latest.length === 0){
 
-                }
+        latestBox.innerHTML =
+            "<p>No resources available.</p>";
 
-            }
+    }
+    else{
 
+        latestBox.innerHTML =
+            latest.map(function(r){
+
+                return `
+
+                <div
+                class="card"
+                data-type="${escapeHTML(
+                    r.type || ""
+                )}"
+                >
+
+                <h3>
+                📘 ${escapeHTML(
+                    r.title || ""
+                )}
+                </h3>
+
+
+                <p>
+                <b>Type:</b>
+                ${escapeHTML(
+                    r.type || "-"
+                )}
+                </p>
+
+
+                <p>
+                <b>Department:</b>
+                ${escapeHTML(
+                    r.department || "-"
+                )}
+                </p>
+
+
+                <p>
+                <b>Year:</b>
+                ${escapeHTML(
+                    r.year || "-"
+                )}
+                </p>
+
+
+                <p>
+                <b>Subject:</b>
+                ${escapeHTML(
+                    r.subject || "-"
+                )}
+                </p>
+
+
+                <a
+                href="${r.url}"
+                target="_blank"
+                >
+
+                📖 Open Resource
+
+                </a>
+
+
+                </div>
+
+                `;
+
+            }).join("");
+
+    }
+
+}
 
             /*
              * Render all resources
