@@ -4,11 +4,9 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>
-AIHS E-Book Collection
-</title>
+<title>AIHS E-Book Collection</title>
 
 <link rel="stylesheet" href="styles.css">
 
@@ -18,189 +16,230 @@ AIHS E-Book Collection
 <body>
 
 
+<!-- ===============================
+     HEADER
+     =============================== -->
+
 <header>
 
-<div class="brand">
+    <div class="brand">
 
-<img src="logo.jpg">
+        <img src="logo.jpg" alt="AIHS Logo">
 
-<div>
-<strong>
-AIHS Digital Library
-</strong>
+        <div>
 
-<small>
-Acharya Institute of Health Sciences
-</small>
+            <strong>
+                AIHS Digital Library
+            </strong>
 
-</div>
+            <small>
+                Acharya Institute of Health Sciences
+            </small>
 
-</div>
+        </div>
+
+    </div>
 
 
-<div class="userbar">
+    <div class="userbar">
 
-<span id="userInfo">
-Loading...
-</span>
+        <span id="userInfo">
+            Loading...
+        </span>
 
-<button onclick="backCollections()">
-⬅ Back
-</button>
+        <button onclick="backToDashboard()">
+            ⬅ Back
+        </button>
 
-<button onclick="logoutUser()">
-Logout
-</button>
+        <button onclick="logoutUser()">
+            Logout
+        </button>
 
-</div>
+    </div>
 
 </header>
 
 
 
+<!-- ===============================
+     MAIN
+     =============================== -->
+
 <main>
 
 
-<section class="hero">
+    <!-- PAGE TITLE -->
 
-<h1>
-📚 E-Book Collection
-</h1>
+    <section class="hero">
 
-<p id="pageDescription">
-Loading...
-</p>
+        <h1>
+            📚 E-Book Collection
+        </h1>
 
-</section>
+        <p id="pageDescription">
+            Loading...
+        </p>
 
-
-
-<!-- ===============================
-     LIBRARIAN UPLOAD SECTION
-     =============================== -->
-
-<section
-id="uploadSection"
-class="admin-box upload-box"
-style="display:none;"
->
-
-
-<h2>
-📤 Upload New E-Book
-</h2>
-
-
-<input
-id="title"
-placeholder="Book Title"
->
-
-
-<input
-id="subject"
-placeholder="Subject"
->
-
-
-<select id="department">
-
-<option value="">
-Select Department
-</option>
-
-<option>BPT</option>
-<option>BMLT</option>
-<option>BMIT</option>
-<option>MPT</option>
-<option>MHA</option>
-<option>ATOT</option>
-
-</select>
+    </section>
 
 
 
-<select id="year">
+    <!-- ===============================
+         LIBRARIAN UPLOAD SECTION
+         =============================== -->
 
-<option value="">
-Select Year
-</option>
+    <section
+        id="uploadSection"
+        class="admin-box upload-box"
+        style="display:none;"
+    >
 
-<option>1st Year</option>
-<option>2nd Year</option>
-<option>3rd Year</option>
-<option>4th Year</option>
-
-</select>
-
-
-
-<input
-id="file"
-type="file"
->
+        <h2>
+            📤 Upload New E-Book
+        </h2>
 
 
-
-<button
-class="primary"
-onclick="uploadEbook()"
->
-
-📤 Upload E-Book
-
-</button>
+        <input
+            id="title"
+            type="text"
+            placeholder="Book Title"
+        >
 
 
-<div id="msg"></div>
+        <input
+            id="subject"
+            type="text"
+            placeholder="Subject"
+        >
 
 
-</section>
+        <select id="department">
+
+            <option value="">
+                Select Department
+            </option>
+
+            <option value="BPT">
+                BPT
+            </option>
+
+            <option value="BMLT">
+                BMLT
+            </option>
+
+            <option value="BMIT">
+                BMIT
+            </option>
+
+            <option value="MPT">
+                MPT
+            </option>
+
+            <option value="MHA">
+                MHA
+            </option>
+
+            <option value="ATOT">
+                ATOT
+            </option>
+
+        </select>
+
+
+        <select id="year">
+
+            <option value="">
+                Select Year
+            </option>
+
+            <option value="1st Year">
+                1st Year
+            </option>
+
+            <option value="2nd Year">
+                2nd Year
+            </option>
+
+            <option value="3rd Year">
+                3rd Year
+            </option>
+
+            <option value="4th Year">
+                4th Year
+            </option>
+
+        </select>
+
+
+        <input
+            id="file"
+            type="file"
+            accept="application/pdf,.pdf"
+        >
+
+
+        <button
+            class="primary"
+            type="button"
+            onclick="uploadEbook()"
+        >
+            📤 Upload E-Book
+        </button>
+
+
+        <div id="msg"></div>
+
+    </section>
 
 
 
-<!-- ===============================
-     E-BOOK LIST
-     =============================== -->
+    <!-- ===============================
+         E-BOOK LIST
+         =============================== -->
 
-<section class="admin-box">
+    <section class="admin-box">
 
-
-<h2>
-📖 Available E-Books
-</h2>
-
-
-<input
-id="searchBook"
-placeholder="🔍 Search E-Books..."
-onkeyup="searchBooks()"
->
+        <h2>
+            📖 Available E-Books
+        </h2>
 
 
-<div id="ebookList">
+        <!-- SEARCH -->
 
-Loading...
+        <input
+            id="searchBook"
+            type="text"
+            placeholder="🔍 Search E-Books by title, subject, department or year..."
+            oninput="searchBooks()"
+        >
 
-</div>
 
+        <!-- RESOURCE LIST -->
 
-</section>
+        <div id="ebookList">
 
+            Loading...
+
+        </div>
+
+    </section>
 
 
 </main>
 
 
 
-<script src="ebooks.js"></script>
+<!-- ===============================
+     JAVASCRIPT
+     =============================== -->
 
+<script src="ebooks.js"></script>
 
 
 <script>
 
 /* =================================
-   ROLE BASED ACCESS
+   PAGE INITIALIZATION
    ================================= */
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -212,14 +251,16 @@ document.addEventListener("DOMContentLoaded", function(){
         localStorage.getItem("role");
 
 
-    /* USER INFORMATION */
+    /* ===============================
+       USER INFORMATION
+       =============================== */
 
     const userInfo =
         document.getElementById("userInfo");
 
     if(userInfo){
 
-        userInfo.innerHTML =
+        userInfo.textContent =
             (user || "User") +
             " • " +
             (role || "User");
@@ -227,38 +268,40 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
 
-    /* PAGE DESCRIPTION */
+    /* ===============================
+       PAGE DESCRIPTION
+       =============================== */
 
     const description =
         document.getElementById("pageDescription");
 
 
-    /* LIBRARIAN */
-
     if(role === "Librarian"){
 
-        document.getElementById(
-            "uploadSection"
-        ).style.display = "block";
+        const uploadSection =
+            document.getElementById("uploadSection");
+
+        if(uploadSection){
+
+            uploadSection.style.display =
+                "block";
+
+        }
 
 
         if(description){
 
-            description.innerHTML =
+            description.textContent =
                 "Manage Digital Books - Upload, Edit and Delete";
 
         }
 
     }
-
-
-    /* STUDENT / STAFF */
-
     else{
 
         if(description){
 
-            description.innerHTML =
+            description.textContent =
                 "Browse and Read Digital Books";
 
         }
@@ -268,16 +311,17 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 
-
 /* =================================
-   BACK TO COLLECTIONS
+   BACK
    ================================= */
 
-function backCollections(){
+function backToDashboard(){
 
     const role =
         localStorage.getItem("role");
 
+
+    /* LIBRARIAN */
 
     if(role === "Librarian"){
 
@@ -289,9 +333,19 @@ function backCollections(){
     }
 
 
-    /*
-     * Student / Staff
-     */
+    /* STUDENT / STAFF */
+
+    if(role === "Student" || role === "Staff"){
+
+        window.location.href =
+            "index.html?dashboard=1";
+
+        return;
+
+    }
+
+
+    /* NOT LOGGED IN */
 
     window.location.href =
         "index.html";
@@ -322,4 +376,3 @@ function logoutUser(){
 </body>
 
 </html>
-```
