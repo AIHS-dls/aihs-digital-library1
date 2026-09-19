@@ -1,13 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<title>
-AIHS Library Administration
-</title>
+    <meta charset="UTF-8">
 
-<link rel="stylesheet" href="styles.css">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AIHS Library Administration</title>
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
 
 </head>
 
@@ -17,29 +25,64 @@ AIHS Library Administration
 
 <header>
 
-<div class="brand">
+    <div class="brand">
 
-<img src="logo.jpg">
+        <img
+            src="logo.jpg"
+            alt="AIHS Logo"
+        >
 
-<div>
+        <div>
 
-<strong>
-AIHS Digital Library
-</strong>
+            <strong>
+                AIHS Digital Library
+            </strong>
 
-<small>
-Acharya Institute of Health Sciences
-</small>
+            <small>
+                Acharya Institute of Health Sciences
+            </small>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
 
-<button class="back-button" onclick="location.href='index.html'">
-⬅ Back
-</button>
+    <div style="
+        display:flex;
+        align-items:center;
+        gap:10px;
+    ">
 
+        <span
+            id="adminUserInfo"
+            style="
+                background:#f1f5f9;
+                color:#334155;
+                padding:9px 14px;
+                border-radius:9px;
+                font-size:14px;
+                font-weight:600;
+            "
+        >
+            Librarian
+        </span>
+
+
+        <button
+            class="back-button"
+            onclick="backToDashboard()"
+        >
+            ⬅ Back
+        </button>
+
+
+        <button
+            onclick="logoutAdmin()"
+        >
+            Logout
+        </button>
+
+    </div>
 
 </header>
 
@@ -50,124 +93,161 @@ Acharya Institute of Health Sciences
 
 <section class="admin-title">
 
-<h1>
-📚 Library Administration
-</h1>
+    <h1>
+        📚 Library Administration
+    </h1>
 
-<p>
-Manage Library Collections, Users and Digital Resources
-</p>
+    <p>
+        Manage Library Collections, Users and Digital Resources
+    </p>
 
 </section>
+
+
 
 <section class="collection-dashboard">
 
 
-<div class="collection-card premium-card"
-onclick="openCollection('ebooks-admin.html')">
+    <!-- E-BOOKS -->
 
-<div class="card-icon">📚</div>
+    <div
+        class="collection-card premium-card"
+        onclick="openCollection('ebooks-admin.html')"
+    >
 
-<h3>E-Books</h3>
+        <div class="card-icon">
+            📚
+        </div>
 
-<p id="ebookCount">
-Manage E-Books
-</p>
+        <h3>
+            E-Books
+        </h3>
 
-</div>
+        <p id="ebookCount">
+            Manage E-Books
+        </p>
 
-
-
-<div class="collection-card premium-card"
-onclick="openCollection('notes-admin.html')">
-
-<div class="card-icon">📝</div>
-
-<h3>Notes</h3>
-
-<p id="notesCount">
-Manage Notes
-</p>
-
-</div>
+    </div>
 
 
 
-<div class="collection-card premium-card"
-onclick="openCollection('questionpapers-admin.html')">
+    <!-- NOTES -->
 
-<div class="card-icon">📄</div>
+    <div
+        class="collection-card premium-card"
+        onclick="openCollection('notes-admin.html')"
+    >
 
-<h3>Question Papers</h3>
+        <div class="card-icon">
+            📝
+        </div>
 
-<p id="qpCount">
-Manage Question Papers
-</p>
+        <h3>
+            Notes
+        </h3>
 
-</div>
+        <p id="notesCount">
+            Manage Notes
+        </p>
 
-
-
-<div class="collection-card premium-card"
-onclick="openCollection('journals-admin.html')">
-
-<div class="card-icon">📖</div>
-
-<h3>Journals</h3>
-
-<p id="journalCount">
-Manage Journals
-</p>
-
-</div>
+    </div>
 
 
 
-<div class="collection-card premium-card"
-onclick="openCollection('database-admin.html')">
+    <!-- QUESTION PAPERS -->
 
-<div class="card-icon">💻</div>
+    <div
+        class="collection-card premium-card"
+        onclick="openCollection('questionpapers-admin.html')"
+    >
 
-<h3>Academic Databases</h3>
+        <div class="card-icon">
+            📄
+        </div>
 
-<p id="databaseCount">
-Manage Databases
-</p>
+        <h3>
+            Question Papers
+        </h3>
 
-</div>
+        <p id="qpCount">
+            Manage Question Papers
+        </p>
+
+    </div>
+
+
+
+    <!-- JOURNALS -->
+
+    <div
+        class="collection-card premium-card"
+        onclick="openCollection('journals-admin.html')"
+    >
+
+        <div class="card-icon">
+            📖
+        </div>
+
+        <h3>
+            Journals
+        </h3>
+
+        <p id="journalCount">
+            Manage Journals
+        </p>
+
+    </div>
+
+
+
+    <!-- DATABASES -->
+
+    <div
+        class="collection-card premium-card"
+        onclick="openCollection('database-admin.html')"
+    >
+
+        <div class="card-icon">
+            💻
+        </div>
+
+        <h3>
+            Academic Databases
+        </h3>
+
+        <p id="databaseCount">
+            Manage Databases
+        </p>
+
+    </div>
 
 
 </section>
 
 
 
-<!-- Separate Manage Users Card -->
+<!-- MANAGE USERS -->
 
-<div class="user-card collection-card premium-card"
-onclick="openCollection('users-admin.html')">
+<div
+    class="user-card collection-card premium-card"
+    onclick="openCollection('users-admin.html')"
+>
 
-<div class="card-icon">
-👥
+    <div class="card-icon">
+        👥
+    </div>
+
+    <h3>
+        Manage Library Users
+    </h3>
+
+    <p>
+        Add and Delete
+        <br>
+        Students / Staff Accounts
+    </p>
+
 </div>
-
-<h3>
-Manage Library Users
-</h3>
-
-<p>
-Add and Delete
-<br>
-Students / Staff Accounts
-</p>
-
-</div>
-
-</section>
-
-
-
-
-
 
 
 
