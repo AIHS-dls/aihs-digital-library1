@@ -2408,3 +2408,399 @@ grid-template-columns:1fr;
 }
 
 }
+
+/* =====================================================
+   PREMIUM JOURNAL & DATABASE COLLECTION DESIGN
+===================================================== */
+
+.collection-page {
+    background:
+        linear-gradient(
+            135deg,
+            #f5f7fb 0%,
+            #eef2f8 50%,
+            #f8fafc 100%
+        );
+    min-height: 100vh;
+}
+
+
+/* =========================
+   PREMIUM HEADER
+========================= */
+
+.collection-page .topbar {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.07);
+    padding: 14px 28px;
+}
+
+
+.collection-page .brand {
+    gap: 13px;
+}
+
+
+.collection-page .brand img {
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+}
+
+
+.collection-page .brand span {
+    font-size: 21px;
+    font-weight: 700;
+    color: #172554;
+    letter-spacing: 0.2px;
+}
+
+
+.collection-page .header-right {
+    gap: 10px;
+}
+
+
+.collection-page #userInfo {
+    background: #f1f5f9;
+    color: #334155;
+    padding: 9px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+.collection-page .header-right button {
+    border: none;
+    border-radius: 9px;
+    padding: 9px 15px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+
+.collection-page .header-right button:hover {
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.collection-page .container {
+    max-width: 1180px;
+    margin: auto;
+    padding: 40px 24px 70px;
+}
+
+
+/* =========================
+   PREMIUM HERO
+========================= */
+
+.collection-page .hero {
+    background:
+        linear-gradient(
+            135deg,
+            #172554,
+            #1e3a8a,
+            #2563eb
+        );
+    color: white;
+    border-radius: 22px;
+    padding: 42px 40px;
+    margin-bottom: 28px;
+    box-shadow:
+        0 15px 35px rgba(30, 58, 138, 0.20);
+    position: relative;
+    overflow: hidden;
+}
+
+
+.collection-page .hero::after {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    right: -70px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+}
+
+
+.collection-page .hero h1 {
+    margin: 0 0 10px;
+    font-size: 32px;
+    font-weight: 750;
+    position: relative;
+    z-index: 1;
+}
+
+
+.collection-page .hero p {
+    margin: 0;
+    color: #dbeafe;
+    font-size: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+
+/* =========================
+   PREMIUM CARDS
+========================= */
+
+.collection-page .card {
+    background: rgba(255,255,255,0.96);
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 26px;
+    margin-bottom: 25px;
+    box-shadow:
+        0 8px 25px rgba(15, 23, 42, 0.06);
+}
+
+
+.collection-page .card h2 {
+    margin-top: 0;
+    margin-bottom: 18px;
+    color: #172554;
+    font-size: 20px;
+}
+
+
+/* =========================
+   LARGE SEARCH BOX
+========================= */
+
+.collection-page #searchJournal,
+.collection-page #searchDatabase {
+    width: 100%;
+    box-sizing: border-box;
+    height: 58px;
+    padding: 0 20px;
+    border: 2px solid #dbe3ef;
+    border-radius: 13px;
+    background: #f8fafc;
+    color: #1e293b;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+
+.collection-page #searchJournal::placeholder,
+.collection-page #searchDatabase::placeholder {
+    color: #94a3b8;
+}
+
+
+.collection-page #searchJournal:focus,
+.collection-page #searchDatabase:focus {
+    background: white;
+    border-color: #2563eb;
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================
+   TABLE WRAPPER
+========================= */
+
+.collection-page .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 15px;
+}
+
+
+/* =========================
+   PREMIUM TABLE
+========================= */
+
+.collection-page .resource-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 700px;
+    background: white;
+}
+
+
+.collection-page .resource-table thead th {
+    background: #172554;
+    color: white;
+    padding: 17px 22px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+
+.collection-page .resource-table thead th:first-child {
+    text-align: center;
+    width: 80px;
+}
+
+
+.collection-page .resource-table tbody td {
+    padding: 20px 22px;
+    border-bottom: 1px solid #edf2f7;
+    color: #334155;
+    font-size: 15px;
+    line-height: 1.5;
+    vertical-align: middle;
+}
+
+
+/* SL NUMBER */
+
+.collection-page .resource-table tbody td:first-child {
+    text-align: center;
+    font-weight: 700;
+    color: #2563eb;
+    font-size: 16px;
+}
+
+
+/* TITLE */
+
+.collection-page .resource-table tbody td:nth-child(2) {
+    font-weight: 600;
+    color: #1e293b;
+    min-width: 350px;
+}
+
+
+/* ROW HOVER */
+
+.collection-page .resource-table tbody tr {
+    transition: 0.2s ease;
+}
+
+
+.collection-page .resource-table tbody tr:hover {
+    background: #f8fbff;
+}
+
+
+.collection-page .resource-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================
+   WEBSITE BUTTON
+========================= */
+
+.collection-page .website-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    background: #2563eb;
+    color: white !important;
+    text-decoration: none;
+    padding: 10px 17px;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    box-shadow:
+        0 4px 10px rgba(37, 99, 235, 0.18);
+}
+
+
+.collection-page .website-link:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow:
+        0 7px 16px rgba(37, 99, 235, 0.25);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .collection-page .topbar {
+        padding: 12px 15px;
+    }
+
+
+    .collection-page .brand span {
+        font-size: 17px;
+    }
+
+
+    .collection-page .brand img {
+        width: 40px;
+        height: 40px;
+    }
+
+
+    .collection-page .header-right {
+        gap: 5px;
+    }
+
+
+    .collection-page #userInfo {
+        display: none;
+    }
+
+
+    .collection-page .header-right button {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+
+    .collection-page .container {
+        padding: 25px 14px 50px;
+    }
+
+
+    .collection-page .hero {
+        padding: 30px 24px;
+        border-radius: 18px;
+    }
+
+
+    .collection-page .hero h1 {
+        font-size: 26px;
+    }
+
+
+    .collection-page .card {
+        padding: 18px;
+        border-radius: 15px;
+    }
+
+
+    .collection-page #searchJournal,
+    .collection-page #searchDatabase {
+        height: 55px;
+        font-size: 15px;
+    }
+
+
+    .collection-page .resource-table {
+        min-width: 650px;
+    }
+
+}
