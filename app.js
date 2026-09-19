@@ -60,19 +60,24 @@ $("appView").classList.remove("hidden");
  $("publicHome").classList.add("hidden");   
 
 
-if(response.role === "Student" || response.role === "Staff"){
+  if(
+    response.role === "Student" ||
+    response.role === "Staff"
+){
 
     $("studentDashboard")
-    .classList.remove("hidden");
+        .classList.remove("hidden");
 
-    document.querySelectorAll(".student-hide")
-    .forEach(function(el){
 
-        el.classList.add("hidden");
+    if($("adminPanel")){
 
-    });
+        $("adminPanel")
+            .classList.add("hidden");
 
-}
+    }
+
+}  
+
     $("userInfo").innerHTML =
       response.userId+" • "+response.role;
 
@@ -267,12 +272,22 @@ function searchUsers(){
 
 if($("logout")){
 
-  $("logout").onclick=function(){
+    $("logout").onclick=function(){
 
-    localStorage.removeItem("user");
-location.reload();
+        localStorage.removeItem("user");
 
-  };
+        localStorage.removeItem("token");
+
+        localStorage.removeItem("role");
+
+        token = "";
+
+        role = "";
+
+        window.location.href =
+            "index.html";
+
+    };
 
 }
 
@@ -1035,26 +1050,66 @@ loadPublicResources();
 
 function filterMenu(type){
 
-    let cards=document.querySelectorAll("#resources .card");
+    let resourceBox =
+        document.getElementById("resourceBox");
 
 
-    cards.forEach(card=>{
+    if(resourceBox){
 
-        let category=card.dataset.type;
+        resourceBox.classList.remove("hidden");
+
+    }
 
 
-        if(category===type){
+    let cards =
+        document.querySelectorAll("#resources .card");
 
-            card.style.display="block";
 
-        }else{
+    let visibleCount = 0;
 
-            card.style.display="none";
+
+    cards.forEach(function(card){
+
+        let category =
+            card.dataset.type;
+
+
+        if(category === type){
+
+            card.style.display =
+                "block";
+
+            visibleCount++;
+
+        }
+        else{
+
+            card.style.display =
+                "none";
 
         }
 
     });
 
+
+    if($("resourceCount")){
+
+        $("resourceCount").innerHTML =
+            visibleCount +
+            " resource(s)";
+
+    }
+
+
+    if(resourceBox){
+
+        resourceBox.scrollIntoView({
+
+            behavior:"smooth"
+
+        });
+
+    }
 
 }
 
@@ -1088,7 +1143,11 @@ closeLogin();
 
 function openProtected(type){
 
-    if(!token){
+    let savedToken =
+        localStorage.getItem("token");
+
+
+    if(!savedToken){
 
         pendingSection = type;
 
@@ -1099,75 +1158,333 @@ function openProtected(type){
     }
 
 
+    token = savedToken;
+
+    role =
+        localStorage.getItem("role") || "Student";
+
+
+    /*
+     * E-BOOK
+     */
+
     if(type === "E-book"){
 
-        window.location.href = "ebooks.html";
+        window.location.href =
+            "ebooks.html";
 
         return;
 
     }
 
 
+    /*
+     * OTHER RESOURCES
+     */
+
+    let resourceBox =
+        document.getElementById("resourceBox");
+
+
+    if(resourceBox){
+
+        resourceBox.classList.remove("hidden");
+
+    }
+
+
     filterMenu(type);
+
+
+    /*
+     * Scroll to resources
+     */
+
+    if(resourceBox){
+
+        resourceBox.scrollIntoView({
+
+            behavior:"smooth"
+
+        });
+
+    }
 
 }
 
 async function loadStudentDashboard(){
 
-let response = await post({
-action:"list",
-token:token
-});
+    /*
+     * Make sure dashboard is visible
+     */
+
+    let dashboard =
+        document.getElementById(
+            "studentDashboard"
+        );
 
 
-if(response.ok){
+    if(dashboard){
 
-let box=document.getElementById("studentLatestResources");
+        dashboard.classList.remove(
+            "hidden"
+        );
 
-box.innerHTML=response.resources.slice(0,6).map(r=>`
-
-<div class="card">
-
-<h3>📘 ${escapeHTML(r.title)}</h3>
-
-<p>${escapeHTML(r.type)}</p>
-
-<p>${escapeHTML(r.department || "")}</p>
-
-<a href="${r.url}" target="_blank">
-Open Resource
-</a>
-
-</div>
-
-`).join("");
-
-}
+    }
 
 
+    /*
+     * LOAD RESOURCES
+     */
 
-let events = await post({
-action:"getEvents",
-token:token
-});
+    try{
+
+        let response =
+            await post({
+
+                action:"list",
+
+                token:token
+
+            });
 
 
-if(events.ok){
+        if(response.ok){
 
-document.getElementById("studentEvents").innerHTML =
-events.events.map(e=>`
+            resources =
+                response.resources || [];
 
-<div class="card">
 
-<h3>🎉 ${e.title}</h3>
+            /*
+             * Latest Resources
+             */
 
-<p>${e.description || ""}</p>
+            let latestBox =
+                document.getElementById(
+                    "studentLatestResources"
+                );
 
-</div>
 
-`).join("");
+            if(latestBox){
 
-}
+                let latest =
+                    resources.slice(0,6);
+
+
+                if(latest.length === 0){
+
+                    latestBox.innerHTML =
+                        "<p>No resources available.</p>";
+
+                }
+                else{
+
+                    latestBox.innerHTML =
+                        latest.map(function(r){
+
+                            return `
+
+                            <div
+                            class="card"
+                            data-type="${escapeHTML(r.type || "")}"
+                            >
+
+                            <h3>
+                            📘 ${escapeHTML(
+                                r.title || ""
+                            )}
+                            </h3>
+
+                            <p>
+                            <b>Type:</b>
+                            ${escapeHTML(
+                                r.type || "-"
+                            )}
+                            </p>
+
+                            <p>
+                            <b>Department:</b>
+                            ${escapeHTML(
+                                r.department || "-"
+                            )}
+                            </p>
+
+                            <p>
+                            <b>Year:</b>
+                            ${escapeHTML(
+                                r.year || "-"
+                            )}
+                            </p>
+
+                            <p>
+                            <b>Subject:</b>
+                            ${escapeHTML(
+                                r.subject || "-"
+                            )}
+                            </p>
+
+                            <a
+                            href="${r.url}"
+                            target="_blank"
+                            >
+
+                            📖 Open Resource
+
+                            </a>
+
+                            </div>
+
+                            `;
+
+                        }).join("");
+
+                }
+
+            }
+
+
+            /*
+             * Render all resources
+             */
+
+            render();
+
+        }
+        else{
+
+            console.log(
+                response.error
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.log(
+            "STUDENT RESOURCE ERROR:",
+            error
+        );
+
+    }
+
+
+    /*
+     * LOAD EVENTS
+     */
+
+    try{
+
+        let eventResponse =
+            await post({
+
+                action:"getEvents",
+
+                token:token
+
+            });
+
+
+        let eventBox =
+            document.getElementById(
+                "studentEvents"
+            );
+
+
+        if(!eventBox){
+
+            return;
+
+        }
+
+
+        if(eventResponse.ok){
+
+            let events =
+                eventResponse.events || [];
+
+
+            if(events.length === 0){
+
+                eventBox.innerHTML =
+                    "<p>No upcoming events.</p>";
+
+            }
+            else{
+
+                eventBox.innerHTML =
+                    events.map(function(e){
+
+                        return `
+
+                        <div class="card">
+
+                        <h3>
+                        🎉 ${escapeHTML(
+                            e.title || ""
+                        )}
+                        </h3>
+
+                        <p>
+                        <b>Category:</b>
+                        ${escapeHTML(
+                            e.category || "-"
+                        )}
+                        </p>
+
+                        <p>
+                        <b>Date:</b>
+                        ${escapeHTML(
+                            e.date || "-"
+                        )}
+                        </p>
+
+                        <p>
+                        ${escapeHTML(
+                            e.description || ""
+                        )}
+                        </p>
+
+                        </div>
+
+                        `;
+
+                    }).join("");
+
+            }
+
+        }
+        else{
+
+            eventBox.innerHTML =
+                eventResponse.error ||
+                "Unable to load events.";
+
+        }
+
+    }
+    catch(error){
+
+        console.log(
+            "STUDENT EVENT ERROR:",
+            error
+        );
+
+
+        let eventBox =
+            document.getElementById(
+                "studentEvents"
+            );
+
+
+        if(eventBox){
+
+            eventBox.innerHTML =
+                "Unable to load events.";
+
+        }
+
+    }
 
 }
 
@@ -1190,3 +1507,152 @@ function openAdminPage(page){
 window.location.href = page;
 
 }
+
+// ===============================
+// RESTORE LOGIN SESSION
+// ===============================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function(){
+
+        let savedUser =
+            localStorage.getItem("user");
+
+
+        let savedToken =
+            localStorage.getItem("token");
+
+
+        let savedRole =
+            localStorage.getItem("role");
+
+
+        if(
+            !savedUser ||
+            !savedToken ||
+            !savedRole
+        ){
+
+            return;
+
+        }
+
+
+        /*
+         * Restore variables
+         */
+
+        token = savedToken;
+
+        role = savedRole;
+
+
+        /*
+         * Hide public home
+         */
+
+        if($("publicHome")){
+
+            $("publicHome")
+                .classList.add("hidden");
+
+        }
+
+
+        /*
+         * Hide login
+         */
+
+        if($("loginView")){
+
+            $("loginView")
+                .classList.add("hidden");
+
+        }
+
+
+        /*
+         * Show application
+         */
+
+        if($("appView")){
+
+            $("appView")
+                .classList.remove("hidden");
+
+        }
+
+
+        /*
+         * User information
+         */
+
+        if($("userInfo")){
+
+            $("userInfo").innerHTML =
+                savedUser +
+                " • " +
+                savedRole;
+
+        }
+
+
+        /*
+         * STUDENT / STAFF
+         */
+
+        if(
+            savedRole === "Student" ||
+            savedRole === "Staff"
+        ){
+
+            if($("studentDashboard")){
+
+                $("studentDashboard")
+                    .classList.remove("hidden");
+
+            }
+
+
+            if($("adminPanel")){
+
+                $("adminPanel")
+                    .classList.add("hidden");
+
+            }
+
+
+            await loadStudentDashboard();
+
+        }
+
+
+        /*
+         * LIBRARIAN
+         */
+
+        if(savedRole === "Librarian"){
+
+            if($("adminPanel")){
+
+                $("adminPanel")
+                    .classList.remove("hidden");
+
+            }
+
+
+            await loadResources();
+
+            await loadBestUsers();
+
+            await loadStaff();
+
+            await loadEvents();
+
+            await loadUsers();
+
+        }
+
+    }
+);
