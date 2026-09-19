@@ -1168,6 +1168,10 @@ closeLogin();
 
 });
 
+// ===============================
+// OPEN PROTECTED COLLECTION
+// ===============================
+
 function openProtected(type){
 
     let savedToken =
@@ -1188,56 +1192,45 @@ function openProtected(type){
     token = savedToken;
 
     role =
-        localStorage.getItem("role") || "Student";
+        localStorage.getItem("role") ||
+        "Student";
 
 
-    /*
-     * E-BOOK
-     */
+    // ===============================
+    // COLLECTION PAGE
+    // ===============================
 
-    if(type === "E-book"){
+    let pages = {
+
+        "E-book":
+            "ebooks.html",
+
+        "Question Paper":
+            "questionpapers.html",
+
+        "Notes":
+            "notes.html",
+
+        "Journal":
+            "journals.html",
+
+        "Database":
+            "databases.html"
+
+    };
+
+
+    if(pages[type]){
 
         window.location.href =
-            "ebooks.html";
+            pages[type];
 
         return;
 
     }
 
-
-    /*
-     * OTHER RESOURCES
-     */
-
-    let resourceBox =
-        document.getElementById("resourceBox");
-
-
-    if(resourceBox){
-
-        resourceBox.classList.remove("hidden");
-
-    }
-
-
-    filterMenu(type);
-
-
-    /*
-     * Scroll to resources
-     */
-
-    if(resourceBox){
-
-        resourceBox.scrollIntoView({
-
-            behavior:"smooth"
-
-        });
-
-    }
-
 }
+
 
 async function loadStudentDashboard(){
 
