@@ -1,4 +1,3 @@
-```javascript
 const API="https://script.google.com/macros/s/AKfycbx2TIiEbBuAkNPZ-6wsyeuwGMb05kwE5HFgH9cdWaYCaMzroaYkU5Vw_IfNDBFaSHuBDA/exec";
 
 
@@ -49,7 +48,7 @@ async function loadEbooks(){
 
         if(data.ok){
 
-            ebooks=data.resources.filter(function(r){
+            ebooks=(data.resources || []).filter(function(r){
 
                 return r.type=="E-book";
 
@@ -62,8 +61,8 @@ async function loadEbooks(){
 
         else{
 
-            document.getElementById("ebookList").innerHTML=
-                data.error;
+            document.getElementById("ebookList").innerHTML =
+                data.error || "Unable to load E-Books";
 
         }
 
@@ -73,7 +72,7 @@ async function loadEbooks(){
 
         console.log(error);
 
-        document.getElementById("ebookList").innerHTML=
+        document.getElementById("ebookList").innerHTML =
             "Unable to load E-Books";
 
     }
@@ -107,7 +106,7 @@ function displayEbooks(list=ebooks){
 
 
         // ===============================
-        // LIBRARIAN ONLY BUTTONS
+        // LIBRARIAN ONLY
         // ===============================
 
         if(isLibrarian()){
@@ -221,10 +220,6 @@ function searchBooks(){
 async function uploadEbook(){
 
 
-    // ===============================
-    // ROLE SECURITY
-    // ===============================
-
     if(!isLibrarian()){
 
         alert(
@@ -280,31 +275,23 @@ async function uploadEbook(){
 
                     token:localStorage.getItem("token"),
 
-
                     title:
                     document.getElementById("title").value.trim(),
 
-
                     type:"E-book",
-
 
                     department:
                     document.getElementById("department").value,
 
-
                     year:
                     document.getElementById("year").value,
-
 
                     subject:
                     document.getElementById("subject").value.trim(),
 
-
                     fileName:file.name,
 
-
                     mimeType:file.type,
-
 
                     data:base64
 
@@ -508,7 +495,7 @@ function editEbook(id){
 
 
 // ===============================
-// BACK TO COLLECTIONS
+// BACK
 // ===============================
 
 function backCollections(){
@@ -544,4 +531,3 @@ window.onload=function(){
     loadEbooks();
 
 };
-```
