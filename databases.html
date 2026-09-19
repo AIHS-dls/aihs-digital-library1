@@ -44,62 +44,11 @@
 
     <section class="hero">
 
-        <h1>
-            🗄️ Database Collection
-        </h1>
+        <h1>🗄️ Database Collection</h1>
 
-        <p id="pageDescription">
+        <p>
             Access academic databases and digital resources.
         </p>
-
-    </section>
-
-
-    <!-- LIBRARIAN UPLOAD -->
-
-    <section
-        id="uploadSection"
-        class="card"
-        style="display:none;"
-    >
-
-        <h2>
-            ➕ Add Database Resource
-        </h2>
-
-        <input
-            type="text"
-            id="databaseTitle"
-            placeholder="Database / Resource Title"
-        >
-
-        <input
-            type="text"
-            id="databaseSubject"
-            placeholder="Subject"
-        >
-
-        <input
-            type="text"
-            id="databaseDepartment"
-            placeholder="Department"
-        >
-
-        <input
-            type="text"
-            id="databaseYear"
-            placeholder="Year"
-        >
-
-        <input
-            type="file"
-            id="databaseFile"
-            accept="application/pdf"
-        >
-
-        <button onclick="uploadDatabase()">
-            Upload Database
-        </button>
 
     </section>
 
@@ -108,14 +57,12 @@
 
     <section class="card">
 
-        <h2>
-            🔎 Search Databases
-        </h2>
+        <h2>🔎 Search Databases</h2>
 
         <input
             type="text"
             id="searchDatabase"
-            placeholder="Search by title, subject, department, year..."
+            placeholder="Search Database Title..."
             oninput="searchDatabases()"
         >
 
@@ -124,20 +71,41 @@
 
     <!-- DATABASE LIST -->
 
-    <section>
+    <section class="card">
 
-        <h2>
-            📚 Available Databases
-        </h2>
+        <h2>📚 Available Databases</h2>
 
-        <div
-            id="databaseList"
-            class="resource-grid"
-        >
+        <div class="table-container">
 
-            <p>
-                Loading databases...
-            </p>
+            <table class="resource-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>SL</th>
+
+                        <th>Database Titles</th>
+
+                        <th>Website Link</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="databaseList">
+
+                    <tr>
+
+                        <td colspan="3">
+                            Loading databases...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
 
         </div>
 
@@ -151,58 +119,45 @@
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
 
-    const user = localStorage.getItem("user");
-    const role = localStorage.getItem("role");
+        const user =
+            localStorage.getItem("user");
 
-    const userInfo =
-        document.getElementById("userInfo");
-
-    if(user){
-
-        userInfo.textContent =
-            user + " • " + (role || "");
-
-    }
-
-    else{
-
-        userInfo.textContent =
-            "Guest";
-
-    }
+        const role =
+            localStorage.getItem("role");
 
 
-    if(role === "Librarian"){
+        const userInfo =
+            document.getElementById(
+                "userInfo"
+            );
 
-        document.getElementById(
-            "uploadSection"
-        ).style.display = "block";
 
-        document.getElementById(
-            "pageDescription"
-        ).textContent =
-            "Manage and access academic database resources.";
+        if(user){
+
+            userInfo.textContent =
+                user + " • " + (role || "");
+
+        }
+        else{
+
+            userInfo.textContent =
+                "Guest";
+
+        }
 
     }
-
-    else{
-
-        document.getElementById(
-            "pageDescription"
-        ).textContent =
-            "Browse and access available academic database resources.";
-
-    }
-
-});
+);
 
 
 function backToDashboard(){
 
     const role =
         localStorage.getItem("role");
+
 
     if(role === "Librarian"){
 
@@ -234,8 +189,11 @@ function backToDashboard(){
 function logoutUser(){
 
     localStorage.removeItem("user");
+
     localStorage.removeItem("token");
+
     localStorage.removeItem("role");
+
 
     window.location.href =
         "index.html";
@@ -245,4 +203,5 @@ function logoutUser(){
 </script>
 
 </body>
+
 </html>
