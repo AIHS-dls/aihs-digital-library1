@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AIHS Database Collection</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+        <img src="logo.jpg" alt="AIHS Logo">
+        <span>AIHS Digital Library</span>
+    </div>
+
+    <div class="header-right">
+
+        <span id="userInfo">
+            User
+        </span>
+
+        <button onclick="backToDashboard()">
+            ⬅ Back
+        </button>
+
+        <button onclick="logoutUser()">
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <h1>
+            🗄️ Database Collection
+        </h1>
+
+        <p id="pageDescription">
+            Access academic databases and digital resources.
+        </p>
+
+    </section>
+
+
+    <!-- LIBRARIAN UPLOAD -->
+
+    <section
+        id="uploadSection"
+        class="card"
+        style="display:none;"
+    >
+
+        <h2>
+            ➕ Add Database Resource
+        </h2>
+
+        <input
+            type="text"
+            id="databaseTitle"
+            placeholder="Database / Resource Title"
+        >
+
+        <input
+            type="text"
+            id="databaseSubject"
+            placeholder="Subject"
+        >
+
+        <input
+            type="text"
+            id="databaseDepartment"
+            placeholder="Department"
+        >
+
+        <input
+            type="text"
+            id="databaseYear"
+            placeholder="Year"
+        >
+
+        <input
+            type="file"
+            id="databaseFile"
+            accept="application/pdf"
+        >
+
+        <button onclick="uploadDatabase()">
+            Upload Database
+        </button>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <section class="card">
+
+        <h2>
+            🔎 Search Databases
+        </h2>
+
+        <input
+            type="text"
+            id="searchDatabase"
+            placeholder="Search by title, subject, department, year..."
+            oninput="searchDatabases()"
+        >
+
+    </section>
+
+
+    <!-- DATABASE LIST -->
+
+    <section>
+
+        <h2>
+            📚 Available Databases
+        </h2>
+
+        <div
+            id="databaseList"
+            class="resource-grid"
+        >
+
+            <p>
+                Loading databases...
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script src="databases.js"></script>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const user = localStorage.getItem("user");
+    const role = localStorage.getItem("role");
+
+    const userInfo =
+        document.getElementById("userInfo");
+
+    if(user){
+
+        userInfo.textContent =
+            user + " • " + (role || "");
+
+    }
+
+    else{
+
+        userInfo.textContent =
+            "Guest";
+
+    }
+
+
+    if(role === "Librarian"){
+
+        document.getElementById(
+            "uploadSection"
+        ).style.display = "block";
+
+        document.getElementById(
+            "pageDescription"
+        ).textContent =
+            "Manage and access academic database resources.";
+
+    }
+
+    else{
+
+        document.getElementById(
+            "pageDescription"
+        ).textContent =
+            "Browse and access available academic database resources.";
+
+    }
+
+});
+
+
+function backToDashboard(){
+
+    const role =
+        localStorage.getItem("role");
+
+    if(role === "Librarian"){
+
+        window.location.href =
+            "administration.html";
+
+    }
+
+    else if(
+        role === "Student" ||
+        role === "Staff"
+    ){
+
+        window.location.href =
+            "index.html?dashboard=1";
+
+    }
+
+    else{
+
+        window.location.href =
+            "index.html";
+
+    }
+
+}
+
+
+function logoutUser(){
+
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+
+    window.location.href =
+        "index.html";
+
+}
+
+</script>
+
+</body>
+</html>
