@@ -1,7 +1,8 @@
-const API="https://script.google.com/macros/s/AKfycbx2TIiEbBuAkNPZ-6wsyeuwGMb05kwE5HFgH9cdWaYCaMzroaYkU5Vw_IfNDBFaSHuBDA/exec";
+const API =
+"https://script.google.com/macros/s/AKfycbx2TIiEbBuAkNPZ-6wsyeuwGMb05kwE5HFgH9cdWaYCaMzroaYkU5Vw_IfNDBFaSHuBDA/exec";
 
 
-let ebooks=[];
+let ebooks = [];
 
 
 // ===============================
@@ -10,10 +11,56 @@ let ebooks=[];
 
 function isLibrarian(){
 
-    return localStorage.getItem("role") === "Librarian";
+    return (
+        localStorage.getItem("role") === "Librarian"
+    );
 
 }
 
+
+// ===============================
+// API CALL
+// ===============================
+
+async function post(data){
+
+    const response = await fetch(API, {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type":
+            "text/plain;charset=utf-8"
+        },
+
+        body: JSON.stringify(data)
+
+    });
+
+
+    const text =
+        await response.text();
+
+
+    try{
+
+        return JSON.parse(text);
+
+    }
+    catch(error){
+
+        console.log(
+            "SERVER RESPONSE:",
+            text
+        );
+
+        throw new Error(
+            "Invalid server response"
+        );
+
+    }
+
+}
 
 
 // ===============================
@@ -22,194 +69,279 @@ function isLibrarian(){
 
 async function loadEbooks(){
 
+    const box =
+        document.getElementById("ebookList");
+
+
+    if(box){
+
+        box.innerHTML =
+            "Loading E-Books...";
+
+    }
+
+
     try{
 
-        let response = await fetch(API,{
+        const data =
+            await post({
 
-            method:"POST",
+                action: "list",
 
-            headers:{
-                "Content-Type":"text/plain;charset=utf-8"
-            },
-
-            body:JSON.stringify({
-
-                action:"list",
-
-                token:localStorage.getItem("token")
-
-            })
-
-        });
-
-
-        let data=await response.json();
-
-
-        if(data.ok){
-
-            ebooks=(data.resources || []).filter(function(r){
-
-                return r.type=="E-book";
+                token:
+                localStorage.getItem("token")
 
             });
 
 
-            displayEbooks();
+        if(!data.ok){
+
+            if(box){
+
+                box.innerHTML =
+                    data.error ||
+                    "Unable to load E-Books";
+
+            }
+
+            return;
 
         }
 
-        else{
 
-            document.getElementById("ebookList").innerHTML =
-                data.error || "Unable to load E-Books";
+        ebooks =
+            (data.resources || [])
+            .filter(function(resource){
 
-        }
+                return (
+                    resource.type === "E-book"
+                );
+
+            });
+
+
+        displayEbooks();
 
     }
-
     catch(error){
 
-        console.log(error);
+        console.log(
+            "E-BOOK LOAD ERROR:",
+            error
+        );
 
-        document.getElementById("ebookList").innerHTML =
-            "Unable to load E-Books";
+
+        if(box){
+
+            box.innerHTML =
+                "Unable to load E-Books";
+
+        }
 
     }
 
 }
-
 
 
 // ===============================
 // DISPLAY E-BOOKS
 // ===============================
 
-function displayEbooks(list=ebooks){
+function displayEbooks(list = ebooks){
 
-    let box=document.getElementById("ebookList");
+    const box =
+        document.getElementById("ebookList");
 
 
-    if(list.length===0){
-
-        box.innerHTML=
-            "No E-Books Found";
+    if(!box){
 
         return;
 
     }
 
 
-    box.innerHTML=list.map(function(r){
+    if(list.length === 0){
 
-        let adminButtons="";
+        box.innerHTML = `
 
+            <div class="card">
 
-        // ===============================
-        // LIBRARIAN ONLY
-        // ===============================
+                <h3>
+                    📚 No E-Books Found
+                </h3>
 
-        if(isLibrarian()){
+                <p>
+                    Try another search.
+                </p>
 
-            adminButtons=`
-
-                <br><br>
-
-                <button
-                onclick="editEbook('${r.id}')">
-
-                ✏ Edit
-
-                </button>
-
-
-                <button
-                onclick="deleteEbook('${r.id}')"
-                style="background:#c62828;color:white">
-
-                🗑 Delete
-
-                </button>
-
-            `;
-
-        }
-
-
-        return `
-
-        <div class="card">
-
-            <h3>
-                📘 ${r.title}
-            </h3>
-
-
-            <p>
-                Department : ${r.department || "-"}
-            </p>
-
-
-            <p>
-                Year : ${r.year || "-"}
-            </p>
-
-
-            <p>
-                Subject : ${r.subject || "-"}
-            </p>
-
-
-            <a
-            href="${r.url}"
-            target="_blank">
-
-                📖 Open PDF
-
-            </a>
-
-
-            ${adminButtons}
-
-        </div>
+            </div>
 
         `;
 
-    }).join("");
+        return;
+
+    }
+
+
+    box.innerHTML =
+        list.map(function(resource){
+
+            let adminButtons = "";
+
+
+            /* ===============================
+               LIBRARIAN CONTROLS
+               =============================== */
+
+            if(isLibrarian()){
+
+                adminButtons = `
+
+                    <div style="
+                        margin-top:15px;
+                    ">
+
+                        <button
+                            type="button"
+                            onclick="editEbook('${resource.id}')"
+                        >
+                            ✏ Edit
+                        </button>
+
+
+                        <button
+                            type="button"
+                            onclick="deleteEbook('${resource.id}')"
+                            style="
+                                background:#c62828;
+                                color:white;
+                            "
+                        >
+                            🗑 Delete
+                        </button>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            return `
+
+                <div class="card">
+
+                    <h3>
+                        📘 ${escapeHTML(
+                            resource.title || "Untitled E-Book"
+                        )}
+                    </h3>
+
+
+                    <p>
+                        <b>Department:</b>
+                        ${escapeHTML(
+                            resource.department || "-"
+                        )}
+                    </p>
+
+
+                    <p>
+                        <b>Year:</b>
+                        ${escapeHTML(
+                            resource.year || "-"
+                        )}
+                    </p>
+
+
+                    <p>
+                        <b>Subject:</b>
+                        ${escapeHTML(
+                            resource.subject || "-"
+                        )}
+                    </p>
+
+
+                    <a
+                        href="${resource.url}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        📖 Open PDF
+                    </a>
+
+
+                    ${adminButtons}
+
+                </div>
+
+            `;
+
+        }).join("");
 
 }
 
 
-
 // ===============================
-// SEARCH
+// SEARCH E-BOOKS
 // ===============================
 
 function searchBooks(){
 
-    let value=document
-        .getElementById("searchBook")
-        .value
+    const input =
+        document.getElementById("searchBook");
+
+
+    if(!input){
+
+        return;
+
+    }
+
+
+    const value =
+        input.value
+        .trim()
         .toLowerCase();
 
 
-    let result=ebooks.filter(function(r){
+    if(!value){
 
-        return (
+        displayEbooks();
 
-            (r.title || "")
-            .toLowerCase()
-            .includes(value)
+        return;
 
-        );
+    }
 
-    });
+
+    const result =
+        ebooks.filter(function(resource){
+
+            const searchableText = [
+
+                resource.title,
+
+                resource.subject,
+
+                resource.department,
+
+                resource.year,
+
+                resource.semester
+
+            ]
+            .join(" ")
+            .toLowerCase();
+
+
+            return searchableText.includes(value);
+
+        });
 
 
     displayEbooks(result);
 
 }
-
 
 
 // ===============================
@@ -218,7 +350,6 @@ function searchBooks(){
 // ===============================
 
 async function uploadEbook(){
-
 
     if(!isLibrarian()){
 
@@ -231,120 +362,222 @@ async function uploadEbook(){
     }
 
 
-    let file=document
-        .getElementById("file")
+    const title =
+        document.getElementById("title")
+        .value
+        .trim();
+
+
+    const subject =
+        document.getElementById("subject")
+        .value
+        .trim();
+
+
+    const department =
+        document.getElementById("department")
+        .value;
+
+
+    const year =
+        document.getElementById("year")
+        .value;
+
+
+    const file =
+        document.getElementById("file")
         .files[0];
 
 
-    if(!file){
+    if(!title){
 
-        alert("Select PDF File");
+        alert(
+            "Please enter Book Title."
+        );
 
         return;
 
     }
 
 
-    document.getElementById("msg").innerHTML=
-        "Uploading...";
+    if(!file){
+
+        alert(
+            "Please select PDF File."
+        );
+
+        return;
+
+    }
 
 
-    let reader=new FileReader();
+    if(
+        file.type !== "application/pdf" &&
+        !file.name.toLowerCase().endsWith(".pdf")
+    ){
+
+        alert(
+            "Please select a PDF file only."
+        );
+
+        return;
+
+    }
 
 
-    reader.onload=async function(){
-
-        try{
-
-            let base64=
-                reader.result.split(",")[1];
+    const message =
+        document.getElementById("msg");
 
 
-            let response=await fetch(API,{
-
-                method:"POST",
-
-                headers:{
-                    "Content-Type":"text/plain;charset=utf-8"
-                },
+    message.innerHTML =
+        "⏳ Uploading...";
 
 
-                body:JSON.stringify({
+    try{
 
-                    action:"add",
+        const base64 =
+            await fileToBase64(file);
 
-                    token:localStorage.getItem("token"),
 
-                    title:
-                    document.getElementById("title").value.trim(),
+        const data =
+            await post({
 
-                    type:"E-book",
+                action: "add",
 
-                    department:
-                    document.getElementById("department").value,
+                token:
+                localStorage.getItem("token"),
 
-                    year:
-                    document.getElementById("year").value,
+                title: title,
 
-                    subject:
-                    document.getElementById("subject").value.trim(),
+                type: "E-book",
 
-                    fileName:file.name,
+                department: department,
 
-                    mimeType:file.type,
+                year: year,
 
-                    data:base64
+                subject: subject,
 
-                })
+                fileName: file.name,
+
+                mimeType:
+                    file.type ||
+                    "application/pdf",
+
+                data: base64
 
             });
 
 
-            let data=await response.json();
+        if(data.ok){
+
+            message.innerHTML =
+                "✅ E-Book Uploaded Successfully";
 
 
-            if(data.ok){
-
-                document.getElementById("msg").innerHTML=
-                    "✅ E-Book Uploaded Successfully";
-
-
-                document.getElementById("title").value="";
-
-                document.getElementById("subject").value="";
-
-                document.getElementById("file").value="";
+            document
+                .getElementById("title")
+                .value = "";
 
 
-                loadEbooks();
+            document
+                .getElementById("subject")
+                .value = "";
 
-            }
 
-            else{
+            document
+                .getElementById("department")
+                .value = "";
 
-                document.getElementById("msg").innerHTML=
-                    "❌ "+data.error;
 
-            }
+            document
+                .getElementById("year")
+                .value = "";
+
+
+            document
+                .getElementById("file")
+                .value = "";
+
+
+            await loadEbooks();
+
+        }
+        else{
+
+            message.innerHTML =
+                "❌ " +
+                (
+                    data.error ||
+                    "Upload failed"
+                );
 
         }
 
-        catch(error){
+    }
+    catch(error){
 
-            console.log(error);
-
-            document.getElementById("msg").innerHTML=
-                "❌ Upload Error";
-
-        }
-
-    };
+        console.log(
+            "UPLOAD ERROR:",
+            error
+        );
 
 
-    reader.readAsDataURL(file);
+        message.innerHTML =
+            "❌ Upload Error: " +
+            error.message;
+
+    }
 
 }
 
+
+// ===============================
+// FILE TO BASE64
+// ===============================
+
+function fileToBase64(file){
+
+    return new Promise(
+        function(resolve, reject){
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function(){
+
+                    const result =
+                        String(
+                            reader.result
+                        );
+
+
+                    resolve(
+                        result.split(",")[1]
+                    );
+
+                };
+
+
+            reader.onerror =
+                function(){
+
+                    reject(
+                        new Error(
+                            "Could not read file"
+                        )
+                    );
+
+                };
+
+
+            reader.readAsDataURL(file);
+
+        }
+    );
+
+}
 
 
 // ===============================
@@ -353,7 +586,6 @@ async function uploadEbook(){
 // ===============================
 
 async function deleteEbook(id){
-
 
     if(!isLibrarian()){
 
@@ -366,7 +598,11 @@ async function deleteEbook(id){
     }
 
 
-    if(!confirm("Delete this E-Book?")){
+    if(
+        !confirm(
+            "Are you sure you want to delete this E-Book?"
+        )
+    ){
 
         return;
 
@@ -375,66 +611,62 @@ async function deleteEbook(id){
 
     try{
 
-        let response=await fetch(API,{
+        const data =
+            await post({
 
-            method:"POST",
+                action: "delete",
 
-            headers:{
-                "Content-Type":"text/plain;charset=utf-8"
-            },
+                id: id,
 
+                token:
+                localStorage.getItem("token")
 
-            body:JSON.stringify({
-
-                action:"delete",
-
-                id:id,
-
-                token:localStorage.getItem("token")
-
-            })
-
-        });
-
-
-        let data=await response.json();
+            });
 
 
         if(data.ok){
 
-            alert("✅ Deleted");
+            alert(
+                "✅ E-Book deleted successfully."
+            );
 
-            loadEbooks();
+
+            await loadEbooks();
 
         }
-
         else{
 
-            alert(data.error);
+            alert(
+                data.error ||
+                "Delete failed"
+            );
 
         }
 
     }
-
     catch(error){
 
-        console.log(error);
+        console.log(
+            "DELETE ERROR:",
+            error
+        );
 
-        alert("Delete Error");
+
+        alert(
+            "Delete Error: " +
+            error.message
+        );
 
     }
 
 }
 
 
-
 // ===============================
 // EDIT E-BOOK
-// LIBRARIAN ONLY
 // ===============================
 
 function editEbook(id){
-
 
     if(!isLibrarian()){
 
@@ -447,87 +679,97 @@ function editEbook(id){
     }
 
 
-    let book=ebooks.find(function(r){
+    const book =
+        ebooks.find(function(resource){
 
-        return r.id==id;
+            return resource.id == id;
 
-    });
+        });
 
 
     if(!book){
+
+        alert(
+            "E-Book not found."
+        );
 
         return;
 
     }
 
 
-    document.getElementById("title").value=
-        book.title;
+    document.getElementById("title").value =
+        book.title || "";
 
 
-    document.getElementById("subject").value=
-        book.subject;
+    document.getElementById("subject").value =
+        book.subject || "";
 
 
-    document.getElementById("department").value=
-        book.department;
+    document.getElementById("department").value =
+        book.department || "";
 
 
-    document.getElementById("year").value=
-        book.year;
+    document.getElementById("year").value =
+        book.year || "";
 
 
     window.scrollTo({
 
-        top:0,
+        top: 0,
 
-        behavior:"smooth"
+        behavior: "smooth"
 
     });
 
 
     alert(
-        "Edit details and upload new PDF"
+        "Edit the details and upload the updated PDF."
     );
 
 }
 
 
-
 // ===============================
-// BACK
+// SECURITY
 // ===============================
 
-function backCollections(){
+function escapeHTML(value){
 
-    let role=
-        localStorage.getItem("role");
+    return String(value || "")
+        .replace(
+            /[&<>"']/g,
+            function(character){
 
+                return {
 
-    if(role==="Librarian"){
+                    "&": "&amp;",
 
-        window.location.href=
-            "administration.html";
+                    "<": "&lt;",
 
-    }
+                    ">": "&gt;",
 
-    else{
+                    '"': "&quot;",
 
-        window.location.href=
-            "index.html";
+                    "'": "&#039;"
 
-    }
+                }[character];
+
+            }
+        );
 
 }
-
 
 
 // ===============================
 // PAGE LOAD
 // ===============================
 
-window.onload=function(){
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
 
-    loadEbooks();
+        loadEbooks();
 
-};
+    }
+);
