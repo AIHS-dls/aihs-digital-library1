@@ -1,207 +1,232 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>AIHS Journal Collection</title>
-
-    <link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
-
-<header class="topbar">
-
-    <div class="brand">
-        <img src="logo.jpg" alt="AIHS Logo">
-        <span>AIHS Digital Library</span>
-    </div>
-
-    <div class="header-right">
-
-        <span id="userInfo">
-            User
-        </span>
-
-        <button onclick="backToDashboard()">
-            ⬅ Back
-        </button>
-
-        <button onclick="logoutUser()">
-            Logout
-        </button>
-
-    </div>
-
-</header>
+/* =========================================
+   JOURNAL COLLECTION
+========================================= */
 
 
-<main class="container">
+const journals = [
 
-    <!-- HERO -->
+    {
+        title:
+            "The International Journal of Physiotherapy",
 
-    <section class="hero">
-
-        <h1>📖 Journal Collection</h1>
-
-        <p>
-            Access important physiotherapy and academic journals.
-        </p>
-
-    </section>
+        url:
+            "https://ijphy.com/index.php/journal"
+    },
 
 
-    <!-- SEARCH -->
+    {
+        title:
+            "Journal of Physiotherapy",
 
-    <section class="card">
-
-        <h2>🔎 Search Journals</h2>
-
-        <input
-            type="text"
-            id="searchJournal"
-            placeholder="Search Journal Title..."
-            oninput="searchJournals()"
-        >
-
-    </section>
+        url:
+            "https://www.journalofphysiotherapy.com/"
+    },
 
 
-    <!-- JOURNAL LIST -->
+    {
+        title:
+            "Journal of Physical Therapy Science",
 
-    <section class="card">
-
-        <h2>📚 Available Journals</h2>
-
-        <div class="table-container">
-
-            <table class="resource-table">
-
-                <thead>
-
-                    <tr>
-
-                        <th>SL</th>
-
-                        <th>Journal Titles</th>
-
-                        <th>Website Link</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="journalList">
-
-                    <tr>
-
-                        <td colspan="3">
-                            Loading journals...
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </section>
-
-</main>
+        url:
+            "https://www.jstage.jst.go.jp/browse/jpts"
+    },
 
 
-<script src="journals.js"></script>
+    {
+        title:
+            "Physiotherapy Theory and Practice",
+
+        url:
+            "https://www.tandfonline.com/journals/iptp20"
+    },
 
 
-<script>
+    {
+        title:
+            "Musculoskeletal Science and Practice",
+
+        url:
+            "https://www.sciencedirect.com/journal/musculoskeletal-science-and-practice"
+    },
+
+
+    {
+        title:
+            "Physical Therapy & Rehabilitation Journal",
+
+        url:
+            "https://academic.oup.com/ptj"
+    }
+
+];
+
+
+
+/* =========================================
+   DISPLAY JOURNALS
+========================================= */
+
+function displayJournals(list){
+
+    const tableBody =
+        document.getElementById(
+            "journalList"
+        );
+
+
+    if(!list || list.length === 0){
+
+        tableBody.innerHTML = `
+
+            <tr>
+
+                <td colspan="3">
+                    No journals found.
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    tableBody.innerHTML =
+        list.map(function(journal, index){
+
+            return `
+
+                <tr>
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+
+                    <td>
+                        ${escapeHTML(
+                            journal.title
+                        )}
+                    </td>
+
+
+                    <td>
+
+                        <a
+                            href="${journal.url}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="website-link"
+                        >
+                            📖 Open Website
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }).join("");
+
+}
+
+
+
+/* =========================================
+   SEARCH JOURNALS
+========================================= */
+
+function searchJournals(){
+
+    const input =
+        document.getElementById(
+            "searchJournal"
+        );
+
+
+    const query =
+        input.value
+        .toLowerCase()
+        .trim();
+
+
+    if(!query){
+
+        displayJournals(
+            journals
+        );
+
+        return;
+
+    }
+
+
+    const filtered =
+        journals.filter(
+            function(journal){
+
+                return journal.title
+                    .toLowerCase()
+                    .includes(query);
+
+            }
+        );
+
+
+    displayJournals(
+        filtered
+    );
+
+}
+
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(value){
+
+    return String(value || "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+
+/* =========================================
+   PAGE LOAD
+========================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     function(){
 
-        const user =
-            localStorage.getItem("user");
-
-        const role =
-            localStorage.getItem("role");
-
-
-        const userInfo =
-            document.getElementById(
-                "userInfo"
-            );
-
-
-        if(user){
-
-            userInfo.textContent =
-                user + " • " + (role || "");
-
-        }
-        else{
-
-            userInfo.textContent =
-                "Guest";
-
-        }
+        displayJournals(
+            journals
+        );
 
     }
 );
-
-
-function backToDashboard(){
-
-    const role =
-        localStorage.getItem("role");
-
-
-    if(role === "Librarian"){
-
-        window.location.href =
-            "administration.html";
-
-    }
-
-    else if(
-        role === "Student" ||
-        role === "Staff"
-    ){
-
-        window.location.href =
-            "index.html?dashboard=1";
-
-    }
-
-    else{
-
-        window.location.href =
-            "index.html";
-
-    }
-
-}
-
-
-function logoutUser(){
-
-    localStorage.removeItem("user");
-
-    localStorage.removeItem("token");
-
-    localStorage.removeItem("role");
-
-
-    window.location.href =
-        "index.html";
-
-}
-
-</script>
-
-</body>
-
-</html>
