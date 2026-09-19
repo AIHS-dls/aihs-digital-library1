@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AIHS Notes Collection</title>
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="brand">
+
+        <img src="logo.jpg" alt="AIHS Logo">
+
+        <div>
+
+            <strong>
+                AIHS Digital Library
+            </strong>
+
+            <small>
+                Acharya Institute of Health Sciences
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="userbar">
+
+        <span id="userInfo">
+            Loading...
+        </span>
+
+        <button onclick="backToDashboard()">
+            ⬅ Back
+        </button>
+
+        <button onclick="logoutUser()">
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+
+<section class="hero">
+
+    <h1>
+        📝 Notes Collection
+    </h1>
+
+    <p id="pageDescription">
+        Loading...
+    </p>
+
+</section>
+
+
+
+<!-- ===============================
+     LIBRARIAN UPLOAD
+     =============================== -->
+
+<section
+    id="uploadSection"
+    class="admin-box upload-box"
+    style="display:none;"
+>
+
+    <h2>
+        📤 Upload New Notes
+    </h2>
+
+
+    <input
+        id="title"
+        type="text"
+        placeholder="Notes Title"
+    >
+
+
+    <input
+        id="subject"
+        type="text"
+        placeholder="Subject"
+    >
+
+
+    <select id="department">
+
+        <option value="">
+            Select Department
+        </option>
+
+        <option value="BPT">BPT</option>
+        <option value="BMLT">BMLT</option>
+        <option value="BMIT">BMIT</option>
+        <option value="MPT">MPT</option>
+        <option value="MHA">MHA</option>
+        <option value="ATOT">ATOT</option>
+
+    </select>
+
+
+    <select id="year">
+
+        <option value="">
+            Select Year
+        </option>
+
+        <option value="1st Year">
+            1st Year
+        </option>
+
+        <option value="2nd Year">
+            2nd Year
+        </option>
+
+        <option value="3rd Year">
+            3rd Year
+        </option>
+
+        <option value="4th Year">
+            4th Year
+        </option>
+
+    </select>
+
+
+    <input
+        id="file"
+        type="file"
+        accept="application/pdf,.pdf"
+    >
+
+
+    <button
+        class="primary"
+        type="button"
+        onclick="uploadNotes()"
+    >
+        📤 Upload Notes
+    </button>
+
+
+    <div id="msg"></div>
+
+</section>
+
+
+
+<!-- ===============================
+     NOTES LIST
+     =============================== -->
+
+<section class="admin-box">
+
+    <h2>
+        📝 Available Notes
+    </h2>
+
+
+    <input
+        id="searchNotes"
+        type="text"
+        placeholder="🔍 Search Notes by title, subject, department or year..."
+        oninput="searchNotes()"
+    >
+
+
+    <div id="notesList">
+
+        Loading...
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<script src="notes.js"></script>
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        const user =
+            localStorage.getItem("user");
+
+        const role =
+            localStorage.getItem("role");
+
+
+        const userInfo =
+            document.getElementById("userInfo");
+
+
+        if(userInfo){
+
+            userInfo.textContent =
+                (user || "User") +
+                " • " +
+                (role || "User");
+
+        }
+
+
+        const description =
+            document.getElementById(
+                "pageDescription"
+            );
+
+
+        if(role === "Librarian"){
+
+            document.getElementById(
+                "uploadSection"
+            ).style.display = "block";
+
+
+            if(description){
+
+                description.textContent =
+                    "Manage Notes - Upload, Edit and Delete";
+
+            }
+
+        }
+        else{
+
+            if(description){
+
+                description.textContent =
+                    "Browse and Read Study Notes";
+
+            }
+
+        }
+
+    }
+);
+
+
+
+/* =================================
+   BACK
+   ================================= */
+
+function backToDashboard(){
+
+    const role =
+        localStorage.getItem("role");
+
+
+    if(role === "Librarian"){
+
+        window.location.href =
+            "administration.html";
+
+        return;
+
+    }
+
+
+    if(
+        role === "Student" ||
+        role === "Staff"
+    ){
+
+        window.location.href =
+            "index.html?dashboard=1";
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+
+/* =================================
+   LOGOUT
+   ================================= */
+
+function logoutUser(){
+
+    localStorage.removeItem("user");
+
+    localStorage.removeItem("token");
+
+    localStorage.removeItem("role");
+
+    window.location.href =
+        "index.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
