@@ -301,49 +301,155 @@ placeholder="Search anything...
 
 </section>
     
-   <section id="studentDashboard" class="student-dashboard hidden">
+  <section id="studentDashboard" class="student-dashboard hidden">
+
 <h2>📚 Library Collections</h2>
 
 <div class="collection-grid">
 
-<div class="collection-card" onclick="openProtected('E-book')">
+<div class="collection-card"
+onclick="openProtected('E-book')">
+
 <h1>📚</h1>
+
 <h3>E-Books</h3>
+
 <p>Digital Books</p>
+
 </div>
 
 
-<div class="collection-card" onclick="filterMenu('Question Paper')">
+<div class="collection-card"
+onclick="openProtected('Question Paper')">
+
 <h1>📄</h1>
+
 <h3>Question Papers</h3>
-<p>Previous Papers</p>
+
+<p>Previous Examination Papers</p>
+
 </div>
 
 
-<div class="collection-card" onclick="filterMenu('Notes')">
+<div class="collection-card"
+onclick="openProtected('Notes')">
+
 <h1>📝</h1>
+
 <h3>Notes</h3>
+
 <p>Study Materials</p>
+
 </div>
 
 
-<div class="collection-card" onclick="filterMenu('Journal')">
+<div class="collection-card"
+onclick="openProtected('Journal')">
+
 <h1>📖</h1>
+
 <h3>Journals</h3>
+
 <p>Research Articles</p>
+
 </div>
 
-  <div class="collection-card" onclick="filterMenu('Database')">
+
+<div class="collection-card"
+onclick="openProtected('Database')">
 
 <h1>💻</h1>
 
 <h3>Databases</h3>
 
-<p>Academic databases and digital services</p>
+<p>Academic Databases</p>
 
 </div>
 
-  </section>
+</div>
+
+
+<!-- ===============================
+     LATEST RESOURCES
+     =============================== -->
+
+<section class="dashboard-section">
+
+<div class="section-head">
+
+<h2>📚 Latest Resources</h2>
+
+</div>
+
+<div
+id="studentLatestResources"
+class="grid">
+
+Loading Latest Resources...
+
+</div>
+
+</section>
+
+
+<!-- ===============================
+     LIBRARY EVENTS
+     =============================== -->
+
+<section class="dashboard-section">
+
+<div class="section-head">
+
+<h2>🎉 Library Events</h2>
+
+</div>
+
+<div
+id="studentEvents"
+class="grid">
+
+Loading Events...
+
+</div>
+
+</section>
+
+
+<!-- ===============================
+     RESOURCE SEARCH / FILTER
+     =============================== -->
+
+<section
+id="resourceBox"
+class="dashboard-section">
+
+<div class="section-head">
+
+<h2>📖 Library Resources</h2>
+
+<span id="resourceCount"></span>
+
+</div>
+
+
+<input
+id="search"
+class="big-search"
+placeholder="🔍 Search resources..."
+>
+
+
+<div
+id="resources"
+class="grid">
+
+</div>
+
+
+</section>
+
+
+</section>
 
 
  <section id="adminPanel" class="admin hidden">
