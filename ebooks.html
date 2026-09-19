@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,16 +41,19 @@ Acharya Institute of Health Sciences
 
 <div class="userbar">
 
-<span>
-admin • Librarian
+<span id="userInfo">
+Loading...
 </span>
 
 <button onclick="backCollections()">
 ⬅ Back
 </button>
 
-</div>
+<button onclick="logoutUser()">
+Logout
+</button>
 
+</div>
 
 </header>
 
@@ -64,15 +68,23 @@ admin • Librarian
 📚 E-Book Collection
 </h1>
 
-<p>
-Manage Digital Books - Upload, Edit and Delete
+<p id="pageDescription">
+Loading...
 </p>
 
 </section>
 
 
 
-<section class="admin-box upload-box">
+<!-- ===============================
+     LIBRARIAN UPLOAD SECTION
+     =============================== -->
+
+<section
+id="uploadSection"
+class="admin-box upload-box"
+style="display:none;"
+>
 
 
 <h2>
@@ -80,12 +92,16 @@ Manage Digital Books - Upload, Edit and Delete
 </h2>
 
 
-<input id="title"
-placeholder="Book Title">
+<input
+id="title"
+placeholder="Book Title"
+>
 
 
-<input id="subject"
-placeholder="Subject">
+<input
+id="subject"
+placeholder="Subject"
+>
 
 
 <select id="department">
@@ -120,13 +136,17 @@ Select Year
 
 
 
-<input id="file"
-type="file">
+<input
+id="file"
+type="file"
+>
 
 
 
-<button class="primary"
-onclick="uploadEbook()">
+<button
+class="primary"
+onclick="uploadEbook()"
+>
 
 📤 Upload E-Book
 
@@ -140,6 +160,9 @@ onclick="uploadEbook()">
 
 
 
+<!-- ===============================
+     E-BOOK LIST
+     =============================== -->
 
 <section class="admin-box">
 
@@ -149,10 +172,11 @@ onclick="uploadEbook()">
 </h2>
 
 
-<input id="searchBook"
+<input
+id="searchBook"
 placeholder="🔍 Search E-Books..."
-onkeyup="searchBooks()">
-
+onkeyup="searchBooks()"
+>
 
 
 <div id="ebookList">
@@ -173,6 +197,128 @@ Loading...
 <script src="ebooks.js"></script>
 
 
+
+<script>
+
+/* =================================
+   ROLE BASED ACCESS
+   ================================= */
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const user =
+        localStorage.getItem("user");
+
+    const role =
+        localStorage.getItem("role");
+
+
+    /* USER INFORMATION */
+
+    const userInfo =
+        document.getElementById("userInfo");
+
+    if(userInfo){
+
+        userInfo.innerHTML =
+            (user || "User") +
+            " • " +
+            (role || "User");
+
+    }
+
+
+    /* PAGE DESCRIPTION */
+
+    const description =
+        document.getElementById("pageDescription");
+
+
+    /* LIBRARIAN */
+
+    if(role === "Librarian"){
+
+        document.getElementById(
+            "uploadSection"
+        ).style.display = "block";
+
+
+        if(description){
+
+            description.innerHTML =
+                "Manage Digital Books - Upload, Edit and Delete";
+
+        }
+
+    }
+
+
+    /* STUDENT / STAFF */
+
+    else{
+
+        if(description){
+
+            description.innerHTML =
+                "Browse and Read Digital Books";
+
+        }
+
+    }
+
+});
+
+
+
+/* =================================
+   BACK TO COLLECTIONS
+   ================================= */
+
+function backCollections(){
+
+    const role =
+        localStorage.getItem("role");
+
+
+    if(role === "Librarian"){
+
+        window.location.href =
+            "administration.html";
+
+    }
+
+    else{
+
+        window.location.href =
+            "index.html";
+
+    }
+
+}
+
+
+
+/* =================================
+   LOGOUT
+   ================================= */
+
+function logoutUser(){
+
+    localStorage.removeItem("user");
+
+    localStorage.removeItem("token");
+
+    localStorage.removeItem("role");
+
+    window.location.href =
+        "index.html";
+
+}
+
+</script>
+
+
 </body>
 
 </html>
+```
