@@ -3599,3 +3599,21 @@ grid-template-columns:1fr;
     font-weight:600;
 
 }
+
+#publicResources{
+
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+
+}
+
+
+.latest-item{
+
+background:white;
+padding:12px 18px;
+border-radius:10px;
+box-shadow:0 2px 8px #ddd;
+
+}
