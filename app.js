@@ -4,6 +4,10 @@ window.onload=function(){
 
 loadPublicResources();
 
+loadPublicEvents();
+
+loadPublicBestUsers();
+
 }
 
 let role="Student";
@@ -1346,27 +1350,39 @@ closeLogin();
 
 function openProtected(type){
 
-    let savedToken =
-        localStorage.getItem("token");
+let savedToken =
+localStorage.getItem("token");
 
 
-    if(!savedToken){
+if(!savedToken){
 
-        pendingSection = type;
+pendingSection = type;
 
-        showLogin();
+showLogin();
 
-        return;
+return;
 
-    }
+}
 
 
-    token = savedToken;
+let pages={
 
-    role =
-        localStorage.getItem("role") ||
-        "Student";
+"E-book":"ebooks.html",
 
+"Question Paper":"questionpapers.html",
+
+"Notes":"notes.html",
+
+"Journal":"journals.html",
+
+"Database":"databases.html"
+
+};
+
+
+window.location.href=pages[type];
+
+}
 
     // ===============================
     // COLLECTION PAGE
@@ -1791,3 +1807,112 @@ document.addEventListener(
 
     }
 );
+
+
+async function loadPublicEvents(){
+
+try{
+
+let response = await post({
+
+action:"getEvents"
+
+});
+
+
+if(response.ok){
+
+let box=document.getElementById(
+"publicEvents"
+);
+
+
+box.innerHTML=response.events.map(function(event){
+
+return `
+
+<div class="public-event-card">
+
+<h3>
+🎉 ${escapeHTML(event.title)}
+</h3>
+
+<p>
+${escapeHTML(event.category || "Event")}
+</p>
+
+<p>
+${escapeHTML(event.date || "")}
+</p>
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
+}
+catch(error){
+
+console.log(error);
+
+}
+
+}
+
+async function loadPublicBestUsers(){
+
+try{
+
+let response = await post({
+
+action:"getBestUsers"
+
+});
+
+
+if(response.ok){
+
+let box=document.getElementById(
+"publicBestUsers"
+);
+
+
+box.innerHTML=response.bestUsers.map(function(user){
+
+return `
+
+<div class="public-user-card">
+
+🏆 <b>
+${escapeHTML(user.studentNames)}
+</b>
+
+<br>
+
+Department:
+${escapeHTML(user.department)}
+
+<br>
+
+Year:
+${escapeHTML(user.year)}
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
+}
+catch(error){
+
+console.log(error);
+
+}
+
+}
