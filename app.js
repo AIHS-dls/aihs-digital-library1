@@ -61,7 +61,15 @@ $("loginView").classList.add("hidden");
 
 $("appView").classList.remove("hidden");
 
- $("publicHome").classList.add("hidden");   
+ $("publicHome").classList.add("hidden");
+
+    history.pushState(null,null,location.href);
+
+window.onpopstate=function(){
+
+history.pushState(null,null,location.href);
+
+};
 
 
   if(
@@ -1203,31 +1211,30 @@ function showLogin(){
 
 }
 
-
 async function loadPublicResources(){
 
-let response = await post({
- action:"list"
+let box=document.getElementById("publicResources");
+
+
+try{
+
+let response=await post({
+action:"list"
 });
 
 
 if(response.ok){
 
-let box=document.getElementById("publicResources");
+let resources=response.resources.slice(0,6);
 
-box.innerHTML=response.resources.slice(0,6).map(r=>`
 
-<div class="card">
+box.innerHTML=resources.map(r=>`
 
-<h3>📘 ${escapeHTML(r.title)}</h3>
+<div class="latest-item">
 
-<p>${escapeHTML(r.type)}</p>
-
-<p>${escapeHTML(r.department || "")}</p>
-
-<a href="${r.url}" target="_blank">
-Open Resource
-</a>
+📘 <b>${escapeHTML(r.title)}</b>
+-
+${escapeHTML(r.type)}
 
 </div>
 
@@ -1235,7 +1242,23 @@ Open Resource
 
 }
 
+
+else{
+
+box.innerHTML="No resources available";
+
 }
+
+
+}
+catch(error){
+
+box.innerHTML="Unable to load resources";
+
+}
+
+}
+
 
 function filterCategory(type){
 
@@ -1916,3 +1939,13 @@ console.log(error);
 }
 
 }
+
+window.addEventListener("pageshow", function(event){
+
+    if(event.persisted){
+
+        location.reload();
+
+    }
+
+});
