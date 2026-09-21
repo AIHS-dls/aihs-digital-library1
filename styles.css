@@ -4509,3 +4509,285 @@ box-shadow:0 2px 8px #ddd;
     }
 
 }
+
+/* =========================================
+   PREMIUM LATEST RESOURCES BAR
+   ========================================= */
+
+.latest-resources-section {
+    margin-top: 45px;
+    margin-bottom: 45px;
+}
+
+
+.latest-resources-section .section-title {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.latest-resources-section .section-title h2 {
+    margin: 0 0 8px;
+
+    color: #102a56;
+
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.latest-resources-section .section-title p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   MAIN BAR
+   ========================================= */
+
+.latest-resource-bar {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    gap: 22px;
+
+    padding: 25px 30px;
+
+    min-height: 105px;
+
+    background:
+        linear-gradient(
+            110deg,
+            #0f2a5f 0%,
+            #1d4ed8 55%,
+            #2563eb 100%
+        );
+
+    border-radius: 22px;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 15px 35px rgba(30, 64, 175, 0.20);
+
+    transition:
+        transform 0.28s ease,
+        box-shadow 0.28s ease;
+}
+
+
+.latest-resource-bar:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 22px 45px rgba(30, 64, 175, 0.28);
+}
+
+
+/* DECORATIVE CIRCLES */
+
+.latest-resource-bar::before {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    right: 70px;
+    top: -100px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.08);
+}
+
+
+.latest-resource-bar::after {
+    content: "";
+
+    position: absolute;
+
+    width: 110px;
+    height: 110px;
+
+    right: 190px;
+    bottom: -75px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.06);
+}
+
+
+/* =========================================
+   ICON
+   ========================================= */
+
+.latest-resource-icon {
+    position: relative;
+    z-index: 2;
+
+    width: 65px;
+    height: 65px;
+
+    min-width: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255,255,255,0.16);
+
+    border: 1px solid rgba(255,255,255,0.22);
+
+    border-radius: 18px;
+
+    font-size: 31px;
+
+    box-shadow:
+        inset 0 0 15px rgba(255,255,255,0.08);
+}
+
+
+/* =========================================
+   CONTENT
+   ========================================= */
+
+.latest-resource-content {
+    position: relative;
+    z-index: 2;
+
+    flex: 1;
+}
+
+
+.latest-resource-label {
+    display: inline-block;
+
+    margin-bottom: 5px;
+
+    color: #bfdbfe;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+}
+
+
+.latest-resource-content h3 {
+    margin: 0 0 5px;
+
+    color: #ffffff;
+
+    font-size: 21px;
+
+    font-weight: 800;
+}
+
+
+.latest-resource-content p {
+    margin: 0;
+
+    color: #dbeafe;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   ARROW
+   ========================================= */
+
+.latest-resource-arrow {
+    position: relative;
+    z-index: 2;
+
+    width: 48px;
+    height: 48px;
+
+    min-width: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255,255,255,0.14);
+
+    border: 1px solid rgba(255,255,255,0.20);
+
+    border-radius: 50%;
+
+    color: #ffffff;
+
+    font-size: 25px;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+}
+
+
+.latest-resource-bar:hover
+.latest-resource-arrow {
+    transform: translateX(5px);
+
+    background: rgba(255,255,255,0.22);
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    .latest-resource-bar {
+        gap: 15px;
+
+        padding: 20px;
+
+        min-height: auto;
+
+        border-radius: 18px;
+    }
+
+    .latest-resource-icon {
+        width: 52px;
+        height: 52px;
+
+        min-width: 52px;
+
+        font-size: 25px;
+
+        border-radius: 14px;
+    }
+
+    .latest-resource-content h3 {
+        font-size: 17px;
+    }
+
+    .latest-resource-content p {
+        font-size: 12px;
+    }
+
+    .latest-resource-arrow {
+        width: 40px;
+        height: 40px;
+
+        min-width: 40px;
+
+        font-size: 20px;
+    }
+
+}
