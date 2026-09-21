@@ -1596,25 +1596,7 @@ if(latestBox){
 
     }
 
-      /*
-     * LOAD BEST USERS
-     */
-
-    try{
-
-        await loadBestUsers();
-
-    }
-    catch(error){
-
-        console.log(
-            "STUDENT BEST USERS ERROR:",
-            error
-        );
-
-    }
-
-
+      
 /*
  * LOAD BEST USERS
  */
@@ -1798,27 +1780,14 @@ document.addEventListener(
          * LIBRARIAN
          */
 
-        if(savedRole === "Librarian"){
+       if(savedRole === "Librarian"){
 
-            if($("adminPanel")){
+    window.location.href =
+        "administration.html";
 
-                $("adminPanel")
-                    .classList.remove("hidden");
+    return;
 
-            }
-
-
-            await loadResources();
-
-            await loadBestUsers();
-
-            await loadStaff();
-
-            await loadEvents();
-
-            await loadUsers();
-
-        }
+}
 
     }
 );
