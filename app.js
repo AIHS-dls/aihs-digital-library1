@@ -93,11 +93,9 @@ $("appView").classList.remove("hidden");
 
 if(response.role === "Librarian"){
 
-    await loadResources();
-    await loadBestUsers();
-    await loadStaff();
-    await loadEvents();
-    await loadUsers();
+    window.location.href = "administration.html";
+
+    return;
 
 }
 else{
