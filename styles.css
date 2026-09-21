@@ -3542,3 +3542,60 @@ grid-template-columns:1fr;
     }
 
 }
+
+/* ==============================
+   BEST USERS TABLE
+============================== */
+
+
+.best-users-table{
+
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+
+}
+
+
+
+.best-users-table th{
+
+    background:#2563eb;
+    color:white;
+    padding:12px;
+    text-align:left;
+    font-size:14px;
+
+}
+
+
+
+.best-users-table td{
+
+    padding:12px;
+    border-bottom:1px solid #e5e7eb;
+    color:#334155;
+    font-size:14px;
+
+}
+
+
+
+.best-users-table tr:hover{
+
+    background:#f8fafc;
+
+}
+
+
+
+.best-users-table th:first-child,
+.best-users-table td:first-child{
+
+    width:40%;
+    font-weight:600;
+
+}
