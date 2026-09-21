@@ -3617,3 +3617,555 @@ border-radius:10px;
 box-shadow:0 2px 8px #ddd;
 
 }
+
+/* =========================================
+   ABOUT LIBRARY - PREMIUM SECTION
+   ========================================= */
+
+.about-library-section {
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+.about-library-section .section-title {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.about-library-section .section-title h2 {
+    margin: 0 0 7px;
+    color: #172554;
+    font-size: 28px;
+    font-weight: 750;
+}
+
+.about-library-section .section-title p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* TOP TWO CARDS */
+
+.about-top-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+
+/* COMMON CARD */
+
+.about-info-card {
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f8fbff 100%
+    );
+
+    border: 1px solid #dbe5f0;
+    border-radius: 20px;
+
+    padding: 25px;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+
+    box-shadow:
+        0 8px 25px rgba(15, 23, 42, 0.06);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.about-info-card:hover {
+    transform: translateY(-3px);
+
+    border-color: #bfdbfe;
+
+    box-shadow:
+        0 15px 32px rgba(30, 64, 175, 0.10);
+}
+
+
+/* ICON */
+
+.about-card-icon {
+    width: 58px;
+    height: 58px;
+    min-width: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eff6ff;
+
+    border-radius: 16px;
+
+    font-size: 29px;
+
+    box-shadow:
+        inset 0 0 0 1px #dbeafe;
+}
+
+
+/* CONTENT */
+
+.about-card-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.about-card-content h3 {
+    margin: 2px 0 7px;
+
+    color: #172554;
+
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.about-subtitle {
+    margin: 0 0 15px;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+/* GENERAL LIST */
+
+.about-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.about-list-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 11px 13px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    color: #334155;
+
+    font-size: 14px;
+}
+
+.about-list-item span {
+    font-size: 17px;
+}
+
+
+/* RESOURCE LIST */
+
+.resource-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.resource-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 10px 12px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 9px;
+
+    color: #334155;
+
+    font-size: 13px;
+}
+
+.resource-row span {
+    line-height: 1.4;
+}
+
+.resource-row strong {
+    color: #2563eb;
+
+    font-size: 14px;
+
+    white-space: nowrap;
+}
+
+
+/* TOTAL BOOKS */
+
+.resource-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 4px;
+
+    padding: 13px 14px;
+
+    background: #eff6ff;
+
+    border: 1px solid #bfdbfe;
+
+    border-radius: 10px;
+
+    color: #1e3a8a;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+.resource-total strong {
+    color: #1d4ed8;
+
+    font-size: 17px;
+}
+
+
+/* =========================================
+   LIBRARY RULES
+   ========================================= */
+
+.about-rules-card {
+    margin-top: 24px;
+
+    background: #ffffff;
+
+    border: 1px solid #dbe5f0;
+
+    border-radius: 20px;
+
+    padding: 26px;
+
+    box-shadow:
+        0 8px 25px rgba(15, 23, 42, 0.06);
+}
+
+
+/* RULE HEADER */
+
+.rules-header {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 18px;
+
+    margin-bottom: 22px;
+}
+
+.rules-header h3 {
+    margin: 2px 0 6px;
+
+    color: #172554;
+
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.rules-header p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* RULE LIST */
+
+.rules-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 11px;
+}
+
+.rule-item {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px 14px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 11px;
+
+    color: #334155;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.rule-item:hover {
+    background: #eff6ff;
+
+    border-color: #bfdbfe;
+
+    transform: translateY(-1px);
+}
+
+
+/* RULE NUMBER */
+
+.rule-number {
+    width: 31px;
+    height: 31px;
+
+    min-width: 31px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #dbeafe;
+
+    color: #1d4ed8;
+
+    border-radius: 9px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 800px) {
+
+    .about-top-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rules-list {
+        grid-template-columns: 1fr;
+    }
+
+    .about-info-card {
+        padding: 20px;
+    }
+
+    .about-rules-card {
+        padding: 20px;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .about-library-section .section-title h2 {
+        font-size: 24px;
+    }
+
+    .about-info-card {
+        gap: 13px;
+        padding: 17px;
+    }
+
+    .about-card-icon {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+
+        font-size: 24px;
+    }
+
+    .about-card-content h3 {
+        font-size: 18px;
+    }
+
+    .resource-row {
+        font-size: 12px;
+    }
+
+    .resource-row strong {
+        font-size: 13px;
+    }
+
+    .rules-header {
+        gap: 12px;
+    }
+
+    .rule-item {
+        padding: 11px;
+    }
+
+}
+
+/* =========================================
+   LIBRARY TIMING - ATTRACTIVE CARD
+   ========================================= */
+
+.library-timing-card {
+    margin-top: 18px;
+    padding: 20px;
+
+    background: linear-gradient(
+        135deg,
+        #eff6ff,
+        #f8fafc
+    );
+
+    border: 1px solid #bfdbfe;
+    border-radius: 16px;
+}
+
+
+/* MAIN HOURS */
+
+.timing-main {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding-bottom: 17px;
+    border-bottom: 1px solid #dbeafe;
+}
+
+.timing-clock {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+    border-radius: 14px;
+
+    font-size: 27px;
+
+    box-shadow:
+        0 5px 14px rgba(30, 64, 175, 0.08);
+}
+
+.timing-label {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.timing-hours {
+    margin-top: 3px;
+
+    color: #1d4ed8;
+
+    font-size: 23px;
+    font-weight: 800;
+}
+
+
+/* WORKING DAYS */
+
+.timing-days {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 15px;
+
+    color: #334155;
+
+    font-size: 14px;
+}
+
+.timing-days span {
+    font-size: 18px;
+}
+
+
+/* CLOSED */
+
+.timing-closed {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-top: 13px;
+    padding: 12px 13px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 11px;
+}
+
+.timing-closed > span {
+    font-size: 19px;
+}
+
+.timing-closed strong {
+    display: block;
+
+    color: #334155;
+
+    font-size: 13px;
+}
+
+.timing-closed small {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 500px) {
+
+    .library-timing-card {
+        padding: 16px;
+    }
+
+    .timing-hours {
+        font-size: 20px;
+    }
+
+}
