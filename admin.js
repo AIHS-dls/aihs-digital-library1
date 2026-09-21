@@ -68,7 +68,11 @@ document.addEventListener(
          */
 
         loadCollectionCounts();
-         loadAdminEvents();
+
+        loadBestUsers();
+        
+        loadAdminEvents();
+        
 
     }
 );
@@ -1002,5 +1006,178 @@ function escapeHTML(value){
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
+
+}
+
+/* =====================================================
+   LIBRARY BEST USERS
+===================================================== */
+
+
+async function loadBestUsers(){
+
+    const box =
+        document.getElementById(
+            "bestUsersList"
+        );
+
+
+    if(!box){
+        return;
+    }
+
+
+    box.innerHTML =
+        "Loading Best Users...";
+
+
+    try{
+
+
+        const response =
+            await fetch(API, {
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "text/plain;charset=utf-8"
+                },
+
+                body:JSON.stringify({
+
+                    action:"getBestUsers",
+
+                    token:
+                    localStorage.getItem("token")
+
+                })
+
+            });
+
+
+
+        const data =
+            await response.json();
+
+
+
+        if(!data.ok){
+
+            box.innerHTML =
+                data.error ||
+                "Unable to load Best Users.";
+
+            return;
+
+        }
+
+
+
+        const users =
+            data.bestUsers || [];
+
+
+
+        if(users.length === 0){
+
+            box.innerHTML =
+            `
+            <div class="admin-empty-event">
+                No Best Users available.
+            </div>
+            `;
+
+            return;
+
+        }
+
+
+
+        let html = `
+
+        <table class="best-users-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Department / Year
+                    </th>
+
+
+                    <th>
+                        Student Names
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+        `;
+
+
+
+        users.forEach(function(user){
+
+
+            html += `
+
+            <tr>
+
+                <td>
+                    ${escapeHTML(
+                        user.departmentYear || "-"
+                    )}
+                </td>
+
+
+                <td>
+                    ${escapeHTML(
+                        user.studentNames || "-"
+                    )}
+                </td>
+
+            </tr>
+
+            `;
+
+
+        });
+
+
+
+        html += `
+
+            </tbody>
+
+        </table>
+
+        `;
+
+
+
+        box.innerHTML =
+            html;
+
+
+
+    }
+    catch(error){
+
+        console.log(
+            "BEST USERS ERROR:",
+            error
+        );
+
+
+        box.innerHTML =
+            "Unable to load Best Users.";
+
+    }
 
 }
