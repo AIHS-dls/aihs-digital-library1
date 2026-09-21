@@ -3619,62 +3619,75 @@ box-shadow:0 2px 8px #ddd;
 }
 
 /* =========================================
-   ABOUT LIBRARY - PREMIUM SECTION
+   PREMIUM ABOUT LIBRARY
    ========================================= */
 
 .about-library-section {
-    margin-top: 35px;
-    margin-bottom: 35px;
+    margin-top: 45px;
+    margin-bottom: 45px;
 }
+
+
+/* SECTION TITLE */
 
 .about-library-section .section-title {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 .about-library-section .section-title h2 {
-    margin: 0 0 7px;
-    color: #172554;
-    font-size: 28px;
-    font-weight: 750;
+    margin: 0 0 8px;
+
+    color: #0f2a5f;
+
+    font-size: 30px;
+    font-weight: 800;
+
+    letter-spacing: -0.5px;
 }
 
 .about-library-section .section-title p {
     margin: 0;
+
     color: #64748b;
+
     font-size: 14px;
 }
 
 
-/* TOP TWO CARDS */
+/* =========================================
+   THREE CARDS
+   ========================================= */
 
-.about-top-grid {
+.about-cards-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 26px;
 }
 
 
-/* COMMON CARD */
+/* =========================================
+   PREMIUM CARD
+   ========================================= */
 
-.about-info-card {
-    background: linear-gradient(
-        135deg,
-        #ffffff 0%,
-        #f8fbff 100%
-    );
+.about-premium-card {
+    position: relative;
 
-    border: 1px solid #dbe5f0;
-    border-radius: 20px;
+    overflow: hidden;
 
-    padding: 25px;
+    background: #ffffff;
 
-    display: flex;
-    align-items: flex-start;
-    gap: 18px;
+    border-radius: 22px;
+
+    padding: 27px;
+
+    border: 1px solid #dbe4f0;
 
     box-shadow:
-        0 8px 25px rgba(15, 23, 42, 0.06);
+        0 12px 35px rgba(15, 42, 95, 0.08);
 
     transition:
         transform 0.25s ease,
@@ -3682,75 +3695,262 @@ box-shadow:0 2px 8px #ddd;
         border-color 0.25s ease;
 }
 
-.about-info-card:hover {
-    transform: translateY(-3px);
+.about-premium-card:hover {
+    transform: translateY(-5px);
 
-    border-color: #bfdbfe;
+    border-color: #93c5fd;
 
     box-shadow:
-        0 15px 32px rgba(30, 64, 175, 0.10);
+        0 20px 45px rgba(15, 42, 95, 0.13);
 }
 
 
-/* ICON */
+/* TOP COLOR STRIPE */
 
-.about-card-icon {
+.about-premium-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 5px;
+
+    background: linear-gradient(
+        90deg,
+        #1d4ed8,
+        #38bdf8
+    );
+}
+
+
+/* =========================================
+   CARD HEADER
+   ========================================= */
+
+.premium-card-top {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    margin-bottom: 23px;
+}
+
+
+.premium-icon {
     width: 58px;
     height: 58px;
+
     min-width: 58px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    background: #eff6ff;
-
     border-radius: 16px;
 
-    font-size: 29px;
+    font-size: 28px;
 
     box-shadow:
-        inset 0 0 0 1px #dbeafe;
+        0 7px 18px rgba(15, 23, 42, 0.08);
 }
 
 
-/* CONTENT */
-
-.about-card-content {
-    flex: 1;
-    min-width: 0;
+.timing-icon {
+    background: #e0f2fe;
 }
 
-.about-card-content h3 {
-    margin: 2px 0 7px;
 
-    color: #172554;
+.resource-icon {
+    background: #dbeafe;
+}
+
+
+.rules-icon {
+    background: #ede9fe;
+}
+
+
+.premium-card-top h3 {
+    margin: 0 0 6px;
+
+    color: #102a56;
 
     font-size: 20px;
-    font-weight: 700;
+
+    font-weight: 750;
 }
 
-.about-subtitle {
-    margin: 0 0 15px;
+
+.card-label {
+    display: block;
 
     color: #64748b;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.8px;
+}
+
+
+/* =========================================
+   TIMINGS CARD
+   ========================================= */
+
+.timing-card {
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f0f9ff 100%
+        );
+}
+
+
+.timing-highlight {
+    padding: 18px;
+
+    margin-bottom: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #e0f2fe
+        );
+
+    border: 1px solid #bfdbfe;
+
+    border-radius: 15px;
+}
+
+
+.timing-small {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+}
+
+
+.timing-highlight strong {
+    display: block;
+
+    color: #1d4ed8;
+
+    font-size: 25px;
+
+    font-weight: 800;
+}
+
+
+.timing-day,
+.timing-holiday {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px 14px;
+
+    margin-top: 9px;
+
+    background: rgba(255,255,255,0.85);
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 12px;
+}
+
+
+.timing-day > span,
+.timing-holiday > span {
+    font-size: 20px;
+}
+
+
+.timing-day strong,
+.timing-holiday strong {
+    display: block;
+
+    color: #334155;
 
     font-size: 13px;
 }
 
 
-/* GENERAL LIST */
+.timing-day small,
+.timing-holiday small {
+    display: block;
 
-.about-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    margin-top: 3px;
+
+    color: #64748b;
+
+    font-size: 12px;
 }
 
-.about-list-item {
+
+.timing-holiday {
+    background: #fff7ed;
+
+    border-color: #fed7aa;
+}
+
+
+.timing-holiday strong {
+    color: #9a3412;
+}
+
+
+/* =========================================
+   RESOURCE CARD
+   ========================================= */
+
+.resource-card {
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbff 100%
+        );
+}
+
+
+.department-list {
     display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.department-row {
+    display: flex;
+
     align-items: center;
-    gap: 10px;
+
+    justify-content: space-between;
+
+    gap: 15px;
 
     padding: 11px 13px;
 
@@ -3762,138 +3962,89 @@ box-shadow:0 2px 8px #ddd;
 
     color: #334155;
 
-    font-size: 14px;
-}
-
-.about-list-item span {
-    font-size: 17px;
-}
-
-
-/* RESOURCE LIST */
-
-.resource-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.resource-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 15px;
-
-    padding: 10px 12px;
-
-    background: #f8fafc;
-
-    border: 1px solid #e5e7eb;
-
-    border-radius: 9px;
-
-    color: #334155;
-
     font-size: 13px;
 }
 
-.resource-row span {
+
+.department-row span {
     line-height: 1.4;
 }
 
-.resource-row strong {
+
+.department-row strong {
+    flex-shrink: 0;
+
     color: #2563eb;
 
-    font-size: 14px;
+    background: #dbeafe;
 
-    white-space: nowrap;
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
 }
 
 
-/* TOTAL BOOKS */
-
-.resource-total {
+.total-books {
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
-    margin-top: 4px;
+    margin-top: 13px;
 
-    padding: 13px 14px;
+    padding: 14px 15px;
 
-    background: #eff6ff;
+    background:
+        linear-gradient(
+            135deg,
+            #1e3a8a,
+            #2563eb
+        );
 
-    border: 1px solid #bfdbfe;
+    border-radius: 12px;
 
-    border-radius: 10px;
-
-    color: #1e3a8a;
+    color: #ffffff;
 
     font-size: 14px;
 
     font-weight: 700;
 }
 
-.resource-total strong {
-    color: #1d4ed8;
 
-    font-size: 17px;
+.total-books strong {
+    font-size: 19px;
 }
 
 
 /* =========================================
-   LIBRARY RULES
+   RULES CARD
    ========================================= */
 
-.about-rules-card {
-    margin-top: 24px;
+.rules-card {
 
-    background: #ffffff;
+    grid-column: 1 / -1;
 
-    border: 1px solid #dbe5f0;
-
-    border-radius: 20px;
-
-    padding: 26px;
-
-    box-shadow:
-        0 8px 25px rgba(15, 23, 42, 0.06);
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #faf8ff 100%
+        );
 }
 
 
-/* RULE HEADER */
-
-.rules-header {
-    display: flex;
-    align-items: flex-start;
-
-    gap: 18px;
-
-    margin-bottom: 22px;
+.rules-card::before {
+    background:
+        linear-gradient(
+            90deg,
+            #7c3aed,
+            #a855f7
+        );
 }
 
-.rules-header h3 {
-    margin: 2px 0 6px;
-
-    color: #172554;
-
-    font-size: 21px;
-    font-weight: 700;
-}
-
-.rules-header p {
-    margin: 0;
-
-    color: #64748b;
-
-    font-size: 13px;
-
-    line-height: 1.6;
-}
-
-
-/* RULE LIST */
 
 .rules-list {
     display: grid;
@@ -3901,18 +4052,22 @@ box-shadow:0 2px 8px #ddd;
     grid-template-columns:
         repeat(2, minmax(0, 1fr));
 
-    gap: 11px;
+    gap: 10px;
 }
 
-.rule-item {
+
+.rule-row {
     display: flex;
+
     align-items: center;
 
     gap: 12px;
 
-    padding: 13px 14px;
+    min-height: 48px;
 
-    background: #f8fafc;
+    padding: 10px 12px;
+
+    background: #ffffff;
 
     border: 1px solid #e5e7eb;
 
@@ -3922,7 +4077,7 @@ box-shadow:0 2px 8px #ddd;
 
     font-size: 13px;
 
-    line-height: 1.5;
+    line-height: 1.45;
 
     transition:
         background 0.2s ease,
@@ -3930,242 +4085,99 @@ box-shadow:0 2px 8px #ddd;
         transform 0.2s ease;
 }
 
-.rule-item:hover {
-    background: #eff6ff;
 
-    border-color: #bfdbfe;
+.rule-row:hover {
+    background: #f5f3ff;
 
-    transform: translateY(-1px);
+    border-color: #c4b5fd;
+
+    transform: translateX(2px);
 }
 
 
-/* RULE NUMBER */
-
 .rule-number {
-    width: 31px;
-    height: 31px;
-
-    min-width: 31px;
-
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    background: #dbeafe;
+    width: 32px;
+    height: 32px;
 
-    color: #1d4ed8;
+    min-width: 32px;
+
+    background: #ede9fe;
+
+    color: #6d28d9;
 
     border-radius: 9px;
 
-    font-size: 11px;
+    font-size: 10px;
 
     font-weight: 800;
 }
 
 
 /* =========================================
-   MOBILE
+   RESPONSIVE
    ========================================= */
 
-@media (max-width: 800px) {
+@media (max-width: 850px) {
 
-    .about-top-grid {
+    .about-cards-grid {
         grid-template-columns: 1fr;
+    }
+
+    .rules-card {
+        grid-column: auto;
     }
 
     .rules-list {
         grid-template-columns: 1fr;
     }
 
-    .about-info-card {
-        padding: 20px;
-    }
-
-    .about-rules-card {
-        padding: 20px;
-    }
-
 }
 
 
 @media (max-width: 500px) {
 
+    .about-library-section {
+        margin-top: 30px;
+    }
+
     .about-library-section .section-title h2 {
-        font-size: 24px;
+        font-size: 25px;
     }
 
-    .about-info-card {
-        gap: 13px;
-        padding: 17px;
+    .about-premium-card {
+        padding: 20px;
+
+        border-radius: 18px;
     }
 
-    .about-card-icon {
-        width: 48px;
-        height: 48px;
-        min-width: 48px;
-
-        font-size: 24px;
-    }
-
-    .about-card-content h3 {
-        font-size: 18px;
-    }
-
-    .resource-row {
-        font-size: 12px;
-    }
-
-    .resource-row strong {
-        font-size: 13px;
-    }
-
-    .rules-header {
+    .premium-card-top {
         gap: 12px;
     }
 
-    .rule-item {
-        padding: 11px;
+    .premium-icon {
+        width: 50px;
+        height: 50px;
+
+        min-width: 50px;
+
+        font-size: 24px;
     }
 
-}
-
-/* =========================================
-   LIBRARY TIMING - ATTRACTIVE CARD
-   ========================================= */
-
-.library-timing-card {
-    margin-top: 18px;
-    padding: 20px;
-
-    background: linear-gradient(
-        135deg,
-        #eff6ff,
-        #f8fafc
-    );
-
-    border: 1px solid #bfdbfe;
-    border-radius: 16px;
-}
-
-
-/* MAIN HOURS */
-
-.timing-main {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-
-    padding-bottom: 17px;
-    border-bottom: 1px solid #dbeafe;
-}
-
-.timing-clock {
-    width: 52px;
-    height: 52px;
-    min-width: 52px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: #ffffff;
-    border-radius: 14px;
-
-    font-size: 27px;
-
-    box-shadow:
-        0 5px 14px rgba(30, 64, 175, 0.08);
-}
-
-.timing-label {
-    display: block;
-
-    color: #64748b;
-
-    font-size: 11px;
-    font-weight: 700;
-
-    letter-spacing: 1px;
-}
-
-.timing-hours {
-    margin-top: 3px;
-
-    color: #1d4ed8;
-
-    font-size: 23px;
-    font-weight: 800;
-}
-
-
-/* WORKING DAYS */
-
-.timing-days {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    margin-top: 15px;
-
-    color: #334155;
-
-    font-size: 14px;
-}
-
-.timing-days span {
-    font-size: 18px;
-}
-
-
-/* CLOSED */
-
-.timing-closed {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-
-    margin-top: 13px;
-    padding: 12px 13px;
-
-    background: #ffffff;
-
-    border: 1px solid #e2e8f0;
-    border-radius: 11px;
-}
-
-.timing-closed > span {
-    font-size: 19px;
-}
-
-.timing-closed strong {
-    display: block;
-
-    color: #334155;
-
-    font-size: 13px;
-}
-
-.timing-closed small {
-    display: block;
-
-    margin-top: 2px;
-
-    color: #64748b;
-
-    font-size: 12px;
-}
-
-
-/* MOBILE */
-
-@media (max-width: 500px) {
-
-    .library-timing-card {
-        padding: 16px;
+    .premium-card-top h3 {
+        font-size: 18px;
     }
 
-    .timing-hours {
-        font-size: 20px;
+    .timing-highlight strong {
+        font-size: 21px;
+    }
+
+    .department-row {
+        font-size: 12px;
     }
 
 }
