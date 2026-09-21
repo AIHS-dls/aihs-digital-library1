@@ -304,45 +304,202 @@
 
 
 
-        <!-- =====================================
-             LIBRARY EVENTS
-        ====================================== -->
+       <!-- =====================================
+     LIBRARY EVENTS
+====================================== -->
 
-        <div class="admin-activity-card">
+<div class="admin-activity-card">
 
-            <div class="admin-activity-icon">
-                🎉
-            </div>
+    <div class="admin-activity-icon">
+        🎉
+    </div>
 
-            <div class="admin-activity-content">
+    <div class="admin-activity-content">
 
-                <h3>
-                    Library Events
-                </h3>
+        <h3>
+            Library Events
+        </h3>
 
-                <p>
-                    Quiz, Exhibition, Conference,
-                    Workshop, Seminar, Orientation
-                    and other library activities.
-                </p>
+        <p>
+            Quiz, Exhibition, Conference,
+            Workshop, Seminar, Orientation
+            and other library activities.
+        </p>
 
-                <div
-                    id="eventsList"
-                    class="admin-activity-list"
-                >
 
-                    Loading Events...
+        <!-- ADD EVENT BUTTON -->
 
-                </div>
+        <button
+            type="button"
+            class="admin-event-add-btn"
+            onclick="openEventForm()"
+        >
+            ➕ Add Event
+        </button>
 
-            </div>
+
+        <!-- EVENTS -->
+
+        <div
+            id="eventsList"
+            class="admin-activity-list"
+        >
+
+            Loading Events...
+
+        </div>
+
+    </div>
+
+</div>
+
+
+ <!-- =========================================
+     EVENT FORM MODAL
+========================================= -->
+
+<div
+    id="eventModal"
+    class="event-modal hidden"
+>
+
+    <div class="event-modal-box">
+
+        <div class="event-modal-header">
+
+            <h2 id="eventFormTitle">
+                ➕ Add Library Event
+            </h2>
+
+            <button
+                type="button"
+                onclick="closeEventForm()"
+                class="event-close-btn"
+            >
+                ✕
+            </button>
 
         </div>
 
 
+        <form id="eventForm">
+
+
+            <input
+                type="hidden"
+                id="eventId"
+            >
+
+
+            <label>
+                Event Title
+            </label>
+
+            <input
+                type="text"
+                id="eventTitle"
+                placeholder="Enter event title"
+                required
+            >
+
+
+            <label>
+                Category
+            </label>
+
+            <select
+                id="eventCategory"
+                required
+            >
+
+                <option value="">
+                    Select Category
+                </option>
+
+                <option value="Quiz">
+                    Quiz
+                </option>
+
+                <option value="Exhibition">
+                    Exhibition
+                </option>
+
+                <option value="Conference">
+                    Conference
+                </option>
+
+                <option value="Workshop">
+                    Workshop
+                </option>
+
+                <option value="Seminar">
+                    Seminar
+                </option>
+
+                <option value="Orientation">
+                    Orientation
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+
+            <label>
+                Event Date
+            </label>
+
+            <input
+                type="date"
+                id="eventDate"
+                required
+            >
+
+
+            <label>
+                Description
+            </label>
+
+            <textarea
+                id="eventDescription"
+                rows="4"
+                placeholder="Enter event description"
+            ></textarea>
+
+
+            <div class="event-form-actions">
+
+                <button
+                    type="submit"
+                    id="eventSaveBtn"
+                >
+                    💾 Save Event
+                </button>
+
+                <button
+                    type="button"
+                    onclick="closeEventForm()"
+                    class="event-cancel-btn"
+                >
+                    Cancel
+                </button>
+
+            </div>
+
+
+            <div
+                id="eventFormMsg"
+                class="event-form-msg"
+            ></div>
+
+
+        </form>
+
     </div>
 
-</section>
+</div>       
     
     
 
