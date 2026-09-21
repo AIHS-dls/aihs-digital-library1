@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
 <title>AIHS Digital Library</title>
-<link rel="stylesheet" href="styles.css">
+
+<link
+rel="stylesheet"
+href="styles.css"
+>
+
 <script>
+
 window.addEventListener("pageshow", function(event){
 
     if(event.persisted){
@@ -15,576 +28,1062 @@ window.addEventListener("pageshow", function(event){
     }
 
 });
+
 </script>
-  
+
 </head>
-  <body>
-  <div id="publicHome">
+
+
+<body>
+
+
+<!-- =====================================================
+     PUBLIC HOME PAGE
+===================================================== -->
+
+<div id="publicHome">
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
 <header class="public-header">
 
-<div class="public-brand">
+    <div class="public-brand">
 
-<img src="logo.jpg">
+        <img
+        src="logo.jpg"
+        alt="AIHS Logo"
+        >
 
-<div>
-<h1>AIHS Digital Library</h1>
-<p>Acharya Institute of Health Sciences</p>
-</div>
+        <div>
 
-</div>
+            <h1>AIHS Digital Library</h1>
 
-<button class="login-btn" onclick="showLogin()">
-🔐 Login
-</button>
+            <p>
+                Acharya Institute of Health Sciences
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <button
+    class="login-btn"
+    onclick="showLogin()"
+    >
+
+        🔐 Login
+
+    </button>
 
 </header>
 
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
 <nav class="menu">
 
-<a href="#searchSection">
-Home
-</a>
+    <a href="#searchSection">
+        Home
+    </a>
 
-<a href="#collectionsSection">
-Library Collections
-</a>
+    <a href="#aboutSection">
+        About Library
+    </a>
 
-<a href="#noticeSection">
-Notice Board
-</a>
+    <a href="#collectionsSection">
+        Library Collections
+    </a>
 
-<a href="#latestSection">
-Latest Resources
-</a>
+    <a href="#latestSection">
+        Latest Resources
+    </a>
 
-<a href="#aboutSection">
-About Library
-</a>
+    <a href="#bestUsersSection">
+        Library Best Users
+    </a>
 
-<a href="#contactSection">
-Contact Us
-</a>
+    <a href="#noticeSection">
+        Library Events
+    </a>
+
+    <a href="#contactSection">
+        Contact Us
+    </a>
 
 </nav>
-    
-<section id="searchSection" class="home-search">
-<h2>
-Search Library Resources
-</h2>
 
-<input 
-id="publicSearch"
-placeholder="Search books, notes, journals..."
+
+
+<!-- =====================================================
+     SEARCH
+===================================================== -->
+
+<section
+id="searchSection"
+class="home-search"
 >
-
-</section>
-
-    
-<section id="publicDashboard" class="home-box hidden">
-<h2>📚 Library Dashboard</h2>
-
-<div class="collection-grid">
-
-<div class="collection-card" onclick="filterMenu('E-book')">
-<h1>📚</h1>
-<h3>Library Collections</h3>
-<p>Access books, notes, journals</p>
-</div>
-
-
-<div class="collection-card" onclick="loadPublicResources()">
-<h1>📖</h1>
-<h3>Latest Resources</h3>
-<p>Recently added materials</p>
-</div>
-
-
-<div class="collection-card">
-<h1>🎉</h1>
-<h3>Library Events</h3>
-<p>Upcoming library activities</p>
-</div>
-
-</div>
-
-</section>
-
-    <section id="bestUsersSection" class="notice-box">
-
-<h2>🏆 Library Best Users</h2>
-
-<div id="publicBestUsers">
-Loading Best Users...
-</div>
-
-</section>
-
-<section id="collectionsSection" class="home-box">
-<h2>📚 Library Collections</h2>
-<div class="collection-grid">
-
-<div class="collection-card" onclick="openProtected('E-book')">
-<h1>📚</h1>
-<h3>E-Books</h3>
-<p>Digital books and textbooks</p>
-</div>
-
-<div class="collection-card" onclick="openProtected('Question Paper')">
-<h1>📄</h1>
-<h3>Question Papers</h3>
-<p>Previous year examination papers</p>
-</div>
-
-<div class="collection-card" onclick="openProtected('Notes')">
-<h1>📝</h1>
-<h3>Notes</h3>
-<p>Student study materials</p>
-</div>
-
-<div class="collection-card" onclick="openProtected('Journal')">
-<h1>📖</h1>
-<h3>Journals</h3>
-<p>Academic journals and articles</p>
-</div>
-
-<div class="collection-card" onclick="openProtected('Database')">
-<h1>💻</h1>
-<h3>Databases</h3>
-<p>Academic databases and digital services</p>
-</div>
-</div>
-
-</section>
-
-   <section id="noticeSection" class="notice-box">
-
-<h2>🎉 Library Events</h2>
-
-<div id="publicEvents">
-Loading Events...
-</div>
-
-</section>
-    
-<section id="latestSection" class="home-box">
-<h2>
-📚 Latest Resources
-</h2>
-
-<div id="publicResources">
-Loading...
-</div>
-
-</section>
-
- <section id="aboutSection" class="about-box">
-
-<h2>🏛 About Library</h2>
-
-<p>
-AIHS Library and Information Center provides digital
-and physical resources to support students, faculty
-and research activities.
-</p>
-
-<h3>📚 Library Timings</h3>
-
-<p>
-Monday to Saturday<br>
-9:00 AM to 5:00 PM
-</p>
-
-<h3>🏖 Holidays</h3>
-
-<p>
-• Every Sunday<br>
-• 2nd Saturday<br>
-• Government Holidays
-</p>
-
-<p>
-Library will remain closed on the above holidays.
-</p>
-
-</section>
-
-
-<section id="contactSection" class="contact-box">
-<h2>📞 Contact Us</h2>
-
-<p>
-Library and Information Center<br>
-Acharya Institute of Health Sciences<br>
-Bengaluru
-</p>
-
-<p>
-Email: librarian@aihs.ac.in
-</p>
-
-</section>
-
-</div>
-  <div id="loginView" class="login-overlay hidden">
-
-  <div class="login-card">
-    <button class="close-login" onclick="closeLogin()">✖</button>
-
-    <img src="logo.jpg" class="logo" alt="AIHS Logo">
-
-    <h1>
-      Acharya Institute of Health Sciences
-    </h1>
 
     <h2>
-      Digital Library
+        Search Library Resources
     </h2>
 
-    <p class="sub">
-      Students & Staff — Secure Library Access
-    </p>
+
+    <input
+    id="publicSearch"
+    placeholder="Search books, notes, journals..."
+    >
+
+</section>
 
 
-    <div class="role-tabs">
 
-      <button class="role active" data-role="Student">
-        Student
-      </button>
+<!-- =====================================================
+     ABOUT LIBRARY
+===================================================== -->
 
-      <button class="role" data-role="Staff">
-        Staff
-      </button>
-
-      <button class="role" data-role="Librarian">
-        Librarian
-      </button>
-
-    </div>
-
-
-    <form id="loginForm">
-
-      <input 
-      id="username" 
-      placeholder="User ID"
-      required>
-
-
-      <input 
-      id="password"
-      type="password"
-      placeholder="Password"
-      required>
-
-
-      <button class="primary" type="submit">
-        Login
-      </button>
-
-
-    </form>
-
-
-    <div id="loginMsg" class="msg"></div>
-
-
-    <p class="note">
-      Only authorized AIHS students, staff and librarian accounts can access resources.
-    </p>
-
-
-  </div>
-
-</div>
-
-
-<div id="appView" class="hidden">
-  <header>
-    <div class="brand">
-      <img src="logo.jpg" alt="AIHS Logo">
-      <div><strong>AIHS Digital Library</strong><small>Acharya Institute of Health Sciences</small></div>
-    </div>
-    <div class="userbar"><span id="userInfo"></span><button id="logout">Logout</button></div>
-  </header>
-  <main>
-   <section class="hero">
-
-<h1>
-Welcome to AIHS Digital Library
-</h1>
-
-<input 
-id="search"
-class="big-search"
-placeholder="🔍 Search books, notes, journals, question papers..."
+<section
+id="aboutSection"
+class="about-box"
 >
 
+    <h2>
+        🏛 About Library
+    </h2>
+
+
+    <p>
+
+        AIHS Library and Information Center provides digital
+        and physical resources to support students, faculty
+        and research activities.
+
+    </p>
+
+
+    <h3>
+        📚 Library Timings
+    </h3>
+
+
+    <p>
+
+        Monday to Saturday<br>
+        9:00 AM to 5:00 PM
+
+    </p>
+
+
+    <h3>
+        🏖 Holidays
+    </h3>
+
+
+    <p>
+
+        • Every Sunday<br>
+        • 2nd Saturday<br>
+        • Government Holidays
+
+    </p>
+
+
+    <p>
+
+        Library will remain closed on the above holidays.
+
+    </p>
+
 </section>
-    
-  <section id="studentDashboard" class="student-dashboard hidden">
-
-<h2>📚 Library Collections</h2>
-
-<div class="collection-grid">
 
 
-<div
-class="collection-card"
-onclick="openProtected('E-book')">
 
-<h1>📚</h1>
+<!-- =====================================================
+     LIBRARY COLLECTIONS
+===================================================== -->
 
-<h3>E-Books</h3>
+<section
+id="collectionsSection"
+class="home-box"
+>
 
-<p>Digital Books</p>
-
-</div>
-
-
-<div
-class="collection-card"
-onclick="openProtected('Question Paper')">
-
-<h1>📄</h1>
-
-<h3>Question Papers</h3>
-
-<p>Previous Examination Papers</p>
-
-</div>
+    <h2>
+        📚 Library Collections
+    </h2>
 
 
-<div
-class="collection-card"
-onclick="openProtected('Notes')">
-
-<h1>📝</h1>
-
-<h3>Notes</h3>
-
-<p>Study Materials</p>
-
-</div>
+    <div class="collection-grid">
 
 
-<div
-class="collection-card"
-onclick="openProtected('Journal')">
+        <!-- E-BOOKS -->
 
-<h1>📖</h1>
+        <div
+        class="collection-card"
+        onclick="openProtected('E-book')"
+        >
 
-<h3>Journals</h3>
+            <h1>📚</h1>
 
-<p>Research Articles</p>
+            <h3>
+                E-Books
+            </h3>
 
-</div>
+            <p>
+                Digital books and textbooks
+            </p>
 
-
-<div
-class="collection-card"
-onclick="openProtected('Database')">
-
-<h1>💻</h1>
-
-<h3>Databases</h3>
-
-<p>Academic Databases</p>
-
-</div>
+        </div>
 
 
-</div>
+
+        <!-- QUESTION PAPERS -->
+
+        <div
+        class="collection-card"
+        onclick="openProtected('Question Paper')"
+        >
+
+            <h1>📄</h1>
+
+            <h3>
+                Question Papers
+            </h3>
+
+            <p>
+                Previous year examination papers
+            </p>
+
+        </div>
 
 
-<!-- ===============================
+
+        <!-- NOTES -->
+
+        <div
+        class="collection-card"
+        onclick="openProtected('Notes')"
+        >
+
+            <h1>📝</h1>
+
+            <h3>
+                Notes
+            </h3>
+
+            <p>
+                Student study materials
+            </p>
+
+        </div>
+
+
+
+        <!-- JOURNALS -->
+
+        <div
+        class="collection-card"
+        onclick="openProtected('Journal')"
+        >
+
+            <h1>📖</h1>
+
+            <h3>
+                Journals
+            </h3>
+
+            <p>
+                Academic journals and articles
+            </p>
+
+        </div>
+
+
+
+        <!-- DATABASES -->
+
+        <div
+        class="collection-card"
+        onclick="openProtected('Database')"
+        >
+
+            <h1>💻</h1>
+
+            <h3>
+                Databases
+            </h3>
+
+            <p>
+                Academic databases and digital services
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
      LATEST RESOURCES
-     =============================== -->
+===================================================== -->
 
-<section class="dashboard-section">
+<section
+id="latestSection"
+class="home-box"
+>
 
-<div class="section-head">
+    <h2>
+        📚 Latest Resources
+    </h2>
 
-<h2>📚 Latest Resources</h2>
+
+    <div
+    id="publicResources"
+    class="latest-public-resources"
+    >
+
+        Loading...
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     LIBRARY BEST USERS
+===================================================== -->
+
+<section
+id="bestUsersSection"
+class="notice-box"
+>
+
+    <h2>
+        🏆 Library Best Users
+    </h2>
+
+
+    <div
+    id="publicBestUsers"
+    >
+
+        Loading Best Users...
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     LIBRARY EVENTS
+===================================================== -->
+
+<section
+id="noticeSection"
+class="notice-box"
+>
+
+    <h2>
+        🎉 Library Events
+    </h2>
+
+
+    <div
+    id="publicEvents"
+    >
+
+        Loading Events...
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CONTACT US
+===================================================== -->
+
+<section
+id="contactSection"
+class="contact-box"
+>
+
+    <h2>
+        📞 Contact Us
+    </h2>
+
+
+    <p>
+
+        Library and Information Center<br>
+
+        Acharya Institute of Health Sciences<br>
+
+        Bengaluru
+
+    </p>
+
+
+    <p>
+
+        Email: librarian@aihs.ac.in
+
+    </p>
+
+</section>
+
 
 </div>
+
+
+
+<!-- =====================================================
+     LOGIN POPUP
+===================================================== -->
 
 <div
-id="studentLatestResources"
-class="grid">
-
-Loading Latest Resources...
-
-</div>
-
-</section>
+id="loginView"
+class="login-overlay hidden"
+>
 
 
-<!-- ===============================
-     LIBRARY ACTIVITIES
-     =============================== -->
+    <div class="login-card">
 
-<section class="dashboard-section">
 
-<div class="section-head">
+        <button
+        class="close-login"
+        onclick="closeLogin()"
+        >
 
-<h2>📊 Library Activities</h2>
+            ✖
 
-</div>
+        </button>
 
-<div class="activities-grid">
 
-    <!-- ===============================
-         LIBRARY BEST USERS
-         =============================== -->
 
-    <div class="activity-card">
+        <img
+        src="logo.jpg"
+        class="logo"
+        alt="AIHS Logo"
+        >
 
-        <div class="activity-icon">
-            🏆
+
+
+        <h1>
+            Acharya Institute of Health Sciences
+        </h1>
+
+
+
+        <h2>
+            Digital Library
+        </h2>
+
+
+
+        <p class="sub">
+
+            Students & Staff — Secure Library Access
+
+        </p>
+
+
+
+        <!-- ROLE TABS -->
+
+        <div class="role-tabs">
+
+
+            <button
+            class="role active"
+            data-role="Student"
+            >
+
+                Student
+
+            </button>
+
+
+
+            <button
+            class="role"
+            data-role="Staff"
+            >
+
+                Staff
+
+            </button>
+
+
+
+            <button
+            class="role"
+            data-role="Librarian"
+            >
+
+                Librarian
+
+            </button>
+
+
         </div>
 
-        <div class="activity-content">
 
-            <h3>Library Best Users</h3>
 
-            <p>
-                Top students and staff members
-                who actively use the library resources.
-            </p>
+        <!-- LOGIN FORM -->
 
-            <div
-            id="studentBestUsers"
-            class="activity-list">
+        <form id="loginForm">
 
-                Loading Best Users...
 
-            </div>
+            <input
+            id="username"
+            placeholder="User ID"
+            required
+            >
+
+
+
+            <input
+            id="password"
+            type="password"
+            placeholder="Password"
+            required
+            >
+
+
+
+            <button
+            class="primary"
+            type="submit"
+            >
+
+                Login
+
+            </button>
+
+
+        </form>
+
+
+
+        <div
+        id="loginMsg"
+        class="msg"
+        ></div>
+
+
+
+        <p class="note">
+
+            Only authorized AIHS students, staff and
+            librarian accounts can access resources.
+
+        </p>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     LOGGED-IN APPLICATION
+     DO NOT REMOVE
+===================================================== -->
+
+<div
+id="appView"
+class="hidden"
+>
+
+
+<header>
+
+
+    <div class="brand">
+
+        <img
+        src="logo.jpg"
+        alt="AIHS Logo"
+        >
+
+        <div>
+
+            <strong>
+                AIHS Digital Library
+            </strong>
+
+            <small>
+                Acharya Institute of Health Sciences
+            </small>
 
         </div>
 
     </div>
 
 
-    <!-- ===============================
-         LIBRARY EVENTS
-         =============================== -->
+    <div class="userbar">
 
-    <div class="activity-card">
+        <span id="userInfo"></span>
 
-        <div class="activity-icon">
-            🎉
-        </div>
-
-        <div class="activity-content">
-
-            <h3>Library Events</h3>
-
-            <p>
-                Quiz, Exhibition, Conference, Workshop,
-                Seminar, Orientation and other library activities.
-            </p>
-
-            <div
-            id="studentEvents"
-            class="activity-list">
-
-                Loading Events...
-
-            </div>
-
-        </div>
+        <button id="logout">
+            Logout
+        </button>
 
     </div>
 
-</div>
+
+</header>
+
+
+
+<main>
+
+
+<!-- =====================================================
+     STUDENT HERO / SEARCH
+===================================================== -->
+
+<section class="hero">
+
+
+    <h1>
+        Welcome to AIHS Digital Library
+    </h1>
+
+
+    <input
+    id="search"
+    class="big-search"
+    placeholder="🔍 Search books, notes, journals, question papers..."
+    >
+
 
 </section>
 
-<!-- ===============================
-     RESOURCE SEARCH / FILTER
-     =============================== -->
+
+
+<!-- =====================================================
+     STUDENT DASHBOARD
+===================================================== -->
+
+<section
+id="studentDashboard"
+class="student-dashboard hidden"
+>
+
+
+    <h2>
+        📚 Library Collections
+    </h2>
+
+
+    <div class="collection-grid">
+
+
+        <div
+        class="collection-card"
+        onclick="openProtected('E-book')"
+        >
+
+            <h1>📚</h1>
+
+            <h3>
+                E-Books
+            </h3>
+
+            <p>
+                Digital Books
+            </p>
+
+        </div>
 
 
 
- <section id="adminPanel" class="admin hidden">
+        <div
+        class="collection-card"
+        onclick="openProtected('Question Paper')"
+        >
 
-<h2>📚 Library Administration</h2>
+            <h1>📄</h1>
 
-<div class="collection-grid">
+            <h3>
+                Question Papers
+            </h3>
+
+            <p>
+                Previous Examination Papers
+            </p>
+
+        </div>
 
 
-<div class="collection-card"
-onclick="openAdminPage('administration.html')">
 
-<h1>📚</h1>
+        <div
+        class="collection-card"
+        onclick="openProtected('Notes')"
+        >
 
-<h3>
-Library Administration
-</h3>
+            <h1>📝</h1>
 
-<p>
-Manage Books, Notes, Journals, Users
-</p>
+            <h3>
+                Notes
+            </h3>
+
+            <p>
+                Study Materials
+            </p>
+
+        </div>
+
+
+
+        <div
+        class="collection-card"
+        onclick="openProtected('Journal')"
+        >
+
+            <h1>📖</h1>
+
+            <h3>
+                Journals
+            </h3>
+
+            <p>
+                Research Articles
+            </p>
+
+        </div>
+
+
+
+        <div
+        class="collection-card"
+        onclick="openProtected('Database')"
+        >
+
+            <h1>💻</h1>
+
+            <h3>
+                Databases
+            </h3>
+
+            <p>
+                Academic Databases
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         STUDENT LATEST RESOURCES
+    ================================================= -->
+
+    <section class="dashboard-section">
+
+
+        <div class="section-head">
+
+            <h2>
+                📚 Latest Resources
+            </h2>
+
+        </div>
+
+
+        <div
+        id="studentLatestResources"
+        class="grid"
+        >
+
+            Loading Latest Resources...
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         STUDENT LIBRARY ACTIVITIES
+    ================================================= -->
+
+    <section class="dashboard-section">
+
+
+        <div class="section-head">
+
+            <h2>
+                📊 Library Activities
+            </h2>
+
+        </div>
+
+
+        <div class="activities-grid">
+
+
+            <!-- BEST USERS -->
+
+            <div class="activity-card">
+
+
+                <div class="activity-icon">
+                    🏆
+                </div>
+
+
+                <div class="activity-content">
+
+
+                    <h3>
+                        Library Best Users
+                    </h3>
+
+
+                    <p>
+
+                        Top students and staff members
+                        who actively use the library resources.
+
+                    </p>
+
+
+                    <div
+                    id="studentBestUsers"
+                    class="activity-list"
+                    >
+
+                        Loading Best Users...
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- EVENTS -->
+
+            <div class="activity-card">
+
+
+                <div class="activity-icon">
+                    🎉
+                </div>
+
+
+                <div class="activity-content">
+
+
+                    <h3>
+                        Library Events
+                    </h3>
+
+
+                    <p>
+
+                        Quiz, Exhibition, Conference,
+                        Workshop, Seminar, Orientation
+                        and other library activities.
+
+                    </p>
+
+
+                    <div
+                    id="studentEvents"
+                    class="activity-list"
+                    >
+
+                        Loading Events...
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         RESOURCE BOX
+    ================================================= -->
+
+    <section
+    id="resourceBox"
+    class="dashboard-section hidden student-hide"
+    >
+
+
+        <div class="section-head">
+
+
+            <h2>
+                📚 Library Resources
+            </h2>
+
+
+            <span id="count"></span>
+
+
+        </div>
+
+
+
+        <div
+        id="resources"
+        class="grid"
+        ></div>
+
+
+
+        <div
+        id="empty"
+        class="empty hidden"
+        >
+
+            No resources found.
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         ADMIN PANEL
+    ================================================= -->
+
+    <section
+    id="adminPanel"
+    class="admin hidden"
+    >
+
+
+        <h2>
+            📚 Library Administration
+        </h2>
+
+
+        <div class="collection-grid">
+
+
+            <div
+            class="collection-card"
+            onclick="openAdminPage('administration.html')"
+            >
+
+                <h1>📚</h1>
+
+                <h3>
+                    Library Administration
+                </h3>
+
+                <p>
+                    Manage Books, Notes, Journals, Users
+                </p>
+
+            </div>
+
+
+
+            <div
+            class="collection-card"
+            onclick="openAdminPage('eventsAdmin.html')"
+            >
+
+                <h1>🎉</h1>
+
+                <h3>
+                    Library Events
+                </h3>
+
+                <p>
+                    Add, Edit and Delete Events
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
 
 </div>
 
 
 
-<div class="collection-card"
-onclick="openAdminPage('eventsAdmin.html')">
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
-<h1>🎉</h1>
-
-<h3>
-Library Events
-</h3>
-
-<p>
-Add, Edit and Delete Events
-</p>
-
-</div>
+<footer class="footer">
 
 
-</div>
+    <h3>
+        AIHS Digital Library
+    </h3>
 
-</section>
 
-      <section id="resourceBox" class="dashboard-section hidden student-hide">
+    <p>
 
-  <div class="section-head">
-    <h2>📚 Library Resources</h2>
-    <span id="count"></span>
-  </div>
+        Library and Information Center<br>
 
-  <div id="resources" class="grid"></div>
+        Acharya Institute of Health Sciences<br>
 
-  <div id="empty" class="empty hidden">
-    No resources found.
-  </div>
+        Bengaluru
 
-</section>
-            
-    
-  </main>
-</div>
-    <footer class="footer">
+    </p>
 
-<h3>AIHS Digital Library</h3>
 
-<p>
-Library and Information Center<br>
-Acharya Institute of Health Sciences<br>
-Bengaluru
-</p>
+    <p>
 
-<p>
-© 2026 AIHS Digital Library. All Rights Reserved.
-</p>
+        © 2026 AIHS Digital Library.
+        All Rights Reserved.
+
+    </p>
+
 
 </footer>
-    
+
+
+
 <script src="app.js"></script>
-  
+
+
 </body>
+
 </html>
