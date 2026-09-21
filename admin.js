@@ -1271,3 +1271,19 @@ ${u.students}
 `).join("");
 
 }
+
+function openBestUserForm(){
+
+document
+.getElementById("bestUserModal")
+.classList.remove("hidden");
+
+}
+
+function closeBestUserForm(){
+
+document
+.getElementById("bestUserModal")
+.classList.add("hidden");
+
+}
