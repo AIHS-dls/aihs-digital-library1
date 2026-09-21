@@ -219,52 +219,131 @@ function searchUsers(){
   }
 
 }
-  async function loadBestUsers(){
 
-  let response = await post({
-    action:"getBestUsers",
-    token:token
-  });
+async function loadBestUsers(){
 
+  try{
 
-  if(response.ok){
-
-    let html="";
-
-
-    response.bestUsers.forEach(function(user){
-
-      html += `
-
-      <div class="userBox">
-
-        <h3>🏆 ${user.rank}</h3>
-
-        <b>${user.studentName}</b><br>
-
-        Department: ${user.department || "-"}<br>
-
-        Books Issued: ${user.booksIssued || 0}<br>
-
-        Year: ${user.year || "-"}
-
-      </div>
-
-      `;
-
+    let response = await post({
+      action:"getBestUsers",
+      token:token
     });
 
+    if(!response.ok){
 
-    $("bestUsersList").innerHTML = html;
+      let errorText =
+        response.error || "Unable to load Best Users.";
+
+      if($("bestUsersList")){
+        $("bestUsersList").innerHTML = errorText;
+      }
+
+      if($("studentBestUsers")){
+        $("studentBestUsers").innerHTML = errorText;
+      }
+
+      return;
+    }
+
+    let users = response.bestUsers || [];
+
+    if(users.length === 0){
+
+      let emptyText = "No Best Users available.";
+
+      if($("bestUsersList")){
+        $("bestUsersList").innerHTML = emptyText;
+      }
+
+      if($("studentBestUsers")){
+        $("studentBestUsers").innerHTML = emptyText;
+      }
+
+      return;
+    }
+
+    /* ==========================================
+       LIBRARIAN BEST USERS
+       ========================================== */
+
+    if($("bestUsersList")){
+
+      $("bestUsersList").innerHTML =
+        users.map(function(user){
+
+          return `
+
+          <div class="userBox">
+
+            <h3>🏆 ${escapeHTML(user.rank || "")}</h3>
+
+            <b>${escapeHTML(user.studentName || "")}</b><br>
+
+            Department:
+            ${escapeHTML(user.department || "-")}<br>
+
+            Books Issued:
+            ${escapeHTML(user.booksIssued || 0)}<br>
+
+            Year:
+            ${escapeHTML(user.year || "-")}
+
+          </div>
+
+          `;
+
+        }).join("");
+
+    }
 
 
-  } else {
+    /* ==========================================
+       STUDENT / STAFF DASHBOARD
+       ========================================== */
 
-    $("bestUsersList").innerHTML = response.error;
+    if($("studentBestUsers")){
+
+      $("studentBestUsers").innerHTML =
+        users.map(function(user){
+
+          return `
+
+          <div class="best-user-item">
+
+            <span class="best-user-name">
+              🏆 ${escapeHTML(user.studentName || "-")}
+            </span>
+
+            <span class="best-user-count">
+              ${escapeHTML(user.booksIssued || 0)} Books
+            </span>
+
+          </div>
+
+          `;
+
+        }).join("");
+
+    }
+
+  }
+  catch(error){
+
+    console.log("BEST USERS ERROR:", error);
+
+    if($("bestUsersList")){
+      $("bestUsersList").innerHTML =
+        "Unable to load Best Users.";
+    }
+
+    if($("studentBestUsers")){
+      $("studentBestUsers").innerHTML =
+        "Unable to load Best Users.";
+    }
 
   }
 
-}    
+}
 
 // ===============================
 // LOGOUT
@@ -957,45 +1036,140 @@ cursor:pointer;
 
 async function loadEvents(){
 
-  let response = await post({
-    action:"getEvents",
-    token:token
-  });
+  try{
 
-
-  if(response.ok){
-
-    let html="";
-
-
-    response.events.forEach(function(event){
-
-      html += `
-
-      <div class="userBox">
-
-        <h3>🎉 ${event.title}</h3>
-
-        <p>
-        Category: ${event.category || "-"}<br>
-        Date: ${event.date || "-"}<br><br>
-
-        ${event.description || ""}
-        </p>
-
-      </div>
-
-      `;
-
+    let response = await post({
+      action:"getEvents",
+      token:token
     });
 
+    if(!response.ok){
 
-    $("eventsList").innerHTML = html;
+      let errorText =
+        response.error || "Unable to load events.";
+
+      if($("eventsList")){
+        $("eventsList").innerHTML = errorText;
+      }
+
+      if($("studentEvents")){
+        $("studentEvents").innerHTML = errorText;
+      }
+
+      return;
+    }
+
+    let events = response.events || [];
 
 
-  } else {
+    /* ==========================================
+       NO EVENTS
+       ========================================== */
 
-    $("eventsList").innerHTML = response.error;
+    if(events.length === 0){
+
+      let emptyText = "No upcoming events.";
+
+      if($("eventsList")){
+        $("eventsList").innerHTML = emptyText;
+      }
+
+      if($("studentEvents")){
+        $("studentEvents").innerHTML = emptyText;
+      }
+
+      return;
+
+    }
+
+
+    /* ==========================================
+       LIBRARIAN EVENTS
+       ========================================== */
+
+    if($("eventsList")){
+
+      $("eventsList").innerHTML =
+        events.map(function(event){
+
+          return `
+
+          <div class="userBox">
+
+            <h3>
+              🎉 ${escapeHTML(event.title || "")}
+            </h3>
+
+            <p>
+
+              Category:
+              ${escapeHTML(event.category || "-")}
+              <br>
+
+              Date:
+              ${escapeHTML(event.date || "-")}
+              <br><br>
+
+              ${escapeHTML(event.description || "")}
+
+            </p>
+
+          </div>
+
+          `;
+
+        }).join("");
+
+    }
+
+
+    /* ==========================================
+       STUDENT / STAFF DASHBOARD
+       ========================================== */
+
+    if($("studentEvents")){
+
+      $("studentEvents").innerHTML =
+        events.map(function(event){
+
+          return `
+
+          <div class="library-event-item">
+
+            <div class="library-event-title">
+              🎉 ${escapeHTML(event.title || "")}
+            </div>
+
+            <div class="library-event-date">
+
+              ${escapeHTML(event.category || "Event")}
+              •
+              ${escapeHTML(event.date || "-")}
+
+            </div>
+
+          </div>
+
+          `;
+
+        }).join("");
+
+    }
+
+  }
+  catch(error){
+
+    console.log("EVENT ERROR:", error);
+
+    if($("eventsList")){
+      $("eventsList").innerHTML =
+        "Unable to load events.";
+    }
+
+    if($("studentEvents")){
+      $("studentEvents").innerHTML =
+        "Unable to load events.";
+    }
 
   }
 
@@ -1424,126 +1598,64 @@ if(latestBox){
 
     }
 
-
-    /*
-     * LOAD EVENTS
+      /*
+     * LOAD BEST USERS
      */
 
     try{
 
-        let eventResponse =
-            await post({
-
-                action:"getEvents",
-
-                token:token
-
-            });
-
-
-        let eventBox =
-            document.getElementById(
-                "studentEvents"
-            );
-
-
-        if(!eventBox){
-
-            return;
-
-        }
-
-
-        if(eventResponse.ok){
-
-            let events =
-                eventResponse.events || [];
-
-
-            if(events.length === 0){
-
-                eventBox.innerHTML =
-                    "<p>No upcoming events.</p>";
-
-            }
-            else{
-
-                eventBox.innerHTML =
-                    events.map(function(e){
-
-                        return `
-
-                        <div class="card">
-
-                        <h3>
-                        🎉 ${escapeHTML(
-                            e.title || ""
-                        )}
-                        </h3>
-
-                        <p>
-                        <b>Category:</b>
-                        ${escapeHTML(
-                            e.category || "-"
-                        )}
-                        </p>
-
-                        <p>
-                        <b>Date:</b>
-                        ${escapeHTML(
-                            e.date || "-"
-                        )}
-                        </p>
-
-                        <p>
-                        ${escapeHTML(
-                            e.description || ""
-                        )}
-                        </p>
-
-                        </div>
-
-                        `;
-
-                    }).join("");
-
-            }
-
-        }
-        else{
-
-            eventBox.innerHTML =
-                eventResponse.error ||
-                "Unable to load events.";
-
-        }
+        await loadBestUsers();
 
     }
     catch(error){
 
         console.log(
-            "STUDENT EVENT ERROR:",
+            "STUDENT BEST USERS ERROR:",
             error
         );
 
-
-        let eventBox =
-            document.getElementById(
-                "studentEvents"
-            );
-
-
-        if(eventBox){
-
-            eventBox.innerHTML =
-                "Unable to load events.";
-
-        }
-
     }
+
+
+/*
+ * LOAD BEST USERS
+ */
+
+try{
+
+    await loadBestUsers();
+
+}
+catch(error){
+
+    console.log(
+        "STUDENT BEST USERS ERROR:",
+        error
+    );
 
 }
 
+
+/*
+ * LOAD EVENTS
+ */
+
+try{
+
+    await loadEvents();
+
+}
+catch(error){
+
+    console.log(
+        "STUDENT EVENTS ERROR:",
+        error
+    );
+
+}
+
+}
+  
 function openBooks(){
 
     if(!localStorage.getItem("user")){
