@@ -2958,3 +2958,258 @@ grid-template-columns:1fr;
     }
 
 }
+
+/* =====================================================
+   LIBRARIAN - LIBRARY ACTIVITIES
+===================================================== */
+
+.admin-activities {
+    margin-top: 42px;
+    padding: 30px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 22px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
+}
+
+.admin-activities-header {
+    margin-bottom: 24px;
+}
+
+.admin-activities-header h2 {
+    margin: 0 0 8px;
+    color: #172554;
+    font-size: 25px;
+    font-weight: 750;
+}
+
+.admin-activities-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   ACTIVITY GRID
+===================================================== */
+
+.admin-activities-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+
+/* =====================================================
+   ACTIVITY CARD
+===================================================== */
+
+.admin-activity-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+
+    background: linear-gradient(
+        135deg,
+        #f8fbff 0%,
+        #ffffff 100%
+    );
+
+    border: 1px solid #dbe5f0;
+    border-radius: 18px;
+
+    padding: 24px;
+
+    min-height: 190px;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.admin-activity-card:hover {
+    transform: translateY(-3px);
+
+    border-color: #bfdbfe;
+
+    box-shadow:
+        0 12px 28px rgba(30, 64, 175, 0.10);
+}
+
+
+/* =====================================================
+   ACTIVITY ICON
+===================================================== */
+
+.admin-activity-icon {
+    width: 58px;
+    height: 58px;
+    min-width: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eff6ff;
+
+    border-radius: 15px;
+
+    font-size: 30px;
+
+    box-shadow:
+        inset 0 0 0 1px #dbeafe;
+}
+
+
+/* =====================================================
+   ACTIVITY CONTENT
+===================================================== */
+
+.admin-activity-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.admin-activity-content h3 {
+    margin: 0 0 7px;
+
+    color: #172554;
+
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.admin-activity-content > p {
+    margin: 0 0 16px;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   ACTIVITY LIST
+===================================================== */
+
+.admin-activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+
+    max-height: 260px;
+
+    overflow-y: auto;
+}
+
+
+/* =====================================================
+   BEST USERS / EVENT ITEMS
+===================================================== */
+
+.admin-activity-list .userBox {
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    padding: 12px 14px;
+
+    margin: 0;
+
+    color: #334155;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+.admin-activity-list .userBox h3 {
+    margin: 0 0 5px;
+
+    font-size: 14px;
+
+    color: #1e3a8a;
+}
+
+.admin-activity-list .userBox:hover {
+    background: #f8fafc;
+
+    border-color: #bfdbfe;
+}
+
+
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+.admin-activity-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.admin-activity-list::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+.admin-activity-list::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 800px) {
+
+    .admin-activities {
+        padding: 20px;
+        margin-top: 30px;
+        border-radius: 18px;
+    }
+
+    .admin-activities-header h2 {
+        font-size: 22px;
+    }
+
+    .admin-activities-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .admin-activity-card {
+        padding: 20px;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .admin-activities {
+        padding: 16px;
+    }
+
+    .admin-activity-card {
+        gap: 13px;
+        padding: 17px;
+    }
+
+    .admin-activity-icon {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        font-size: 25px;
+    }
+
+    .admin-activity-content h3 {
+        font-size: 17px;
+    }
+
+}
