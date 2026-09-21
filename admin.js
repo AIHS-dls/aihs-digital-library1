@@ -1181,3 +1181,93 @@ async function loadBestUsers(){
     }
 
 }
+
+
+async function loadBestUsers(){
+
+const box =
+document.getElementById("bestUsersList");
+
+
+if(!box)return;
+
+
+box.innerHTML="Loading Best Users...";
+
+
+const response =
+await fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"getBestUsers",
+
+token:
+localStorage.getItem("token")
+
+})
+
+});
+
+
+const data =
+await response.json();
+
+
+if(!data.ok){
+
+box.innerHTML="No Best Users available.";
+return;
+
+}
+
+
+
+if(data.bestUsers.length===0){
+
+box.innerHTML="No Best Users available.";
+return;
+
+}
+
+
+
+box.innerHTML =
+data.bestUsers.map(u=>`
+
+<div class="admin-event-item">
+
+
+<h4>
+🏆 ${u.department}
+</h4>
+
+
+<p>
+${u.students}
+</p>
+
+
+<button onclick="editBestUser('${u.id}')">
+✏️ Edit
+</button>
+
+
+<button onclick="deleteBestUser('${u.id}')">
+🗑 Delete
+</button>
+
+
+</div>
+
+
+`).join("");
+
+}
