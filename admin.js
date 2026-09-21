@@ -68,6 +68,7 @@ document.addEventListener(
          */
 
         loadCollectionCounts();
+         loadAdminEvents();
 
     }
 );
@@ -331,5 +332,675 @@ async function loadCollectionCounts(){
         );
 
     }
+
+}
+
+
+/* =====================================================
+   LIBRARY EVENTS
+===================================================== */
+
+
+/*
+ * LOAD EVENTS
+ */
+
+async function loadAdminEvents(){
+
+    const box =
+        document.getElementById("eventsList");
+
+
+    if(!box){
+        return;
+    }
+
+
+    box.innerHTML =
+        "Loading Events...";
+
+
+    try{
+
+        const response =
+            await fetch(API, {
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "text/plain;charset=utf-8"
+                },
+
+                body:JSON.stringify({
+
+                    action:"getEvents",
+
+                    token:
+                    localStorage.getItem("token")
+
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        if(!data.ok){
+
+            box.innerHTML =
+                data.error ||
+                "Unable to load events.";
+
+            return;
+
+        }
+
+
+        const events =
+            data.events || [];
+
+
+        if(events.length === 0){
+
+            box.innerHTML = `
+                <div class="admin-empty-event">
+                    No library events available.
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        box.innerHTML =
+            events.map(function(event){
+
+                return `
+
+                <div
+                    class="admin-event-item"
+                >
+
+                    <div
+                        class="admin-event-info"
+                    >
+
+                        <h4>
+                            🎉
+                            ${escapeHTML(
+                                event.title || "-"
+                            )}
+                        </h4>
+
+                        <div
+                            class="admin-event-meta"
+                        >
+
+                            ${escapeHTML(
+                                event.category ||
+                                "Event"
+                            )}
+
+                            •
+
+                            ${escapeHTML(
+                                event.date || "-"
+                            )}
+
+                        </div>
+
+
+                        <p>
+                            ${escapeHTML(
+                                event.description || ""
+                            )}
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="admin-event-actions"
+                    >
+
+                        <button
+                            type="button"
+                            onclick="editEvent('${escapeHTML(event.id || "")}')"
+                        >
+                            ✏️ Edit
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="event-delete-btn"
+                            onclick="deleteEvent('${escapeHTML(event.id || "")}')"
+                        >
+                            🗑 Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+                `;
+
+            }).join("");
+
+
+    }
+    catch(error){
+
+        console.log(
+            "ADMIN EVENTS ERROR:",
+            error
+        );
+
+
+        box.innerHTML =
+            "Unable to load events.";
+
+    }
+
+}
+
+
+/*
+ * OPEN ADD EVENT FORM
+ */
+
+function openEventForm(){
+
+    const modal =
+        document.getElementById(
+            "eventModal"
+        );
+
+
+    const form =
+        document.getElementById(
+            "eventForm"
+        );
+
+
+    if(!modal || !form){
+        return;
+    }
+
+
+    form.reset();
+
+
+    document.getElementById(
+        "eventId"
+    ).value = "";
+
+
+    document.getElementById(
+        "eventFormTitle"
+    ).textContent =
+        "➕ Add Library Event";
+
+
+    document.getElementById(
+        "eventSaveBtn"
+    ).textContent =
+        "💾 Save Event";
+
+
+    document.getElementById(
+        "eventFormMsg"
+    ).textContent = "";
+
+
+    modal.classList.remove(
+        "hidden"
+    );
+
+}
+
+
+/*
+ * CLOSE EVENT FORM
+ */
+
+function closeEventForm(){
+
+    const modal =
+        document.getElementById(
+            "eventModal"
+        );
+
+
+    if(modal){
+
+        modal.classList.add(
+            "hidden"
+        );
+
+    }
+
+}
+
+
+/*
+ * EDIT EVENT
+ */
+
+async function editEvent(id){
+
+    try{
+
+        const response =
+            await fetch(API, {
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "text/plain;charset=utf-8"
+                },
+
+                body:JSON.stringify({
+
+                    action:"getEvents",
+
+                    token:
+                    localStorage.getItem("token")
+
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        if(!data.ok){
+
+            alert(
+                data.error ||
+                "Unable to load event."
+            );
+
+            return;
+
+        }
+
+
+        const event =
+            (data.events || []).find(
+                function(item){
+
+                    return String(item.id) ===
+                           String(id);
+
+                }
+            );
+
+
+        if(!event){
+
+            alert(
+                "Event not found."
+            );
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "eventId"
+        ).value =
+            event.id || "";
+
+
+        document.getElementById(
+            "eventTitle"
+        ).value =
+            event.title || "";
+
+
+        document.getElementById(
+            "eventCategory"
+        ).value =
+            event.category || "";
+
+
+        document.getElementById(
+            "eventDate"
+        ).value =
+            event.date || "";
+
+
+        document.getElementById(
+            "eventDescription"
+        ).value =
+            event.description || "";
+
+
+        document.getElementById(
+            "eventFormTitle"
+        ).textContent =
+            "✏️ Edit Library Event";
+
+
+        document.getElementById(
+            "eventSaveBtn"
+        ).textContent =
+            "💾 Update Event";
+
+
+        document.getElementById(
+            "eventFormMsg"
+        ).textContent = "";
+
+
+        document.getElementById(
+            "eventModal"
+        ).classList.remove(
+            "hidden"
+        );
+
+
+    }
+    catch(error){
+
+        console.log(
+            "EDIT EVENT ERROR:",
+            error
+        );
+
+        alert(
+            "Unable to edit event."
+        );
+
+    }
+
+}
+
+
+/*
+ * SAVE / UPDATE EVENT
+ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        const form =
+            document.getElementById(
+                "eventForm"
+            );
+
+
+        if(!form){
+            return;
+        }
+
+
+        form.addEventListener(
+            "submit",
+            async function(e){
+
+                e.preventDefault();
+
+
+                const id =
+                    document.getElementById(
+                        "eventId"
+                    ).value.trim();
+
+
+                const title =
+                    document.getElementById(
+                        "eventTitle"
+                    ).value.trim();
+
+
+                const category =
+                    document.getElementById(
+                        "eventCategory"
+                    ).value;
+
+
+                const date =
+                    document.getElementById(
+                        "eventDate"
+                    ).value;
+
+
+                const description =
+                    document.getElementById(
+                        "eventDescription"
+                    ).value.trim();
+
+
+                const msg =
+                    document.getElementById(
+                        "eventFormMsg"
+                    );
+
+
+                const button =
+                    document.getElementById(
+                        "eventSaveBtn"
+                    );
+
+
+                msg.textContent =
+                    id
+                    ? "Updating Event..."
+                    : "Saving Event...";
+
+
+                button.disabled = true;
+
+
+                try{
+
+                    const response =
+                        await fetch(API, {
+
+                            method:"POST",
+
+                            headers:{
+                                "Content-Type":
+                                "text/plain;charset=utf-8"
+                            },
+
+                            body:JSON.stringify({
+
+                                action:
+                                    id
+                                    ? "updateEvent"
+                                    : "addEvent",
+
+                                token:
+                                    localStorage.getItem(
+                                        "token"
+                                    ),
+
+                                id:id,
+
+                                title:title,
+
+                                category:category,
+
+                                date:date,
+
+                                description:
+                                    description
+
+                            })
+
+                        });
+
+
+                    const data =
+                        await response.json();
+
+
+                    if(!data.ok){
+
+                        msg.textContent =
+                            data.error ||
+                            "Operation failed.";
+
+                        button.disabled =
+                            false;
+
+                        return;
+
+                    }
+
+
+                    msg.textContent =
+                        id
+                        ? "✅ Event updated successfully."
+                        : "✅ Event added successfully.";
+
+
+                    await loadAdminEvents();
+
+
+                    setTimeout(
+                        function(){
+
+                            closeEventForm();
+
+                        },
+                        700
+                    );
+
+
+                }
+                catch(error){
+
+                    console.log(
+                        "SAVE EVENT ERROR:",
+                        error
+                    );
+
+
+                    msg.textContent =
+                        "Unable to save event.";
+
+
+                }
+
+
+                button.disabled =
+                    false;
+
+            }
+        );
+
+    }
+);
+
+
+/*
+ * DELETE EVENT
+ */
+
+async function deleteEvent(id){
+
+    if(!confirm(
+        "Are you sure you want to delete this event?"
+    )){
+
+        return;
+
+    }
+
+
+    try{
+
+        const response =
+            await fetch(API, {
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "text/plain;charset=utf-8"
+                },
+
+                body:JSON.stringify({
+
+                    action:"deleteEvent",
+
+                    token:
+                        localStorage.getItem(
+                            "token"
+                        ),
+
+                    id:id
+
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        if(!data.ok){
+
+            alert(
+                data.error ||
+                "Delete failed."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "✅ Event deleted successfully."
+        );
+
+
+        await loadAdminEvents();
+
+
+    }
+    catch(error){
+
+        console.log(
+            "DELETE EVENT ERROR:",
+            error
+        );
+
+
+        alert(
+            "Unable to delete event."
+        );
+
+    }
+
+}
+
+// ===============================
+// ESCAPE HTML
+// ===============================
+
+function escapeHTML(value){
+
+    return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
 }
