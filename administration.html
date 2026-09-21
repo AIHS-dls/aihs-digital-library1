@@ -289,14 +289,21 @@
                     actively using library resources.
                 </p>
 
-                <div
-                    id="bestUsersList"
-                    class="admin-activity-list"
-                >
+               <button
+ type="button"
+ class="admin-event-add-btn"
+ onclick="openBestUserForm()"
+>
+➕ Add Best User
+</button>
 
-                    Loading Best Users...
 
-                </div>
+<div
+ id="bestUsersList"
+ class="admin-activity-list"
+>
+Loading Best Users...
+</div>
 
             </div>
 
@@ -362,6 +369,69 @@
     id="eventModal"
     class="event-modal hidden"
 >
+
+    <div id="bestUserModal" class="event-modal hidden">
+
+<div class="event-modal-box">
+
+<div class="event-modal-header">
+
+<h2 id="bestUserTitle">
+➕ Add Best User
+</h2>
+
+
+<button
+onclick="closeBestUserForm()"
+class="event-close-btn">
+✕
+</button>
+
+</div>
+
+
+<form id="bestUserForm">
+
+
+<input type="hidden" id="bestUserId">
+
+
+<label>
+Department / Year
+</label>
+
+
+<input
+type="text"
+id="bestDepartment"
+placeholder="BPT 1st Year"
+required
+>
+
+
+<label>
+Student Names
+</label>
+
+
+<textarea
+id="bestStudents"
+placeholder="Student 1, Student 2"
+required></textarea>
+
+
+
+<button type="submit">
+💾 Save
+</button>
+
+
+</form>
+
+
+</div>
+
+</div>
 
     <div class="event-modal-box">
 
