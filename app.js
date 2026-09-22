@@ -2078,14 +2078,12 @@ No event images
 `
 }
 
-
-// DESCRIPTION BELOW IMAGE
-
-<p>
+<p class="professional-event-description">
 ${escapeHTML(
     event.description || ""
 )}
 </p>
+
 
                     </div>
 
