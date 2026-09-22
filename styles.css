@@ -5603,3 +5603,22 @@ box-shadow:0 2px 8px #ddd;
         0 8px 20px rgba(239,68,68,0.35);
 
 }
+
+.event-images{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-top:15px;
+}
+
+
+.event-images img{
+
+    width:220px;
+    height:140px;
+
+    object-fit:cover;
+
+    border-radius:12px;
+
+}
