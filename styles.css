@@ -4792,265 +4792,95 @@ box-shadow:0 2px 8px #ddd;
 
 }
 
-/* =========================================
-   PREMIUM LIBRARY BEST USERS
-   ========================================= */
-
-.best-users-section {
-    margin-top: 45px;
-    margin-bottom: 45px;
-}
-
-.best-users-section .section-title {
-    text-align: center;
-    margin-bottom: 28px;
-}
-
-.best-users-section .section-title h2 {
-    margin: 0 0 8px;
-    color: #102a56;
-    font-size: 30px;
-    font-weight: 800;
-}
-
-.best-users-section .section-title p {
-    margin: 0;
-    color: #64748b;
-    font-size: 14px;
-}
-
-
-/* GRID */
-
-.best-users-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 20px;
-}
-
-
-/* CARD */
-
-.best-user-card {
-    position: relative;
-    padding: 24px;
-
-    background: linear-gradient(
-        145deg,
-        #ffffff,
-        #fffbeb
-    );
-
-    border: 1px solid #fde68a;
-    border-radius: 20px;
-
-    box-shadow:
-        0 10px 28px rgba(120, 53, 15, 0.07);
-
-    overflow: hidden;
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.best-user-card:hover {
-    transform: translateY(-5px);
-
-    box-shadow:
-        0 18px 38px rgba(120, 53, 15, 0.12);
-}
-
-
-/* TOP DECORATION */
-
-.best-user-card::after {
-    content: "";
-
-    position: absolute;
-
-    width: 90px;
-    height: 90px;
-
-    right: -30px;
-    top: -30px;
-
-    border-radius: 50%;
-
-    background: rgba(251, 191, 36, 0.12);
-}
-
-
-/* ICON */
-
-.best-user-icon {
-    width: 58px;
-    height: 58px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: #fef3c7;
-
-    border-radius: 16px;
-
-    font-size: 28px;
-
-    margin-bottom: 17px;
-}
-
-
-/* CONTENT */
-
-.best-user-card h3 {
-    margin: 0 0 8px;
-
-    color: #78350f;
-
-    font-size: 18px;
-    font-weight: 800;
-}
-
-.best-user-department {
-    margin: 0 0 5px;
-
-    color: #92400e;
-
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.best-user-year {
-    margin: 0;
-
-    color: #64748b;
-
-    font-size: 12px;
-}
-
-
-/* LOADING */
-
-.best-user-loading {
-    grid-column: 1 / -1;
-
-    padding: 25px;
-
-    text-align: center;
-
-    background: #f8fafc;
-
-    border: 1px dashed #cbd5e1;
-
-    border-radius: 15px;
-
-    color: #64748b;
-
-    font-size: 14px;
-}
-
-
-/* EMPTY */
-
-.best-user-empty {
-    grid-column: 1 / -1;
-
-    padding: 25px;
-
-    text-align: center;
-
-    background: #f8fafc;
-
-    border: 1px dashed #cbd5e1;
-
-    border-radius: 15px;
-
-    color: #64748b;
-
-    font-size: 14px;
-}
-
-
-/* MOBILE */
-
-@media (max-width: 800px) {
-
-    .best-users-grid {
-        grid-template-columns: 1fr;
-    }
-
-}
-
-@media (max-width: 500px) {
-
-    .best-user-card {
-        padding: 20px;
-    }
-
-    .best-users-section .section-title h2 {
-        font-size: 25px;
-    }
-
-}
-
-/* =========================================
-   PREMIUM LIBRARY EVENTS
-   ========================================= */
-
+/* =========================================================
+   PROFESSIONAL LIBRARY BEST USERS
+   ========================================================= */
+
+.best-users-section,
 .library-events-section {
-    margin-top: 45px;
-    margin-bottom: 45px;
+    margin-top: 58px;
+    margin-bottom: 58px;
 }
 
+
+/* SECTION TITLE */
+
+.best-users-section .section-title,
 .library-events-section .section-title {
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 32px;
 }
 
+.section-kicker {
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    color: #2563eb;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.8px;
+
+    text-transform: uppercase;
+}
+
+.best-users-section .section-title h2,
 .library-events-section .section-title h2 {
     margin: 0 0 8px;
-    color: #102a56;
+
+    color: #0f2a5f;
+
     font-size: 30px;
     font-weight: 800;
-    letter-spacing: -0.5px;
+
+    letter-spacing: -0.6px;
 }
 
+.best-users-section .section-title p,
 .library-events-section .section-title p {
     margin: 0;
+
     color: #64748b;
+
     font-size: 14px;
 }
 
 
-/* EVENT GRID */
+/* =========================================================
+   BEST USERS
+   ========================================================= */
 
-.events-premium-grid {
+.professional-users-grid {
+
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
     gap: 20px;
 }
 
 
-/* EVENT CARD */
+/* USER CARD */
 
-.event-premium-card {
+.professional-user-card {
+
     position: relative;
-    overflow: hidden;
-    padding: 23px;
-    min-height: 190px;
 
-    background: linear-gradient(
-        145deg,
-        #ffffff 0%,
-        #f8fbff 100%
-    );
+    padding: 25px;
+
+    background: #ffffff;
 
     border: 1px solid #dbe4f0;
-    border-radius: 20px;
+
+    border-radius: 18px;
 
     box-shadow:
-        0 10px 28px rgba(15, 42, 95, 0.07);
+        0 8px 25px rgba(15, 42, 95, 0.06);
+
+    overflow: hidden;
 
     transition:
         transform 0.25s ease,
@@ -5058,19 +4888,21 @@ box-shadow:0 2px 8px #ddd;
         border-color 0.25s ease;
 }
 
-.event-premium-card:hover {
-    transform: translateY(-6px);
+.professional-user-card:hover {
+
+    transform: translateY(-5px);
 
     border-color: #93c5fd;
 
     box-shadow:
-        0 20px 40px rgba(15, 42, 95, 0.13);
+        0 18px 38px rgba(15, 42, 95, 0.11);
 }
 
 
-/* TOP DECORATION */
+/* TOP BLUE LINE */
 
-.event-premium-card::before {
+.professional-user-card::before {
+
     content: "";
 
     position: absolute;
@@ -5079,7 +4911,7 @@ box-shadow:0 2px 8px #ddd;
     left: 0;
     right: 0;
 
-    height: 5px;
+    height: 4px;
 
     background:
         linear-gradient(
@@ -5090,95 +4922,252 @@ box-shadow:0 2px 8px #ddd;
 }
 
 
-/* BACKGROUND CIRCLE */
+/* USER TOP */
 
-.event-premium-card::after {
-    content: "";
-
-    position: absolute;
-
-    width: 120px;
-    height: 120px;
-
-    right: -45px;
-    top: -45px;
-
-    border-radius: 50%;
-
-    background:
-        rgba(37, 99, 235, 0.06);
-}
-
-
-/* EVENT HEADER */
-
-.event-card-header {
-    position: relative;
-    z-index: 2;
+.user-professional-top {
 
     display: flex;
+
     align-items: center;
 
-    gap: 14px;
+    gap: 15px;
 
-    margin-bottom: 18px;
+    margin-bottom: 21px;
 }
 
 
-/* EVENT ICON */
+/* RANK */
 
-.event-icon {
-    width: 55px;
-    height: 55px;
+.user-rank {
 
-    min-width: 55px;
+    width: 48px;
+    height: 48px;
+
+    min-width: 48px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    background:
-        linear-gradient(
-            135deg,
-            #dbeafe,
-            #eff6ff
-        );
+    border-radius: 13px;
 
-    border: 1px solid #bfdbfe;
+    background: #eff6ff;
 
-    border-radius: 15px;
+    border: 1px solid #dbeafe;
 
-    font-size: 27px;
+    color: #1d4ed8;
 
-    box-shadow:
-        0 7px 17px rgba(37, 99, 235, 0.10);
+    font-size: 15px;
+
+    font-weight: 800;
 }
 
 
-/* CATEGORY */
+/* USER INFO */
 
-.event-category {
-    display: inline-block;
+.user-professional-name {
+
+    margin: 0 0 4px;
+
+    color: #102a56;
+
+    font-size: 17px;
+
+    font-weight: 800;
+}
+
+.user-professional-label {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* USER DETAILS */
+
+.user-professional-details {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 9px;
+
+    padding-top: 16px;
+
+    border-top: 1px solid #edf2f7;
+}
+
+
+.user-detail-box {
+
+    padding: 10px 11px;
+
+    background: #f8fafc;
+
+    border: 1px solid #eef2f7;
+
+    border-radius: 10px;
+}
+
+
+.user-detail-label {
+
+    display: block;
 
     margin-bottom: 4px;
 
-    color: #2563eb;
+    color: #94a3b8;
 
-    font-size: 10px;
+    font-size: 9px;
 
     font-weight: 800;
 
-    letter-spacing: 1px;
+    letter-spacing: .7px;
 
     text-transform: uppercase;
 }
 
 
-/* TITLE */
+.user-detail-value {
 
-.event-premium-card h3 {
+    display: block;
+
+    color: #334155;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    line-height: 1.35;
+}
+
+
+/* =========================================================
+   EVENTS
+   ========================================================= */
+
+.professional-events-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+/* EVENT CARD */
+
+.professional-event-card {
+
     position: relative;
-    z-index: 2;
+
+    padding: 24px;
+
+    background: #ffffff;
+
+    border: 1px solid #dbe4f0;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 25px rgba(15, 42, 95, 0.06);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.professional-event-card:hover {
+
+    transform: translateY(-5px);
+
+    border-color: #93c5fd;
+
+    box-shadow:
+        0 18px 38px rgba(15, 42, 95, 0.11);
+}
+
+
+/* EVENT TOP */
+
+.event-professional-top {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+
+/* EVENT NUMBER */
+
+.event-number {
+
+    width: 45px;
+    height: 45px;
+
+    min-width: 45px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #f1f5f9;
+
+    border: 1px solid #e2e8f0;
+
+    color: #1d4ed8;
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+
+/* CATEGORY */
+
+.event-professional-category {
+
+    display: inline-block;
+
+    margin-bottom: 6px;
+
+    color: #2563eb;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+
+    text-transform: uppercase;
+}
+
+
+/* EVENT TITLE */
+
+.professional-event-card h3 {
 
     margin: 0;
 
@@ -5194,28 +5183,27 @@ box-shadow:0 2px 8px #ddd;
 
 /* DATE */
 
-.event-date {
-    position: relative;
-    z-index: 2;
+.professional-event-date {
 
     display: flex;
+
     align-items: center;
 
     gap: 8px;
 
     margin-top: 14px;
 
-    padding: 9px 11px;
+    padding: 10px 12px;
 
-    background: #eff6ff;
+    background: #f8fafc;
 
-    border: 1px solid #dbeafe;
+    border: 1px solid #e5e7eb;
 
-    border-radius: 10px;
+    border-radius: 9px;
 
-    color: #1e40af;
+    color: #475569;
 
-    font-size: 12px;
+    font-size: 11px;
 
     font-weight: 700;
 }
@@ -5223,109 +5211,109 @@ box-shadow:0 2px 8px #ddd;
 
 /* DESCRIPTION */
 
-.event-description {
-    position: relative;
-    z-index: 2;
+.professional-event-description {
 
     margin: 13px 0 0;
 
     color: #64748b;
 
-    font-size: 13px;
+    font-size: 12px;
 
-    line-height: 1.55;
+    line-height: 1.6;
 }
 
 
-/* LOADING CARD */
+/* =========================================================
+   LOADING / EMPTY
+   ========================================================= */
 
-.event-loading-card {
+.professional-loading {
+
     grid-column: 1 / -1;
 
-    display: flex;
-    align-items: center;
-
-    gap: 15px;
-
-    padding: 22px 24px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #f8fbff,
-            #ffffff
-        );
-
-    border: 1px dashed #bfdbfe;
-
-    border-radius: 17px;
-
-    color: #64748b;
-}
-
-.event-loading-icon {
-    width: 50px;
-    height: 50px;
+    min-height: 90px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    background: #eff6ff;
+    gap: 13px;
 
-    border-radius: 14px;
+    padding: 20px;
 
-    font-size: 24px;
-}
+    background: #ffffff;
 
-.event-loading-card strong {
-    display: block;
+    border: 1px solid #dbe4f0;
 
-    color: #334155;
+    border-radius: 16px;
 
-    font-size: 14px;
+    color: #64748b;
 
-    margin-bottom: 3px;
-}
+    font-size: 13px;
 
-.event-loading-card span {
-    display: block;
-
-    color: #94a3b8;
-
-    font-size: 12px;
+    box-shadow:
+        0 6px 20px rgba(15, 42, 95, 0.04);
 }
 
 
-/* EMPTY */
+.loading-line {
 
-.event-empty-card {
+    width: 28px;
+    height: 28px;
+
+    border-radius: 50%;
+
+    border: 3px solid #dbeafe;
+
+    border-top-color: #2563eb;
+
+    animation:
+        professionalSpin 0.8s linear infinite;
+}
+
+
+@keyframes professionalSpin {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+.professional-empty {
+
     grid-column: 1 / -1;
 
-    padding: 30px;
+    padding: 28px;
 
     text-align: center;
 
     background: #f8fafc;
 
-    border: 1px dashed #cbd5e1;
+    border: 1px solid #e2e8f0;
 
-    border-radius: 17px;
+    border-radius: 16px;
 
     color: #64748b;
 
-    font-size: 14px;
+    font-size: 13px;
 }
 
 
-/* =========================================
+/* =========================================================
    RESPONSIVE
-   ========================================= */
+   ========================================================= */
 
 @media (max-width: 950px) {
 
-    .events-premium-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    .professional-users-grid,
+    .professional-events-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
     }
 
 }
@@ -5333,38 +5321,27 @@ box-shadow:0 2px 8px #ddd;
 
 @media (max-width: 650px) {
 
-    .events-premium-grid {
+    .professional-users-grid,
+    .professional-events-grid {
+
         grid-template-columns: 1fr;
+
         gap: 15px;
+
     }
 
-    .event-premium-card {
-        min-height: auto;
-        padding: 20px;
-    }
-
+    .best-users-section .section-title h2,
     .library-events-section .section-title h2 {
+
         font-size: 25px;
+
     }
 
-}
+    .professional-user-card,
+    .professional-event-card {
 
+        padding: 21px;
 
-@media (max-width: 480px) {
-
-    .event-card-header {
-        gap: 11px;
-    }
-
-    .event-icon {
-        width: 50px;
-        height: 50px;
-        min-width: 50px;
-        font-size: 24px;
-    }
-
-    .event-premium-card h3 {
-        font-size: 17px;
     }
 
 }
