@@ -4853,13 +4853,9 @@ box-shadow:0 2px 8px #ddd;
    ========================================================= */
 
 .professional-users-grid {
-
     display: grid;
-
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-    gap: 20px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
 }
 
 
@@ -4967,25 +4963,19 @@ box-shadow:0 2px 8px #ddd;
 /* USER INFO */
 
 .user-professional-name {
-
-    margin: 0 0 4px;
-
+    margin: 0 0 5px;
     color: #102a56;
-
-    font-size: 17px;
-
+    font-size: 21px;
     font-weight: 800;
+    letter-spacing: 0.2px;
 }
 
 .user-professional-label {
-
     margin: 0;
-
     color: #64748b;
-
-    font-size: 11px;
-
+    font-size: 12px;
     font-weight: 600;
+    line-height: 1.35;
 }
 
 
@@ -5047,6 +5037,23 @@ box-shadow:0 2px 8px #ddd;
     font-weight: 700;
 
     line-height: 1.35;
+}
+
+@media (max-width: 1100px) {
+
+    .professional-users-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .professional-users-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
 }
 
 
