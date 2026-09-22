@@ -2032,14 +2032,14 @@ ${escapeHTML(
 )}
 </p>
 
+// IMAGE FIRST
+
 ${
 event.image1 || event.image2 || event.image3
 ?
 `
-
 <div class="event-slider"
 id="slider-${index}">
-
 
 ${
 [
@@ -2049,20 +2049,22 @@ event.image3
 ]
 .filter(function(img){
 
-    return img && img !== "undefined";
+return img &&
+img !== "undefined" &&
+img !== "";
 
 })
 .map(function(img,i){
 
 return `
 
-<img 
-class="event-slide slide-${index}"
+<img
 src="${convertDriveImage(img)}"
+class="event-slide"
 style="
 display:${i===0?"block":"none"};
 width:100%;
-max-width:400px;
+max-width:500px;
 border-radius:12px;
 margin-top:15px;
 "
@@ -2074,9 +2076,7 @@ margin-top:15px;
 
 }
 
-
 </div>
-
 `
 :
 `
@@ -2085,6 +2085,15 @@ No event images
 </small>
 `
 }
+
+
+// DESCRIPTION BELOW IMAGE
+
+<p>
+${escapeHTML(
+    event.description || ""
+)}
+</p>
 
                     </div>
 
