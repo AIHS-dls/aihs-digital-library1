@@ -345,14 +345,16 @@ async function loadCollectionCounts(){
 ===================================================== */
 
 
-/*
- * LOAD EVENTS
- */
+/* =====================================================
+   LOAD EVENTS
+===================================================== */
 
 async function loadAdminEvents(){
 
     const box =
-        document.getElementById("eventsList");
+        document.getElementById(
+            "eventsList"
+        );
 
 
     if(!box){
@@ -381,7 +383,9 @@ async function loadAdminEvents(){
                     action:"getEvents",
 
                     token:
-                    localStorage.getItem("token")
+                    localStorage.getItem(
+                        "token"
+                    )
 
                 })
 
@@ -421,82 +425,122 @@ async function loadAdminEvents(){
 
 
         box.innerHTML =
-            events.map(function(event){
+            events.map(
+                function(event){
 
-                return `
-
-                <div
-                    class="admin-event-item"
-                >
+                    return `
 
                     <div
-                        class="admin-event-info"
+                        class="admin-event-item"
                     >
 
-                        <h4>
-                            🎉
-                            ${escapeHTML(
-                                event.title || "-"
-                            )}
-                        </h4>
-
                         <div
-                            class="admin-event-meta"
+                            class="admin-event-info"
                         >
 
-                            ${escapeHTML(
-                                event.category ||
-                                "Event"
-                            )}
+                            <h4>
 
-                            •
+                                🎉
 
-                            ${escapeHTML(
-                                event.date || "-"
-                            )}
+                                ${escapeHTML(
+                                    event.title ||
+                                    "-"
+                                )}
+
+                            </h4>
+
+
+                            <div
+                                class="admin-event-meta"
+                            >
+
+                                ${escapeHTML(
+                                    event.category ||
+                                    "Event"
+                                )}
+
+                                •
+
+                                ${escapeHTML(
+                                    formatEventDateAdmin(
+                                        event.date
+                                    )
+                                )}
+
+                            </div>
+
+
+                            <p>
+
+                                ${escapeHTML(
+                                    event.description ||
+                                    ""
+                                )}
+
+                            </p>
+
+
+                            ${
+                                event.image1 ||
+                                event.image2 ||
+                                event.image3
+                                ?
+                                `
+                                <small
+                                    style="
+                                        color:#2563eb;
+                                        font-weight:600;
+                                    "
+                                >
+                                    📷 Event images added
+                                </small>
+                                `
+                                :
+                                `
+                                <small
+                                    style="
+                                        color:#94a3b8;
+                                    "
+                                >
+                                    No event images
+                                </small>
+                                `
+                            }
 
                         </div>
 
 
-                        <p>
-                            ${escapeHTML(
-                                event.description || ""
-                            )}
-                        </p>
+                        <div
+                            class="admin-event-actions"
+                        >
+
+                            <button
+                                type="button"
+                                onclick="editEvent('${escapeHTML(event.id || "")}')"
+                            >
+                                ✏️ Edit
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="event-delete-btn"
+                                onclick="deleteEvent('${escapeHTML(event.id || "")}')"
+                            >
+                                🗑 Delete
+                            </button>
+
+                        </div>
 
                     </div>
 
+                    `;
 
-                    <div
-                        class="admin-event-actions"
-                    >
-
-                        <button
-                            type="button"
-                            onclick="editEvent('${escapeHTML(event.id || "")}')"
-                        >
-                            ✏️ Edit
-                        </button>
-
-
-                        <button
-                            type="button"
-                            class="event-delete-btn"
-                            onclick="deleteEvent('${escapeHTML(event.id || "")}')"
-                        >
-                            🗑 Delete
-                        </button>
-
-                    </div>
-
-                </div>
-
-                `;
-
-            }).join("");
-
+                }
+            ).join("");
 
     }
+
     catch(error){
 
         console.log(
@@ -513,9 +557,10 @@ async function loadAdminEvents(){
 }
 
 
-/*
- * OPEN ADD EVENT FORM
- */
+
+/* =====================================================
+   OPEN ADD EVENT FORM
+===================================================== */
 
 function openEventForm(){
 
@@ -568,9 +613,10 @@ function openEventForm(){
 }
 
 
-/*
- * CLOSE EVENT FORM
- */
+
+/* =====================================================
+   CLOSE EVENT FORM
+===================================================== */
 
 function closeEventForm(){
 
@@ -591,9 +637,150 @@ function closeEventForm(){
 }
 
 
-/*
- * EDIT EVENT
- */
+
+/* =====================================================
+   READ / COMPRESS IMAGE
+===================================================== */
+
+function readEventImage(file){
+
+    return new Promise(
+        function(resolve, reject){
+
+            if(!file){
+
+                resolve("");
+
+                return;
+
+            }
+
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function(){
+
+                    const img =
+                        new Image();
+
+
+                    img.onload =
+                        function(){
+
+                            const maxWidth =
+                                1600;
+
+
+                            let width =
+                                img.width;
+
+
+                            let height =
+                                img.height;
+
+
+                            if(
+                                width >
+                                maxWidth
+                            ){
+
+                                height =
+                                    height *
+                                    maxWidth /
+                                    width;
+
+                                width =
+                                    maxWidth;
+
+                            }
+
+
+                            const canvas =
+                                document.createElement(
+                                    "canvas"
+                                );
+
+
+                            canvas.width =
+                                width;
+
+
+                            canvas.height =
+                                height;
+
+
+                            const ctx =
+                                canvas.getContext(
+                                    "2d"
+                                );
+
+
+                            ctx.drawImage(
+                                img,
+                                0,
+                                0,
+                                width,
+                                height
+                            );
+
+
+                            resolve(
+                                canvas.toDataURL(
+                                    "image/jpeg",
+                                    0.78
+                                )
+                            );
+
+                        };
+
+
+                    img.onerror =
+                        function(){
+
+                            reject(
+                                new Error(
+                                    "Invalid image"
+                                )
+                            );
+
+                        };
+
+
+                    img.src =
+                        reader.result;
+
+                };
+
+
+            reader.onerror =
+                function(){
+
+                    reject(
+                        new Error(
+                            "Unable to read image"
+                        )
+                    );
+
+                };
+
+
+            reader.readAsDataURL(
+                file
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   EDIT EVENT
+===================================================== */
 
 async function editEvent(id){
 
@@ -614,7 +801,9 @@ async function editEvent(id){
                     action:"getEvents",
 
                     token:
-                    localStorage.getItem("token")
+                    localStorage.getItem(
+                        "token"
+                    )
 
                 })
 
@@ -680,13 +869,35 @@ async function editEvent(id){
         document.getElementById(
             "eventDate"
         ).value =
-            event.date || "";
+            formatDateForInput(
+                event.date
+            );
 
 
         document.getElementById(
             "eventDescription"
         ).value =
             event.description || "";
+
+
+        /*
+           File inputs cannot be pre-filled
+           by the browser.
+        */
+
+        document.getElementById(
+            "eventImage1"
+        ).value = "";
+
+
+        document.getElementById(
+            "eventImage2"
+        ).value = "";
+
+
+        document.getElementById(
+            "eventImage3"
+        ).value = "";
 
 
         document.getElementById(
@@ -703,7 +914,8 @@ async function editEvent(id){
 
         document.getElementById(
             "eventFormMsg"
-        ).textContent = "";
+        ).textContent =
+            "Existing images will remain unless replaced.";
 
 
         document.getElementById(
@@ -712,14 +924,15 @@ async function editEvent(id){
             "hidden"
         );
 
-
     }
+
     catch(error){
 
         console.log(
             "EDIT EVENT ERROR:",
             error
         );
+
 
         alert(
             "Unable to edit event."
@@ -730,9 +943,10 @@ async function editEvent(id){
 }
 
 
-/*
- * SAVE / UPDATE EVENT
- */
+
+/* =====================================================
+   SAVE / UPDATE EVENT
+===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -786,6 +1000,24 @@ document.addEventListener(
                     ).value.trim();
 
 
+                const imageFile1 =
+                    document.getElementById(
+                        "eventImage1"
+                    ).files[0];
+
+
+                const imageFile2 =
+                    document.getElementById(
+                        "eventImage2"
+                    ).files[0];
+
+
+                const imageFile3 =
+                    document.getElementById(
+                        "eventImage3"
+                    ).files[0];
+
+
                 const msg =
                     document.getElementById(
                         "eventFormMsg"
@@ -800,14 +1032,88 @@ document.addEventListener(
 
                 msg.textContent =
                     id
-                    ? "Updating Event..."
-                    : "Saving Event...";
+                    ?
+                    "Preparing event..."
+                    :
+                    "Preparing images...";
 
 
                 button.disabled = true;
 
 
                 try{
+
+                    /*
+                       Compress images before
+                       sending them to Apps Script.
+                    */
+
+                    const image1 =
+                        await readEventImage(
+                            imageFile1
+                        );
+
+
+                    const image2 =
+                        await readEventImage(
+                            imageFile2
+                        );
+
+
+                    const image3 =
+                        await readEventImage(
+                            imageFile3
+                        );
+
+
+                    msg.textContent =
+                        id
+                        ?
+                        "Updating Event..."
+                        :
+                        "Saving Event...";
+
+
+                    const payload = {
+
+                        action:
+                            id
+                            ?
+                            "updateEvent"
+                            :
+                            "addEvent",
+
+                        token:
+                            localStorage.getItem(
+                                "token"
+                            ),
+
+                        id:
+                            id,
+
+                        title:
+                            title,
+
+                        category:
+                            category,
+
+                        date:
+                            date,
+
+                        description:
+                            description,
+
+                        image1:
+                            image1,
+
+                        image2:
+                            image2,
+
+                        image3:
+                            image3
+
+                    };
+
 
                     const response =
                         await fetch(API, {
@@ -819,30 +1125,10 @@ document.addEventListener(
                                 "text/plain;charset=utf-8"
                             },
 
-                            body:JSON.stringify({
-
-                                action:
-                                    id
-                                    ? "updateEvent"
-                                    : "addEvent",
-
-                                token:
-                                    localStorage.getItem(
-                                        "token"
-                                    ),
-
-                                id:id,
-
-                                title:title,
-
-                                category:category,
-
-                                date:date,
-
-                                description:
-                                    description
-
-                            })
+                            body:
+                                JSON.stringify(
+                                    payload
+                                )
 
                         });
 
@@ -867,8 +1153,10 @@ document.addEventListener(
 
                     msg.textContent =
                         id
-                        ? "✅ Event updated successfully."
-                        : "✅ Event added successfully.";
+                        ?
+                        "✅ Event updated successfully."
+                        :
+                        "✅ Event added successfully.";
 
 
                     await loadAdminEvents();
@@ -883,8 +1171,8 @@ document.addEventListener(
                         700
                     );
 
-
                 }
+
                 catch(error){
 
                     console.log(
@@ -894,8 +1182,8 @@ document.addEventListener(
 
 
                     msg.textContent =
+                        error.message ||
                         "Unable to save event.";
-
 
                 }
 
@@ -910,9 +1198,10 @@ document.addEventListener(
 );
 
 
-/*
- * DELETE EVENT
- */
+
+/* =====================================================
+   DELETE EVENT
+===================================================== */
 
 async function deleteEvent(id){
 
@@ -976,8 +1265,8 @@ async function deleteEvent(id){
 
         await loadAdminEvents();
 
-
     }
+
     catch(error){
 
         console.log(
@@ -993,6 +1282,96 @@ async function deleteEvent(id){
     }
 
 }
+
+
+
+/* =====================================================
+   EVENT DATE HELPERS
+===================================================== */
+
+function formatDateForInput(value){
+
+    if(!value){
+        return "";
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+
+        return String(value)
+            .substring(0,10);
+
+    }
+
+
+    const year =
+        date.getFullYear();
+
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2,"0");
+
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2,"0");
+
+
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+    );
+
+}
+
+
+function formatEventDateAdmin(value){
+
+    if(!value){
+        return "-";
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+
+        return String(value);
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day:"2-digit",
+            month:"long",
+            year:"numeric"
+        }
+    );
+
+}
+
 
 // ===============================
 // ESCAPE HTML
