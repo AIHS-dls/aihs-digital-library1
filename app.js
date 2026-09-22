@@ -1204,10 +1204,32 @@ function showSection(id){
 
 let pendingSection = "";
 
+// ===============================
+// SHOW LOGIN POPUP
+// ===============================
+
 function showLogin(){
 
-    document.getElementById("loginView")
-    .classList.remove("hidden");
+    const loginView =
+        document.getElementById("loginView");
+
+
+    if(!loginView){
+
+        console.error(
+            "Login popup (#loginView) not found"
+        );
+
+        return;
+
+    }
+
+
+    loginView.classList.remove("hidden");
+
+    document.body.classList.add(
+        "login-open"
+    );
 
 }
 
@@ -1339,33 +1361,72 @@ function filterMenu(type){
 
 }
 
+// ===============================
+// CLOSE LOGIN POPUP
+// ===============================
+
 function closeLogin(){
 
-document.getElementById("loginView")
-.classList.add("hidden");
+    const loginView =
+        document.getElementById("loginView");
 
-}
 
-document.getElementById("loginView")
-.addEventListener("click", function(e){
+    if(loginView){
 
-    if(e.target === this){
-
-        closeLogin();
+        loginView.classList.add("hidden");
 
     }
 
-});
 
-document.addEventListener("keydown",function(e){
-
-if(e.key==="Escape"){
-
-closeLogin();
+    document.body.classList.remove(
+        "login-open"
+    );
 
 }
 
-});
+
+// ===============================
+// CLOSE WHEN CLICKING OUTSIDE
+// ===============================
+
+const loginView =
+    document.getElementById("loginView");
+
+
+if(loginView){
+
+    loginView.addEventListener(
+        "click",
+        function(e){
+
+            if(e.target === this){
+
+                closeLogin();
+
+            }
+
+        }
+    );
+
+}
+
+
+// ===============================
+// CLOSE WITH ESCAPE KEY
+// ===============================
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        if(e.key === "Escape"){
+
+            closeLogin();
+
+        }
+
+    }
+);
 
 // ===============================
 // OPEN PROTECTED COLLECTION
