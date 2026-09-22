@@ -1912,120 +1912,361 @@ document.addEventListener(
 );
 
 
+// ===============================
+// PUBLIC LIBRARY EVENTS
+// ===============================
+
 async function loadPublicEvents(){
 
-try{
-
-let response = await post({
-
-action:"getEvents"
-
-});
+    const box =
+        document.getElementById(
+            "publicEvents"
+        );
 
 
-if(response.ok){
+    if(!box){
 
-let box=document.getElementById(
-"publicEvents"
-);
-
-
-box.innerHTML=response.events.map(function(event){
-
-return `
-
-<div class="public-event-card">
-
-<h3>
-🎉 ${escapeHTML(event.title)}
-</h3>
-
-<p>
-${escapeHTML(event.category || "Event")}
-</p>
-
-<p>
-${escapeHTML(event.date || "")}
-</p>
-
-</div>
-
-`;
-
-}).join("");
-
-}
-
-}
-catch(error){
-
-console.log(error);
-
-}
-
-}
-
-async function loadPublicBestUsers(){
-
-try{
-
-let response = await post({
-
-action:"getBestUsers"
-
-});
-
-
-if(response.ok){
-
-let box=document.getElementById(
-"publicBestUsers"
-);
-
-
-box.innerHTML=response.bestUsers.map(function(user){
-
-return `
-
-<div class="public-user-card">
-
-🏆 <b>
-${escapeHTML(user.studentNames)}
-</b>
-
-<br>
-
-Department:
-${escapeHTML(user.department)}
-
-<br>
-
-Year:
-${escapeHTML(user.year)}
-
-</div>
-
-`;
-
-}).join("");
-
-}
-
-}
-catch(error){
-
-console.log(error);
-
-}
-
-}
-
-window.addEventListener("pageshow", function(event){
-
-    if(event.persisted){
-
-        location.reload();
+        return;
 
     }
 
-});
+
+    try{
+
+        const response =
+            await post({
+                action: "getEvents"
+            });
+
+
+        console.log(
+            "Public Events:",
+            response
+        );
+
+
+        if(!response || !response.ok){
+
+            box.innerHTML = `
+                <div class="professional-empty">
+                    No library events available.
+                </div>
+            `;
+
+            console.error(
+                "Events loading failed:",
+                response
+            );
+
+            return;
+
+        }
+
+
+        const events =
+            response.events || [];
+
+
+        if(events.length === 0){
+
+            box.innerHTML = `
+                <div class="professional-empty">
+                    No library events available.
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        box.innerHTML =
+            events.map(
+                function(event,index){
+
+                    return `
+
+                    <div class="professional-event-card">
+
+                        <div class="event-professional-top">
+
+                            <div class="event-number">
+                                ${String(index + 1).padStart(2,"0")}
+                            </div>
+
+                            <div>
+
+                                <span class="event-professional-category">
+                                    ${escapeHTML(
+                                        event.category || "EVENT"
+                                    )}
+                                </span>
+
+                                <h3>
+                                    ${escapeHTML(
+                                        event.title || "Library Event"
+                                    )}
+                                </h3>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="professional-event-date">
+
+                            📅
+
+                            <span>
+                                ${escapeHTML(
+                                    event.date || ""
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        ${
+                            event.description
+                            ?
+                            `
+                            <p class="professional-event-description">
+                                ${escapeHTML(
+                                    event.description
+                                )}
+                            </p>
+                            `
+                            :
+                            ""
+                        }
+
+                    </div>
+
+                    `;
+
+                }
+            ).join("");
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Public Events Error:",
+            error
+        );
+
+
+        box.innerHTML = `
+            <div class="professional-empty">
+                Unable to load library events.
+            </div>
+        `;
+
+    }
+
+}
+
+// ===============================
+// PUBLIC BEST USERS
+// ===============================
+
+async function loadPublicBestUsers(){
+
+    try{
+
+        const response =
+            await post({
+                action: "getBestUsers"
+            });
+
+
+        console.log(
+            "Public Best Users:",
+            response
+        );
+
+
+        if(!response || !response.ok){
+
+            console.error(
+                "Best Users loading failed:",
+                response
+            );
+
+            return;
+
+        }
+
+
+        const users =
+            response.bestUsers || [];
+
+
+        const box =
+            document.getElementById(
+                "publicBestUsers"
+            );
+
+
+        if(!box){
+
+            return;
+
+        }
+
+
+        /*
+         * Department names
+         */
+
+        const departments = {
+
+            BPT:
+                "Physiotherapy",
+
+            BMLT:
+                "Medical Laboratory Technology",
+
+            BMIT:
+                "Medical Imaging Technology",
+
+            MHA:
+                "Master of Hospital Administration"
+
+        };
+
+
+        /*
+         * Find Best User for department
+         */
+
+        function findUser(department){
+
+            return users.find(function(user){
+
+                const value =
+                    String(
+                        user.department || ""
+                    )
+                    .trim()
+                    .toUpperCase();
+
+
+                return value ===
+                    department;
+
+            });
+
+        }
+
+
+        /*
+         * Create exactly 4 cards
+         */
+
+        const departmentCodes = [
+            "BPT",
+            "BMLT",
+            "BMIT",
+            "MHA"
+        ];
+
+
+        box.innerHTML =
+            departmentCodes.map(
+                function(department, index){
+
+                    const user =
+                        findUser(department);
+
+
+                    const studentName =
+                        user &&
+                        user.studentNames
+                            ? user.studentNames
+                            : "—";
+
+
+                    const year =
+                        user &&
+                        user.year
+                            ? user.year
+                            : "—";
+
+
+                    return `
+
+                    <div class="professional-user-card">
+
+                        <div class="user-professional-top">
+
+                            <div class="user-rank">
+                                ${String(index + 1).padStart(2,"0")}
+                            </div>
+
+                            <div>
+
+                                <h3 class="user-professional-name">
+                                    ${escapeHTML(department)}
+                                </h3>
+
+                                <p class="user-professional-label">
+                                    ${escapeHTML(
+                                        departments[department]
+                                    )}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="user-professional-details">
+
+                            <div class="user-detail-box">
+
+                                <span class="user-detail-label">
+                                    Best User
+                                </span>
+
+                                <span class="user-detail-value">
+                                    ${escapeHTML(studentName)}
+                                </span>
+
+                            </div>
+
+
+                            <div class="user-detail-box">
+
+                                <span class="user-detail-label">
+                                    Year
+                                </span>
+
+                                <span class="user-detail-value">
+                                    ${escapeHTML(year)}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    `;
+
+                }
+            ).join("");
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Best Users Error:",
+            error
+        );
+
+    }
+
+}
