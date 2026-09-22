@@ -339,7 +339,6 @@ async function loadCollectionCounts(){
 
 }
 
-
 /* =====================================================
    LIBRARY EVENTS
 ===================================================== */
@@ -352,9 +351,7 @@ async function loadCollectionCounts(){
 async function loadAdminEvents(){
 
     const box =
-        document.getElementById(
-            "eventsList"
-        );
+        document.getElementById("eventsList");
 
 
     if(!box){
@@ -383,9 +380,7 @@ async function loadAdminEvents(){
                     action:"getEvents",
 
                     token:
-                    localStorage.getItem(
-                        "token"
-                    )
+                    localStorage.getItem("token")
 
                 })
 
@@ -425,119 +420,113 @@ async function loadAdminEvents(){
 
 
         box.innerHTML =
-            events.map(
-                function(event){
+            events.map(function(event){
 
-                    return `
+                return `
 
-                    <div
-                        class="admin-event-item"
-                    >
+                <div class="admin-event-item">
 
-                        <div
-                            class="admin-event-info"
-                        >
+                    <div class="admin-event-info">
 
-                            <h4>
-
-                                🎉
-
-                                ${escapeHTML(
-                                    event.title ||
-                                    "-"
-                                )}
-
-                            </h4>
+                        <h4>
+                            🎉
+                            ${escapeHTML(
+                                event.title || "-"
+                            )}
+                        </h4>
 
 
-                            <div
-                                class="admin-event-meta"
-                            >
+                        <div class="admin-event-meta">
 
-                                ${escapeHTML(
-                                    event.category ||
-                                    "Event"
-                                )}
+                            ${escapeHTML(
+                                event.category ||
+                                "Library Event"
+                            )}
 
-                                •
+                            •
 
-                                ${escapeHTML(
-                                    formatEventDateAdmin(
-                                        event.date
-                                    )
-                                )}
-
-                            </div>
-
-
-                            <p>
-
-                                ${escapeHTML(
-                                    event.description ||
-                                    ""
-                                )}
-
-                            </p>
-
-
-                            ${
-                                event.image1 ||
-                                event.image2 ||
-                                event.image3
-                                ?
-                                `
-                                <small
-                                    style="
-                                        color:#2563eb;
-                                        font-weight:600;
-                                    "
-                                >
-                                    📷 Event images added
-                                </small>
-                                `
-                                :
-                                `
-                                <small
-                                    style="
-                                        color:#94a3b8;
-                                    "
-                                >
-                                    No event images
-                                </small>
-                                `
-                            }
+                            ${escapeHTML(
+                                formatEventDateAdmin(
+                                    event.date
+                                )
+                            )}
 
                         </div>
 
 
-                        <div
-                            class="admin-event-actions"
-                        >
+                        <p>
+                            ${escapeHTML(
+                                event.description || ""
+                            )}
+                        </p>
 
-                            <button
-                                type="button"
-                                onclick="editEvent('${escapeHTML(event.id || "")}')"
+
+                        ${
+                            event.image1 ||
+                            event.image2 ||
+                            event.image3
+                            ?
+                            `
+                            <small
+                                style="
+                                    color:#2563eb;
+                                    font-weight:600;
+                                "
                             >
-                                ✏️ Edit
-                            </button>
-
-
-                            <button
-                                type="button"
-                                class="event-delete-btn"
-                                onclick="deleteEvent('${escapeHTML(event.id || "")}')"
+                                📷 Event images added
+                                ${
+                                    [
+                                        event.image1,
+                                        event.image2,
+                                        event.image3
+                                    ].filter(Boolean).length
+                                } / 3
+                            </small>
+                            `
+                            :
+                            `
+                            <small
+                                style="
+                                    color:#94a3b8;
+                                "
                             >
-                                🗑 Delete
-                            </button>
-
-                        </div>
+                                No event images
+                            </small>
+                            `
+                        }
 
                     </div>
 
-                    `;
 
-                }
-            ).join("");
+                    <div class="admin-event-actions">
+
+                        <button
+                            type="button"
+                            onclick="editEvent('${escapeHTML(
+                                event.id || ""
+                            )}')"
+                        >
+                            ✏️ Edit
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="event-delete-btn"
+                            onclick="deleteEvent('${escapeHTML(
+                                event.id || ""
+                            )}')"
+                        >
+                            🗑 Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+                `;
+
+            }).join("");
 
     }
 
@@ -565,15 +554,11 @@ async function loadAdminEvents(){
 function openEventForm(){
 
     const modal =
-        document.getElementById(
-            "eventModal"
-        );
+        document.getElementById("eventModal");
 
 
     const form =
-        document.getElementById(
-            "eventForm"
-        );
+        document.getElementById("eventForm");
 
 
     if(!modal || !form){
@@ -590,7 +575,7 @@ function openEventForm(){
 
 
     document.getElementById(
-        "eventFormTitle"
+        "eventModalTitle"
     ).textContent =
         "➕ Add Library Event";
 
@@ -606,9 +591,7 @@ function openEventForm(){
     ).textContent = "";
 
 
-    modal.classList.remove(
-        "hidden"
-    );
+    modal.classList.remove("hidden");
 
 }
 
@@ -621,16 +604,12 @@ function openEventForm(){
 function closeEventForm(){
 
     const modal =
-        document.getElementById(
-            "eventModal"
-        );
+        document.getElementById("eventModal");
 
 
     if(modal){
 
-        modal.classList.add(
-            "hidden"
-        );
+        modal.classList.add("hidden");
 
     }
 
@@ -639,140 +618,122 @@ function closeEventForm(){
 
 
 /* =====================================================
-   READ / COMPRESS IMAGE
+   READ / COMPRESS EVENT IMAGE
 ===================================================== */
 
 function readEventImage(file){
 
-    return new Promise(
-        function(resolve, reject){
+    return new Promise(function(resolve, reject){
 
-            if(!file){
+        if(!file){
 
-                resolve("");
+            resolve("");
 
-                return;
-
-            }
-
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload =
-                function(){
-
-                    const img =
-                        new Image();
-
-
-                    img.onload =
-                        function(){
-
-                            const maxWidth =
-                                1600;
-
-
-                            let width =
-                                img.width;
-
-
-                            let height =
-                                img.height;
-
-
-                            if(
-                                width >
-                                maxWidth
-                            ){
-
-                                height =
-                                    height *
-                                    maxWidth /
-                                    width;
-
-                                width =
-                                    maxWidth;
-
-                            }
-
-
-                            const canvas =
-                                document.createElement(
-                                    "canvas"
-                                );
-
-
-                            canvas.width =
-                                width;
-
-
-                            canvas.height =
-                                height;
-
-
-                            const ctx =
-                                canvas.getContext(
-                                    "2d"
-                                );
-
-
-                            ctx.drawImage(
-                                img,
-                                0,
-                                0,
-                                width,
-                                height
-                            );
-
-
-                            resolve(
-                                canvas.toDataURL(
-                                    "image/jpeg",
-                                    0.78
-                                )
-                            );
-
-                        };
-
-
-                    img.onerror =
-                        function(){
-
-                            reject(
-                                new Error(
-                                    "Invalid image"
-                                )
-                            );
-
-                        };
-
-
-                    img.src =
-                        reader.result;
-
-                };
-
-
-            reader.onerror =
-                function(){
-
-                    reject(
-                        new Error(
-                            "Unable to read image"
-                        )
-                    );
-
-                };
-
-
-            reader.readAsDataURL(
-                file
-            );
+            return;
 
         }
-    );
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload = function(){
+
+            const img =
+                new Image();
+
+
+            img.onload = function(){
+
+                const maxWidth = 1600;
+
+
+                let width =
+                    img.width;
+
+
+                let height =
+                    img.height;
+
+
+                if(width > maxWidth){
+
+                    height =
+                        height *
+                        maxWidth /
+                        width;
+
+                    width =
+                        maxWidth;
+
+                }
+
+
+                const canvas =
+                    document.createElement("canvas");
+
+
+                canvas.width =
+                    width;
+
+
+                canvas.height =
+                    height;
+
+
+                const ctx =
+                    canvas.getContext("2d");
+
+
+                ctx.drawImage(
+                    img,
+                    0,
+                    0,
+                    width,
+                    height
+                );
+
+
+                resolve(
+                    canvas.toDataURL(
+                        "image/jpeg",
+                        0.78
+                    )
+                );
+
+            };
+
+
+            img.onerror = function(){
+
+                reject(
+                    new Error("Invalid image")
+                );
+
+            };
+
+
+            img.src =
+                reader.result;
+
+        };
+
+
+        reader.onerror = function(){
+
+            reject(
+                new Error(
+                    "Unable to read image"
+                )
+            );
+
+        };
+
+
+        reader.readAsDataURL(file);
+
+    });
 
 }
 
@@ -801,9 +762,7 @@ async function editEvent(id){
                     action:"getEvents",
 
                     token:
-                    localStorage.getItem(
-                        "token"
-                    )
+                    localStorage.getItem("token")
 
                 })
 
@@ -839,9 +798,7 @@ async function editEvent(id){
 
         if(!event){
 
-            alert(
-                "Event not found."
-            );
+            alert("Event not found.");
 
             return;
 
@@ -881,8 +838,8 @@ async function editEvent(id){
 
 
         /*
-           File inputs cannot be pre-filled
-           by the browser.
+           Browser does not allow
+           pre-filling file inputs.
         */
 
         document.getElementById(
@@ -901,7 +858,7 @@ async function editEvent(id){
 
 
         document.getElementById(
-            "eventFormTitle"
+            "eventModalTitle"
         ).textContent =
             "✏️ Edit Library Event";
 
@@ -920,9 +877,7 @@ async function editEvent(id){
 
         document.getElementById(
             "eventModal"
-        ).classList.remove(
-            "hidden"
-        );
+        ).classList.remove("hidden");
 
     }
 
@@ -953,9 +908,7 @@ document.addEventListener(
     function(){
 
         const form =
-            document.getElementById(
-                "eventForm"
-            );
+            document.getElementById("eventForm");
 
 
         if(!form){
@@ -985,7 +938,7 @@ document.addEventListener(
                 const category =
                     document.getElementById(
                         "eventCategory"
-                    ).value;
+                    ).value.trim();
 
 
                 const date =
@@ -1044,8 +997,7 @@ document.addEventListener(
                 try{
 
                     /*
-                       Compress images before
-                       sending them to Apps Script.
+                       Compress selected images.
                     */
 
                     const image1 =
@@ -1231,9 +1183,7 @@ async function deleteEvent(id){
                     action:"deleteEvent",
 
                     token:
-                        localStorage.getItem(
-                            "token"
-                        ),
+                    localStorage.getItem("token"),
 
                     id:id
 
@@ -1307,7 +1257,7 @@ function formatDateForInput(value){
     ){
 
         return String(value)
-            .substring(0,10);
+            .substring(0,16);
 
     }
 
@@ -1328,12 +1278,28 @@ function formatDateForInput(value){
         ).padStart(2,"0");
 
 
+    const hours =
+        String(
+            date.getHours()
+        ).padStart(2,"0");
+
+
+    const minutes =
+        String(
+            date.getMinutes()
+        ).padStart(2,"0");
+
+
     return (
         year +
         "-" +
         month +
         "-" +
-        day
+        day +
+        "T" +
+        hours +
+        ":" +
+        minutes
     );
 
 }
