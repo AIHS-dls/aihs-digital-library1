@@ -5524,3 +5524,82 @@ box-shadow:0 2px 8px #ddd;
     font-size:13px;
 
 }
+
+/* =====================================
+   PREMIUM ADMIN HEADER
+===================================== */
+
+.admin-header-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+
+#adminUserInfo{
+
+    background:linear-gradient(
+        135deg,
+        #e0f2fe,
+        #f1f5f9
+    ) !important;
+
+    color:#0f172a !important;
+
+    padding:10px 18px !important;
+
+    border-radius:12px !important;
+
+    font-size:15px !important;
+
+    font-weight:700 !important;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.08);
+
+}
+
+
+
+.logout-btn{
+
+    padding:11px 22px;
+
+    border-radius:10px;
+
+    border:none;
+
+    background:linear-gradient(
+        135deg,
+        #ef4444,
+        #dc2626
+    );
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 5px 15px rgba(239,68,68,0.25);
+
+    transition:0.3s;
+
+}
+
+
+.logout-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(239,68,68,0.35);
+
+}
