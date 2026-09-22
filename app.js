@@ -1371,29 +1371,51 @@ closeLogin();
 // OPEN PROTECTED COLLECTION
 // ===============================
 
-function openProtected(type){
+function openProtected(type) {
+
+    const savedUser =
+        localStorage.getItem("user");
 
     const savedToken =
         localStorage.getItem("token");
+
+    const savedRole =
+        localStorage.getItem("role");
 
 
     // ===============================
     // NOT LOGGED IN
     // ===============================
 
-    if(!savedToken){
+    if (!savedUser || !savedToken || !savedRole) {
 
-        pendingSection = type;
+        // Remember which section was clicked
+        window.pendingSection = type;
 
-        showLogin();
+
+        // Open Login Popup directly
+        const loginView =
+            document.getElementById("loginView");
+
+
+        if (loginView) {
+
+            loginView.classList.remove("hidden");
+
+        } else {
+
+            console.log(
+                "ERROR: loginView element not found"
+            );
+
+        }
 
         return;
-
     }
 
 
     // ===============================
-    // COLLECTION PAGES
+    // LOGGED IN
     // ===============================
 
     const pages = {
@@ -1420,10 +1442,10 @@ function openProtected(type){
 
 
     // ===============================
-    // OPEN PAGE
+    // OPEN SELECTED PAGE
     // ===============================
 
-    if(pages[type]){
+    if (pages[type]) {
 
         window.location.href =
             pages[type];
@@ -1439,7 +1461,6 @@ function openProtected(type){
     );
 
 }
-
 
 async function loadStudentDashboard(){
 
