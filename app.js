@@ -2025,15 +2025,7 @@ async function loadPublicEvents(){
 
                         </div>
 
-
-                        <p>
-${escapeHTML(
-    event.description || ""
-)}
-</p>
-
-// IMAGE FIRST
-
+                      
 ${
 event.image1 || event.image2 || event.image3
 ?
