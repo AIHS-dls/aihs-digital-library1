@@ -2026,19 +2026,30 @@ async function loadPublicEvents(){
                         </div>
 
 
-                        ${
-                            event.description
-                            ?
-                            `
-                            <p class="professional-event-description">
-                                ${escapeHTML(
-                                    event.description
-                                )}
-                            </p>
-                            `
-                            :
-                            ""
-                        }
+                        <p>
+${escapeHTML(
+    event.description || ""
+)}
+</p>
+
+
+${
+    event.image1 ||
+    event.image2 ||
+    event.image3
+    ?
+    `
+    <small>
+       📷 Event images added
+    </small>
+    `
+    :
+    `
+    <small>
+       No event images
+    </small>
+    `
+}
 
                     </div>
 
