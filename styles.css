@@ -5437,3 +5437,90 @@ box-shadow:0 2px 8px #ddd;
     border-color: #2563eb;
 
 }
+
+/* =====================================
+   BEST USERS TABLE FIX
+===================================== */
+
+.best-users-table-wrapper{
+    width:100%;
+    overflow-x:auto;
+}
+
+
+.best-users-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    table-layout:fixed;
+
+}
+
+
+.best-users-table th,
+.best-users-table td{
+
+    padding:10px 12px;
+
+    text-align:left;
+
+    vertical-align:middle;
+
+    border-bottom:1px solid #e2e8f0;
+
+}
+
+
+.best-users-table th:first-child,
+.best-users-table td:first-child{
+
+    width:45px;
+
+    text-align:center;
+
+}
+
+
+.best-users-table th:nth-child(2),
+.best-users-table td:nth-child(2){
+
+    width:150px;
+
+}
+
+
+.best-users-table th:nth-child(3),
+.best-users-table td:nth-child(3){
+
+    width:auto;
+
+}
+
+
+.best-users-table th:last-child,
+.best-users-table td:last-child{
+
+    width:140px;
+
+    text-align:center;
+
+}
+
+
+.best-users-table button{
+
+    padding:6px 10px;
+
+    margin:2px;
+
+    border-radius:6px;
+
+    border:none;
+
+    cursor:pointer;
+
+    font-size:13px;
+
+}
