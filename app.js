@@ -2034,21 +2034,72 @@ ${escapeHTML(
 
 
 ${
-    event.image1 ||
-    event.image2 ||
-    event.image3
-    ?
-    `
-    <small>
-       📷 Event images added
-    </small>
-    `
-    :
-    `
-    <small>
-       No event images
-    </small>
-    `
+event.image1 || event.image2 || event.image3
+?
+`
+<div class="event-images">
+
+${
+event.image1
+?
+`
+<img 
+src="${convertDriveImage(event.image1)}"
+style="
+width:100%;
+max-width:300px;
+border-radius:12px;
+margin-top:15px;
+"
+>
+`
+:""
+}
+
+
+${
+event.image2
+?
+`
+<img 
+src="${convertDriveImage(event.image2)}"
+style="
+width:100%;
+max-width:300px;
+border-radius:12px;
+margin-top:15px;
+"
+>
+`
+:""
+}
+
+
+${
+event.image3
+?
+`
+<img 
+src="${convertDriveImage(event.image3)}"
+style="
+width:100%;
+max-width:300px;
+border-radius:12px;
+margin-top:15px;
+"
+>
+`
+:""
+}
+
+</div>
+`
+:
+`
+<small>
+No event images
+</small>
+`
 }
 
                     </div>
@@ -2279,5 +2330,41 @@ async function loadPublicBestUsers(){
         );
 
     }
+
+}
+
+function convertDriveImage(url){
+
+    if(!url){
+        return "";
+    }
+
+
+    let id = "";
+
+
+    let match =
+        url.match(
+            /\/d\/(.*?)\//
+        );
+
+
+    if(match){
+
+        id = match[1];
+
+    }
+
+
+    if(id){
+
+        return 
+        "https://drive.google.com/uc?export=view&id="
+        + id;
+
+    }
+
+
+    return url;
 
 }
