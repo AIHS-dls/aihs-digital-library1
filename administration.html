@@ -361,90 +361,123 @@ Loading Best Users...
 </div>
 
 
-<!-- =========================================
-     EVENT FORM MODAL
-========================================= -->
+<!-- ===============================
+     BEST USER FORM MODAL
+     =============================== -->
 
-<div
-    id="eventModal"
-    class="event-modal hidden"
->
-
-    <div id="bestUserModal" class="event-modal hidden">
-
-<div class="event-modal-box">
-
-<div class="event-modal-header">
-
-<h2 id="bestUserTitle">
-➕ Add Best User
-</h2>
-
-
-<button
-onclick="closeBestUserForm()"
-class="event-close-btn">
-✕
-</button>
-
-</div>
-
-
-<form id="bestUserForm">
-
-
-<input type="hidden" id="bestUserId">
-
-
-<label>
-Department / Year
-</label>
-
-
-<input
-type="text"
-id="bestDepartment"
-placeholder="BPT 1st Year"
-required
->
-
-
-<label>
-Student Names
-</label>
-
-
-<textarea
-id="bestStudents"
-placeholder="Student 1, Student 2"
-required></textarea>
-
-
-
-<button type="submit">
-💾 Save
-</button>
-
-
-</form>
-
-
-</div>
-
-</div>
+<div id="bestUserModal" class="event-modal hidden">
 
     <div class="event-modal-box">
 
         <div class="event-modal-header">
 
-            <h2 id="eventFormTitle">
+            <h2 id="bestUserModalTitle">
+                ➕ Add Best User
+            </h2>
+
+            <button
+                type="button"
+                onclick="closeBestUserForm()"
+                class="modal-close"
+            >
+                ✕
+            </button>
+
+        </div>
+
+
+        <form id="bestUserForm">
+
+            <input
+                type="hidden"
+                id="bestUserId"
+            >
+
+
+            <label>
+                Department
+            </label>
+
+            <select id="bestUserDepartment" required>
+
+                <option value="">
+                    Select Department
+                </option>
+
+                <option>BPT</option>
+                <option>BMLT</option>
+                <option>BMIT</option>
+                <option>MHA</option>
+
+            </select>
+
+
+            <label>
+                Year
+            </label>
+
+            <select id="bestUserYear" required>
+
+                <option value="">
+                    Select Year
+                </option>
+
+                <option>1st Year</option>
+                <option>2nd Year</option>
+                <option>3rd Year</option>
+                <option>4th Year</option>
+
+            </select>
+
+
+            <label>
+                Student Names
+            </label>
+
+            <input
+                type="text"
+                id="bestUserNames"
+                placeholder="Enter student names"
+                required
+            >
+
+
+            <div id="bestUserFormMsg"></div>
+
+
+            <button
+                type="submit"
+                class="primary"
+            >
+                💾 Save Best User
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- ===============================
+     EVENT FORM MODAL
+     =============================== -->
+
+<div id="eventModal" class="event-modal hidden">
+
+    <div class="event-modal-box">
+
+        <div class="event-modal-header">
+
+            <h2 id="eventModalTitle">
                 ➕ Add Library Event
             </h2>
 
             <button
                 type="button"
                 onclick="closeEventForm()"
-                class="event-close-btn"
+                class="modal-close"
             >
                 ✕
             </button>
@@ -459,6 +492,7 @@ required></textarea>
                 id="eventId"
             >
 
+
             <label>
                 Event Title
             </label>
@@ -466,83 +500,106 @@ required></textarea>
             <input
                 type="text"
                 id="eventTitle"
-                placeholder="Enter event title"
+                placeholder="Example: Quiz Competition"
                 required
             >
+
 
             <label>
-                Category
+                Event Category
             </label>
 
-            <select
+            <input
+                type="text"
                 id="eventCategory"
+                placeholder="Example: Competition"
                 required
             >
 
-                <option value="">
-                    Select Category
-                </option>
-
-                <option value="Quiz">Quiz</option>
-                <option value="Exhibition">Exhibition</option>
-                <option value="Conference">Conference</option>
-                <option value="Workshop">Workshop</option>
-                <option value="Seminar">Seminar</option>
-                <option value="Orientation">Orientation</option>
-                <option value="Other">Other</option>
-
-            </select>
 
             <label>
                 Event Date
             </label>
 
             <input
-                type="date"
+                type="datetime-local"
                 id="eventDate"
                 required
             >
 
+
             <label>
-                Description
+                Event Description
             </label>
 
             <textarea
                 id="eventDescription"
-                rows="4"
                 placeholder="Enter event description"
+                rows="4"
+                required
             ></textarea>
 
-            <div class="event-form-actions">
 
-                <button
-                    type="submit"
-                    id="eventSaveBtn"
-                >
-                    💾 Save Event
-                </button>
+            <!-- IMAGE 1 -->
 
-                <button
-                    type="button"
-                    onclick="closeEventForm()"
-                    class="event-cancel-btn"
-                >
-                    Cancel
-                </button>
+            <label>
+                Event Image 1
+            </label>
 
-            </div>
+            <input
+                type="file"
+                id="eventImage1"
+                accept="image/*"
+            >
 
-            <div
-                id="eventFormMsg"
-                class="event-form-msg"
-            ></div>
+
+            <!-- IMAGE 2 -->
+
+            <label>
+                Event Image 2
+            </label>
+
+            <input
+                type="file"
+                id="eventImage2"
+                accept="image/*"
+            >
+
+
+            <!-- IMAGE 3 -->
+
+            <label>
+                Event Image 3
+            </label>
+
+            <input
+                type="file"
+                id="eventImage3"
+                accept="image/*"
+            >
+
+
+            <p class="event-image-note">
+                📸 You can add up to 3 images. They will automatically slide on the public home page.
+            </p>
+
+
+            <div id="eventFormMsg"></div>
+
+
+            <button
+                type="submit"
+                id="eventSaveBtn"
+                class="primary"
+            >
+                💾 Save Event
+            </button>
 
         </form>
 
     </div>
 
 </div>
-
 
 </main>
 
