@@ -5352,3 +5352,88 @@ box-shadow:0 2px 8px #ddd;
     }
 
 }
+
+/* =========================================================
+   EVENT IMAGE UPLOAD
+   ========================================================= */
+
+.event-image-upload-section {
+
+    margin-top: 22px;
+
+    padding: 18px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 14px;
+
+}
+
+
+.event-image-upload-section h3 {
+
+    margin: 0 0 5px;
+
+    color: #102a56;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+}
+
+
+.event-image-upload-section p {
+
+    margin: 0 0 16px;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+}
+
+
+.event-image-upload-section label {
+
+    display: block;
+
+    margin-top: 12px;
+
+    margin-bottom: 6px;
+
+    color: #334155;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+.event-image-upload-section input[type="file"] {
+
+    width: 100%;
+
+    padding: 10px;
+
+    background: #ffffff;
+
+    border: 1px solid #dbe4f0;
+
+    border-radius: 9px;
+
+    font-size: 12px;
+
+}
+
+
+.event-image-upload-section input[type="file"]:focus {
+
+    outline: none;
+
+    border-color: #2563eb;
+
+}
