@@ -2032,67 +2032,51 @@ ${escapeHTML(
 )}
 </p>
 
-
 ${
 event.image1 || event.image2 || event.image3
 ?
 `
-<div class="event-images">
 
-${
-event.image1
-?
-`
-<img 
-src="${convertDriveImage(event.image1)}"
-style="
-width:100%;
-max-width:300px;
-border-radius:12px;
-margin-top:15px;
-"
->
-`
-:""
-}
+<div class="event-slider"
+id="slider-${index}">
 
 
 ${
-event.image2
-?
-`
-<img 
-src="${convertDriveImage(event.image2)}"
-style="
-width:100%;
-max-width:300px;
-border-radius:12px;
-margin-top:15px;
-"
->
-`
-:""
-}
-
-
-${
+[
+event.image1,
+event.image2,
 event.image3
-?
-`
+]
+.filter(function(img){
+
+    return img && img !== "undefined";
+
+})
+.map(function(img,i){
+
+return `
+
 <img 
-src="${convertDriveImage(event.image3)}"
+class="event-slide slide-${index}"
+src="${convertDriveImage(img)}"
 style="
+display:${i===0?"block":"none"};
 width:100%;
-max-width:300px;
+max-width:400px;
 border-radius:12px;
 margin-top:15px;
 "
->
-`
-:""
+/>
+
+`;
+
+}).join("")
+
 }
+
 
 </div>
+
 `
 :
 `
@@ -2108,6 +2092,8 @@ No event images
 
                 }
             ).join("");
+      
+      startEventSliders();
 
     }
 
@@ -2126,6 +2112,48 @@ No event images
         `;
 
     }
+
+}
+
+function startEventSliders(){
+
+    document
+    .querySelectorAll(".event-slider")
+    .forEach(function(slider){
+
+
+        let images =
+            slider.querySelectorAll("img");
+
+
+        if(images.length <= 1){
+            return;
+        }
+
+
+        let current = 0;
+
+
+        setInterval(function(){
+
+
+            images[current]
+            .style.display="none";
+
+
+            current =
+            (current + 1)
+            % images.length;
+
+
+            images[current]
+            .style.display="block";
+
+
+        },3000);
+
+
+    });
 
 }
 
@@ -2335,32 +2363,20 @@ async function loadPublicBestUsers(){
 
 function convertDriveImage(url){
 
-    if(!url){
+    if(!url || url === "undefined"){
         return "";
     }
 
 
-    let id = "";
-
-
-    let match =
+    let idMatch =
         url.match(
             /\/d\/(.*?)\//
         );
 
 
-    if(match){
+    if(idMatch && idMatch[1]){
 
-        id = match[1];
-
-    }
-
-
-    if(id){
-
-        return 
-        "https://drive.google.com/uc?export=view&id="
-        + id;
+        return "https://drive.google.com/uc?export=view&id=" + idMatch[1];
 
     }
 
