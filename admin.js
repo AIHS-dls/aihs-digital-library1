@@ -2068,6 +2068,36 @@ async function saveBestUser(){
 
 }
 
+// =====================================================
+// BEST USER FORM SUBMIT
+// =====================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        const form =
+            document.getElementById(
+                "bestUserForm"
+            );
+
+        if(!form){
+            return;
+        }
+
+        form.addEventListener(
+            "submit",
+            function(e){
+
+                e.preventDefault();
+
+                saveBestUser();
+
+            }
+        );
+
+    }
+);
 
 
 // =====================================================
