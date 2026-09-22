@@ -460,41 +460,75 @@ async function loadAdminEvents(){
                             )}
                         </p>
 
+                      ${
+    event.image1 ||
+    event.image2 ||
+    event.image3
+    ?
+    `
 
-                        ${
-                            event.image1 ||
-                            event.image2 ||
-                            event.image3
-                            ?
-                            `
-                            <small
-                                style="
-                                    color:#2563eb;
-                                    font-weight:600;
-                                "
-                            >
-                                📷 Event images added
-                                ${
-                                    [
-                                        event.image1,
-                                        event.image2,
-                                        event.image3
-                                    ].filter(Boolean).length
-                                } / 3
-                            </small>
-                            `
-                            :
-                            `
-                            <small
-                                style="
-                                    color:#94a3b8;
-                                "
-                            >
-                                No event images
-                            </small>
-                            `
-                        }
+    <div class="event-images">
 
+        ${
+            event.image1
+            ?
+            `
+            <img 
+                src="${convertDriveImage(event.image1)}"
+                class="event-image"
+                loading="lazy"
+            >
+            `
+            :
+            ""
+        }
+
+
+        ${
+            event.image2
+            ?
+            `
+            <img 
+                src="${convertDriveImage(event.image2)}"
+                class="event-image"
+                loading="lazy"
+            >
+            `
+            :
+            ""
+        }
+
+
+        ${
+            event.image3
+            ?
+            `
+            <img 
+                src="${convertDriveImage(event.image3)}"
+                class="event-image"
+                loading="lazy"
+            >
+            `
+            :
+            ""
+        }
+
+
+    </div>
+
+    `
+    :
+    `
+    <small
+        style="
+            color:#94a3b8;
+        "
+    >
+        No event images
+    </small>
+    `
+}
+                       
                     </div>
 
 
