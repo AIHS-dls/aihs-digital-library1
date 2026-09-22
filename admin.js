@@ -1354,17 +1354,18 @@ function escapeHTML(value){
 
 }
 
-/* =====================================================
-   LIBRARY BEST USERS
-===================================================== */
+// =====================================================
+// LIBRARY BEST USERS
+// LOAD + LIST + EDIT + DELETE
+// =====================================================
+
+let bestUsersData = [];
 
 
 async function loadBestUsers(){
 
     const box =
-        document.getElementById(
-            "bestUsersList"
-        );
+        document.getElementById("bestUsersList");
 
 
     if(!box){
@@ -1377,7 +1378,6 @@ async function loadBestUsers(){
 
 
     try{
-
 
         const response =
             await fetch(API, {
@@ -1401,10 +1401,8 @@ async function loadBestUsers(){
             });
 
 
-
         const data =
             await response.json();
-
 
 
         if(!data.ok){
@@ -1418,19 +1416,29 @@ async function loadBestUsers(){
         }
 
 
+        /*
+         * Backend returns:
+         *
+         * id
+         * department
+         * year
+         * studentNames
+         * createdAt
+         */
 
-        const users =
+        bestUsersData =
             data.bestUsers || [];
 
 
+        if(
+            !Array.isArray(bestUsersData) ||
+            bestUsersData.length === 0
+        ){
 
-        if(users.length === 0){
-
-            box.innerHTML =
-            `
-            <div class="admin-empty-event">
-                No Best Users available.
-            </div>
+            box.innerHTML = `
+                <div class="admin-empty-event">
+                    No Best Users available.
+                </div>
             `;
 
             return;
@@ -1438,77 +1446,124 @@ async function loadBestUsers(){
         }
 
 
-
         let html = `
 
-        <table class="best-users-table">
+            <div class="best-users-table-wrapper">
 
-            <thead>
+                <table class="best-users-table">
 
-                <tr>
+                    <thead>
 
-                    <th>
-                        Department / Year
-                    </th>
+                        <tr>
+
+                            <th>
+                                SL
+                            </th>
+
+                            <th>
+                                Department / Year
+                            </th>
+
+                            <th>
+                                Student Names
+                            </th>
+
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
 
 
-                    <th>
-                        Student Names
-                    </th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody>
+                    <tbody>
 
         `;
 
 
+        bestUsersData.forEach(
+            function(user,index){
 
-        users.forEach(function(user){
+                html += `
 
+                    <tr>
 
-            html += `
-
-            <tr>
-
-                <td>
-                    ${escapeHTML(
-                        user.departmentYear || "-"
-                    )}
-                </td>
+                        <td>
+                            ${index + 1}
+                        </td>
 
 
-                <td>
-                    ${escapeHTML(
-                        user.studentNames || "-"
-                    )}
-                </td>
+                        <td>
 
-            </tr>
+                            <strong>
+                                ${escapeHTML(
+                                    user.department || "-"
+                                )}
+                            </strong>
 
-            `;
+                            <br>
+
+                            <small>
+                                ${escapeHTML(
+                                    user.year || "-"
+                                )}
+                            </small>
+
+                        </td>
 
 
-        });
+                        <td>
+                            ${escapeHTML(
+                                user.studentNames || "-"
+                            )}
+                        </td>
 
+
+                        <td>
+
+                            <button
+                                type="button"
+                                onclick="editBestUser('${escapeHTML(
+                                    user.id || ""
+                                )}')"
+                            >
+                                ✏️ Edit
+                            </button>
+
+
+                            <button
+                                type="button"
+                                onclick="deleteBestUser('${escapeHTML(
+                                    user.id || ""
+                                )}')"
+                            >
+                                🗑 Delete
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        );
 
 
         html += `
 
-            </tbody>
+                    </tbody>
 
-        </table>
+                </table>
+
+            </div>
 
         `;
 
 
-
         box.innerHTML =
             html;
-
 
 
     }
@@ -1528,107 +1583,608 @@ async function loadBestUsers(){
 }
 
 
-async function loadBestUsers(){
 
-const box =
-document.getElementById("bestUsersList");
-
-
-if(!box)return;
-
-
-box.innerHTML="Loading Best Users...";
-
-
-const response =
-await fetch(API,{
-
-method:"POST",
-
-headers:{
-"Content-Type":
-"text/plain;charset=utf-8"
-},
-
-body:JSON.stringify({
-
-action:"getBestUsers",
-
-token:
-localStorage.getItem("token")
-
-})
-
-});
-
-
-const data =
-await response.json();
-
-
-if(!data.ok){
-
-box.innerHTML="No Best Users available.";
-return;
-
-}
-
-
-
-if(data.bestUsers.length===0){
-
-box.innerHTML="No Best Users available.";
-return;
-
-}
-
-
-
-box.innerHTML =
-data.bestUsers.map(u=>`
-
-<div class="admin-event-item">
-
-
-<h4>
-🏆 ${u.department}
-</h4>
-
-
-<p>
-${u.students}
-</p>
-
-
-<button onclick="editBestUser('${u.id}')">
-✏️ Edit
-</button>
-
-
-<button onclick="deleteBestUser('${u.id}')">
-🗑 Delete
-</button>
-
-
-</div>
-
-
-`).join("");
-
-}
+// =====================================================
+// OPEN ADD BEST USER FORM
+// =====================================================
 
 function openBestUserForm(){
 
-document
-.getElementById("bestUserModal")
-.classList.remove("hidden");
+    const modal =
+        document.getElementById(
+            "bestUserModal"
+        );
+
+
+    const form =
+        document.getElementById(
+            "bestUserForm"
+        );
+
+
+    if(form){
+
+        form.reset();
+
+    }
+
+
+    const id =
+        document.getElementById(
+            "bestUserId"
+        );
+
+
+    if(id){
+
+        id.value = "";
+
+    }
+
+
+    const title =
+        document.getElementById(
+            "bestUserModalTitle"
+        );
+
+
+    if(title){
+
+        title.textContent =
+            "➕ Add Best User";
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "bestUserSaveBtn"
+        );
+
+
+    if(button){
+
+        button.textContent =
+            "💾 Save Best User";
+
+    }
+
+
+    const msg =
+        document.getElementById(
+            "bestUserFormMsg"
+        );
+
+
+    if(msg){
+
+        msg.textContent = "";
+
+    }
+
+
+    if(modal){
+
+        modal.classList.remove(
+            "hidden"
+        );
+
+    }
 
 }
 
+
+
+// =====================================================
+// CLOSE BEST USER FORM
+// =====================================================
+
 function closeBestUserForm(){
 
-document
-.getElementById("bestUserModal")
-.classList.add("hidden");
+    const modal =
+        document.getElementById(
+            "bestUserModal"
+        );
+
+
+    if(modal){
+
+        modal.classList.add(
+            "hidden"
+        );
+
+    }
+
+}
+
+
+
+// =====================================================
+// EDIT BEST USER
+// =====================================================
+
+function editBestUser(id){
+
+    const user =
+        bestUsersData.find(
+            function(item){
+
+                return String(item.id) ===
+                       String(id);
+
+            }
+        );
+
+
+    if(!user){
+
+        alert(
+            "Best User not found."
+        );
+
+        return;
+
+    }
+
+
+    const modal =
+        document.getElementById(
+            "bestUserModal"
+        );
+
+
+    const idInput =
+        document.getElementById(
+            "bestUserId"
+        );
+
+
+    const departmentInput =
+        document.getElementById(
+            "bestUserDepartment"
+        );
+
+
+    const yearInput =
+        document.getElementById(
+            "bestUserYear"
+        );
+
+
+    const namesInput =
+        document.getElementById(
+            "bestUserNames"
+        );
+
+
+    if(idInput){
+
+        idInput.value =
+            user.id || "";
+
+    }
+
+
+    if(departmentInput){
+
+        departmentInput.value =
+            user.department || "";
+
+    }
+
+
+    if(yearInput){
+
+        yearInput.value =
+            user.year || "";
+
+    }
+
+
+    if(namesInput){
+
+        namesInput.value =
+            user.studentNames || "";
+
+    }
+
+
+    const title =
+        document.getElementById(
+            "bestUserModalTitle"
+        );
+
+
+    if(title){
+
+        title.textContent =
+            "✏️ Edit Best User";
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "bestUserSaveBtn"
+        );
+
+
+    if(button){
+
+        button.textContent =
+            "💾 Update Best User";
+
+    }
+
+
+    const msg =
+        document.getElementById(
+            "bestUserFormMsg"
+        );
+
+
+    if(msg){
+
+        msg.textContent = "";
+
+    }
+
+
+    if(modal){
+
+        modal.classList.remove(
+            "hidden"
+        );
+
+    }
+
+}
+
+
+
+// =====================================================
+// SAVE / UPDATE BEST USER
+// =====================================================
+
+async function saveBestUser(){
+
+    const id =
+        document.getElementById(
+            "bestUserId"
+        )?.value.trim() || "";
+
+
+    const department =
+        document.getElementById(
+            "bestUserDepartment"
+        )?.value.trim() || "";
+
+
+    const year =
+        document.getElementById(
+            "bestUserYear"
+        )?.value.trim() || "";
+
+
+    const studentNames =
+        document.getElementById(
+            "bestUserNames"
+        )?.value.trim() || "";
+
+
+    const msg =
+        document.getElementById(
+            "bestUserFormMsg"
+        );
+
+
+    if(!department){
+
+        if(msg){
+
+            msg.textContent =
+                "Please select Department.";
+
+        }
+
+        return;
+
+    }
+
+
+    if(!year){
+
+        if(msg){
+
+            msg.textContent =
+                "Please select Year.";
+
+        }
+
+        return;
+
+    }
+
+
+    if(!studentNames){
+
+        if(msg){
+
+            msg.textContent =
+                "Please enter Student Names.";
+
+        }
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "bestUserSaveBtn"
+        );
+
+
+    if(button){
+
+        button.disabled =
+            true;
+
+        button.textContent =
+            id
+            ? "Updating..."
+            : "Saving...";
+
+    }
+
+
+    try{
+
+        const payload = {
+
+            action:
+                id
+                ? "updateBestUser"
+                : "addBestUser",
+
+            token:
+                localStorage.getItem(
+                    "token"
+                ),
+
+            department:
+                department,
+
+            year:
+                year,
+
+            studentNames:
+                studentNames
+
+        };
+
+
+        if(id){
+
+            payload.id =
+                id;
+
+        }
+
+
+        const response =
+            await fetch(API, {
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "text/plain;charset=utf-8"
+                },
+
+                body:
+                    JSON.stringify(
+                        payload
+                    )
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        if(!data.ok){
+
+            if(msg){
+
+                msg.textContent =
+                    data.error ||
+                    "Operation failed.";
+
+            }
+
+            return;
+
+        }
+
+
+        if(msg){
+
+            msg.textContent =
+                id
+                ? "✅ Best User updated successfully."
+                : "✅ Best User added successfully.";
+
+        }
+
+
+        await loadBestUsers();
+
+
+        setTimeout(
+            function(){
+
+                closeBestUserForm();
+
+            },
+            600
+        );
+
+
+    }
+    catch(error){
+
+        console.log(
+            "SAVE BEST USER ERROR:",
+            error
+        );
+
+
+        if(msg){
+
+            msg.textContent =
+                "Unable to save Best User.";
+
+        }
+
+    }
+    finally{
+
+        if(button){
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                id
+                ? "💾 Update Best User"
+                : "💾 Save Best User";
+
+        }
+
+    }
+
+}
+
+
+
+// =====================================================
+// DELETE BEST USER
+// =====================================================
+
+async function deleteBestUser(id){
+
+    if(!id){
+
+        alert(
+            "Best User ID not found."
+        );
+
+        return;
+
+    }
+
+
+    const user =
+        bestUsersData.find(
+            function(item){
+
+                return String(item.id) ===
+                       String(id);
+
+            }
+        );
+
+
+    const studentNames =
+        user?.studentNames ||
+        "this Best User";
+
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete " +
+            studentNames +
+            "?"
+        );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    try{
+
+        const response =
+            await fetch(API, {
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "text/plain;charset=utf-8"
+                },
+
+                body:JSON.stringify({
+
+                    action:
+                        "deleteBestUser",
+
+                    token:
+                        localStorage.getItem(
+                            "token"
+                        ),
+
+                    id:
+                        id
+
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        if(!data.ok){
+
+            alert(
+                data.error ||
+                "Delete failed."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "✅ Best User deleted successfully."
+        );
+
+
+        await loadBestUsers();
+
+
+    }
+    catch(error){
+
+        console.log(
+            "DELETE BEST USER ERROR:",
+            error
+        );
+
+
+        alert(
+            "Unable to delete Best User."
+        );
+
+    }
 
 }
