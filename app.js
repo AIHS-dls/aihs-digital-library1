@@ -1373,63 +1373,55 @@ closeLogin();
 
 function openProtected(type){
 
-let savedToken =
-localStorage.getItem("token");
+    const savedToken =
+        localStorage.getItem("token");
 
-
-if(!savedToken){
-
-pendingSection = type;
-
-showLogin();
-
-return;
-
-}
-
-
-let pages={
-
-"E-book":"ebooks.html",
-
-"Question Paper":"questionpapers.html",
-
-"Notes":"notes.html",
-
-"Journal":"journals.html",
-
-"Database":"databases.html"
-
-};
-
-
-window.location.href=pages[type];
-
-}
 
     // ===============================
-    // COLLECTION PAGE
+    // NOT LOGGED IN
     // ===============================
 
-    let pages = {
+    if(!savedToken){
 
-        "E-book":
+        pendingSection = type;
+
+        showLogin();
+
+        return;
+
+    }
+
+
+    // ===============================
+    // COLLECTION PAGES
+    // ===============================
+
+    const pages = {
+
+        ebooks:
             "ebooks.html",
 
-        "Question Paper":
+        questionpapers:
             "questionpapers.html",
 
-        "Notes":
+        notes:
             "notes.html",
 
-        "Journal":
+        journals:
             "journals.html",
 
-        "Database":
-            "databases.html"
+        databases:
+            "databases.html",
+
+        latest:
+            "collections.html"
 
     };
 
+
+    // ===============================
+    // OPEN PAGE
+    // ===============================
 
     if(pages[type]){
 
@@ -1439,6 +1431,12 @@ window.location.href=pages[type];
         return;
 
     }
+
+
+    console.log(
+        "Unknown protected section:",
+        type
+    );
 
 }
 
