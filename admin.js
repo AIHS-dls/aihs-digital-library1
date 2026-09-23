@@ -387,15 +387,14 @@ async function loadAdminEvents(){
     });
 
 
-const data =
-    await response.json();
-
+const text = await response.text();
 
 console.log(
-    "ADMIN EVENTS JSON:",
-    data
+    "ADMIN EVENTS RAW RESPONSE:",
+    text
 );
 
+const data = JSON.parse(text);
 
 if(!data.ok){
 
