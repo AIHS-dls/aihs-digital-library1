@@ -2271,3 +2271,26 @@ async function deleteBestUser(id){
     }
 
 }
+
+// ===============================
+// DRIVE IMAGE CONVERTER
+// ===============================
+
+function convertDriveImage(url){
+
+    if(!url){
+        return "";
+    }
+
+    let match =
+        url.match(/[-\w]{25,}/);
+
+    if(match){
+
+        return "https://drive.google.com/uc?export=view&id=" + match[0];
+
+    }
+
+    return url;
+
+}
