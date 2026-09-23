@@ -6093,3 +6093,14 @@ cursor:pointer;
 display:none;
 
 }
+
+.event-slider img{
+    display:none;
+    width:100%;
+    max-width:500px;
+    border-radius:12px;
+}
+
+.event-slider img:first-child{
+    display:block;
+}
