@@ -300,8 +300,7 @@ async function loadBestUsers(){
     /* ==========================================
        STUDENT / STAFF DASHBOARD
        ========================================== */
-
-    if($("studentBestUsers")){
+      if($("studentBestUsers")){
 
       $("studentBestUsers").innerHTML =
         users.map(function(user){
@@ -310,13 +309,7 @@ async function loadBestUsers(){
 
           <div class="best-user-item">
 
-            <span class="best-user-name">
-              🏆 ${escapeHTML(user.studentName || "-")}
-            </span>
-
-            <span class="best-user-count">
-              ${escapeHTML(user.booksIssued || 0)} Books
-            </span>
+          ...
 
           </div>
 
@@ -326,7 +319,11 @@ async function loadBestUsers(){
 
     }
 
+
+  }
+
   catch(error){
+    
 
     console.log("BEST USERS ERROR:", error);
 
