@@ -2404,7 +2404,7 @@ async function loadPublicBestUsers(){
 
 document.addEventListener(
 "DOMContentLoaded",
-function(){
+async function(){
 
     loadPublicResources();
 
