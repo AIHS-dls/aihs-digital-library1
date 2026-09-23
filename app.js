@@ -1787,7 +1787,7 @@ catch(error){
 
 try{
 
-    await loadEvents();
+    await loadStudentEvents();
 
 }
 catch(error){
@@ -1796,8 +1796,6 @@ catch(error){
         "STUDENT EVENTS ERROR:",
         error
     );
-
-}
 
 }
   
@@ -2317,10 +2315,11 @@ async function loadPublicBestUsers(){
 
 
                     const studentName =
-                        user &&
-                        user.studentNames
-                            ? user.studentNames
-                            : "—";
+user && (user.studentName || user.studentNames)
+?
+(user.studentName || user.studentNames)
+:
+"—";
 
 
                     const year =
