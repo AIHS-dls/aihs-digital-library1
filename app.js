@@ -1768,7 +1768,7 @@ if(latestBox){
 
 try{
 
-    await loadBestUsers();
+    async function loadEvents()
 
 }
 catch(error){
@@ -1787,7 +1787,7 @@ catch(error){
 
 try{
 
-    await loadStudentEvents();
+    async function loadEvents();
 
 }
 catch(error){
