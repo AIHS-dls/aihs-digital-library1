@@ -1786,8 +1786,7 @@ catch(error){
 
 try{
 
-    await loadEvents();
-
+   await loadStudentEvents();
 }
 catch(error){
 
@@ -1796,7 +1795,9 @@ catch(error){
         error
     );
 
-}    
+}
+
+}  
 
   
 
