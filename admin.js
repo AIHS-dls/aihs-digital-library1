@@ -392,7 +392,7 @@ const data =
 
 
 console.log(
-    "ADMIN EVENTS DATA:",
+    "ADMIN EVENTS JSON:",
     data
 );
 
