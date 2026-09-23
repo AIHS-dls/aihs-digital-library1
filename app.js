@@ -336,7 +336,6 @@ async function loadBestUsers(){
 
     }
 
-  }
   catch(error){
 
     console.log("BEST USERS ERROR:", error);
@@ -1240,59 +1239,7 @@ async function loadStudentEvents(){
     }
 
 }
-
-    /* ==========================================
-       STUDENT / STAFF DASHBOARD
-       ========================================== */
-
-    if($("studentEvents")){
-
-      $("studentEvents").innerHTML =
-        events.map(function(event){
-
-          return `
-
-          <div class="library-event-item">
-
-            <div class="library-event-title">
-              🎉 ${escapeHTML(event.title || "")}
-            </div>
-
-            <div class="library-event-date">
-
-              ${escapeHTML(event.category || "Event")}
-              •
-              ${escapeHTML(event.date || "-")}
-
-            </div>
-
-          </div>
-
-          `;
-
-        }).join("");
-
-    }
-
-  }
-  catch(error){
-
-    console.log("EVENT ERROR:", error);
-
-    if($("eventsList")){
-      $("eventsList").innerHTML =
-        "Unable to load events.";
-    }
-
-    if($("studentEvents")){
-      $("studentEvents").innerHTML =
-        "Unable to load events.";
-    }
-
-  }
-
-}
-
+    
 function showSection(id){
 
   let sections = document.querySelectorAll(".dashboard-section");
