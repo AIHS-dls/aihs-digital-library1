@@ -1088,8 +1088,9 @@ async function loadEvents(){
     let response = await post({
   action:"getEvents"
 });
+    console.log("EVENT RESPONSE:", response);
 
-    console.log("ADMIN EVENTS RESPONSE:", response);
+
     if(!response.ok){
 
       let errorText =
