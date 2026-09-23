@@ -1761,14 +1761,13 @@ if(latestBox){
 
     }
 
-      
-/*
+  /*
  * LOAD BEST USERS
  */
 
 try{
 
-    async function loadEvents()
+    await loadBestUsers();
 
 }
 catch(error){
@@ -1787,7 +1786,7 @@ catch(error){
 
 try{
 
-    await loadStudentEvents();
+    await loadEvents();
 
 }
 catch(error){
@@ -1797,7 +1796,11 @@ catch(error){
         error
     );
 
-}
+}    
+
+  
+
+
   
 function openBooks(){
 
