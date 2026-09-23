@@ -366,32 +366,51 @@ async function loadAdminEvents(){
     try{
 
         const response =
-            await fetch(API, {
+    await fetch(API, {
 
-                method:"POST",
+        method:"POST",
 
-                headers:{
-                    "Content-Type":
-                    "text/plain;charset=utf-8"
-                },
+        headers:{
+            "Content-Type":
+            "text/plain;charset=utf-8"
+        },
 
-                body:JSON.stringify({
+        body:JSON.stringify({
 
-                    action:"getEvents",
+            action:"getEvents",
 
-                    token:
-                    localStorage.getItem("token")
+            token:
+            localStorage.getItem("token")
 
-                })
+        })
 
-            });
-        console.log("ADMIN GET EVENTS RESPONSE:", response);
-
-
-        const data =
-            await response.json();
+    });
 
 
+const data =
+    await response.json();
+
+
+console.log(
+    "ADMIN EVENTS DATA:",
+    data
+);
+
+
+if(!data.ok){
+
+    console.log(
+        "EVENT ERROR:",
+        data.error
+    );
+
+    box.innerHTML =
+        data.error ||
+        "Unable to load events.";
+
+    return;
+
+}
         if(!data.ok){
 
             box.innerHTML =
