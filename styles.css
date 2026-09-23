@@ -5788,3 +5788,32 @@ box-shadow:0 2px 8px #ddd;
     transition:0.5s;
 
 }
+
+/* =================================
+   CENTER LIBRARY EVENT CARDS
+================================= */
+
+.professional-events-grid {
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    width:100%;
+
+}
+
+
+/* Event Card Width */
+
+.professional-event-card {
+
+    width:90%;
+
+    max-width:900px;
+
+}
