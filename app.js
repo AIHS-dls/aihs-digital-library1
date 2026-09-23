@@ -1089,6 +1089,7 @@ async function loadEvents(){
   action:"getEvents"
 });
 
+    console.log("ADMIN EVENTS RESPONSE:", response);
     if(!response.ok){
 
       let errorText =
