@@ -493,10 +493,11 @@ if(!data.ok){
             ?
             `
             <img 
-                src="${convertDriveImage(event.image1)}"
-                class="event-image"
-                loading="lazy"
-            >
+src="${convertDriveImage(event.image1)}"
+class="event-image"
+onerror="this.src='';"
+loading="lazy"
+>
             `
             :
             ""
