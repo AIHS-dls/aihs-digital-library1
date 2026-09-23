@@ -300,24 +300,41 @@ async function loadBestUsers(){
     /* ==========================================
        STUDENT / STAFF DASHBOARD
        ========================================== */
-      if($("studentBestUsers")){
+     if($("studentBestUsers")){
 
-      $("studentBestUsers").innerHTML =
-        users.map(function(user){
+$("studentBestUsers").innerHTML =
+users.map(function(user,index){
 
-          return `
+return `
 
-          <div class="best-user-item">
+<div class="best-user-item">
 
-          ...
+<h4>
+🏆 ${escapeHTML(user.studentName || "-")}
+</h4>
 
-          </div>
+<p>
+Department:
+${escapeHTML(user.department || "-")}
+</p>
 
-          `;
+<p>
+Year:
+${escapeHTML(user.year || "-")}
+</p>
 
-        }).join("");
+<p>
+Books Issued:
+${escapeHTML(user.booksIssued || "0")}
+</p>
 
-    }
+</div>
+
+`;
+
+}).join("");
+
+}
 
 
   }
@@ -1211,6 +1228,8 @@ onclick="openEventImage(this.src)"
 `;
 
 }).join("")
+
+startEventImageSlider();
 
 }
 
