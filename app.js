@@ -1787,7 +1787,7 @@ catch(error){
 
 try{
 
-    async function loadEvents();
+    await loadStudentEvents();
 
 }
 catch(error){
