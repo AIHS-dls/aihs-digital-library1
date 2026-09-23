@@ -1081,34 +1081,165 @@ function convertDriveImage(url){
 
 }
 
-async function loadEvents(){
+async function loadStudentEvents(){
 
-  try{
-
-    let response = await post({
-  action:"getEvents"
-});
-    console.log("EVENT RESPONSE:", response);
+    const box =
+        document.getElementById("studentEvents");
 
 
-    if(!response.ok){
-
-      let errorText =
-        response.error || "Unable to load events.";
-
-      if($("eventsList")){
-        $("eventsList").innerHTML = errorText;
-      }
-
-      if($("studentEvents")){
-        $("studentEvents").innerHTML = errorText;
-      }
-
-      return;
+    if(!box){
+        return;
     }
 
-    let events = response.events || [];
 
+    try{
+
+        const response =
+            await post({
+                action:"getEvents"
+            });
+
+
+        if(!response || !response.ok){
+
+            box.innerHTML =
+            `
+            <div class="professional-empty">
+                No library events available.
+            </div>
+            `;
+
+            return;
+        }
+
+
+        const events =
+            response.events || [];
+
+
+        if(events.length === 0){
+
+            box.innerHTML =
+            `
+            <div class="professional-empty">
+                No upcoming events.
+            </div>
+            `;
+
+            return;
+
+        }
+
+
+
+        box.innerHTML =
+        events.map(function(event,index){
+
+            return `
+
+            <div class="professional-event-card">
+
+
+                <div class="event-professional-top">
+
+
+                    <div class="event-number">
+
+                        ${String(index+1).padStart(2,"0")}
+
+                    </div>
+
+
+                    <div>
+
+
+                        <span class="event-professional-category">
+
+                            ${escapeHTML(
+                                event.category || "EVENT"
+                            )}
+
+                        </span>
+
+
+                        <h3>
+
+                            🎉 
+                            ${escapeHTML(
+                                event.title || ""
+                            )}
+
+                        </h3>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="professional-event-date">
+
+                    📅
+
+                    ${escapeHTML(
+                        event.date || "-"
+                    )}
+
+                </div>
+
+
+
+                ${
+                event.image1
+                ?
+                `
+                <img
+                src="${convertDriveImage(event.image1)}"
+                class="student-event-image"
+                >
+                `
+                :
+                ""
+                }
+
+
+
+                <p class="professional-event-description">
+
+                ${escapeHTML(
+                    event.description || ""
+                )}
+
+                </p>
+
+
+
+            </div>
+
+            `;
+
+
+        }).join("");
+
+
+
+    }
+    catch(error){
+
+        console.log(
+            "Student Event Error:",
+            error
+        );
+
+
+        box.innerHTML =
+        "Unable to load events.";
+
+    }
+
+}
 
     /* ==========================================
        NO EVENTS
