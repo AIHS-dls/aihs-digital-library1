@@ -2051,7 +2051,7 @@ img !== "";
 return `
 
 <img
-src="${convertDriveImage(img)}"
+src="${img}"
 class="event-slide"
 style="
 display:${i===0?"block":"none"};
@@ -2362,20 +2362,24 @@ async function loadPublicBestUsers(){
 
 function convertDriveImage(url){
 
-    if(!url || url === "undefined"){
+    if(!url){
         return "";
     }
 
 
-    let idMatch =
-        url.match(
-            /\/d\/(.*?)\//
-        );
+    if(url.includes("drive.google.com")){
+
+        let id =
+        url.match(/[-\w]{25,}/);
 
 
-    if(idMatch && idMatch[1]){
+        if(id){
 
-        return "https://drive.google.com/uc?export=view&id=" + idMatch[1];
+            return 
+            "https://drive.google.com/uc?export=view&id="
+            + id[0];
+
+        }
 
     }
 
