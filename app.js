@@ -1229,8 +1229,6 @@ onclick="openEventImage(this.src)"
 
 }).join("")
 
-startEventImageSlider();
-
 }
 
 </div>
@@ -2335,8 +2333,7 @@ async function loadPublicBestUsers(){
                     .toUpperCase();
 
 
-                return value ===
-                    department;
+                return value.includes(department);
 
             });
 
@@ -2520,7 +2517,6 @@ images[index]
 
 
 // Call after loading events
-startEventImageSlider();
 
 // ===============================
 // IMAGE POPUP
