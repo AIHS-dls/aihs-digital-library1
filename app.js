@@ -1044,6 +1044,32 @@ cursor:pointer;
 
 }
 
+// ===============================
+// DRIVE IMAGE CONVERTER
+// ===============================
+
+function convertDriveImage(url){
+
+    if(!url){
+        return "";
+    }
+
+
+    let match =
+        url.match(/[-\w]{25,}/);
+
+
+    if(match){
+
+        return "https://drive.google.com/uc?export=view&id=" + match[0];
+
+    }
+
+
+    return url;
+
+}
+
 async function loadEvents(){
 
   try{
@@ -2357,33 +2383,5 @@ async function loadPublicBestUsers(){
         );
 
     }
-
-}
-
-function convertDriveImage(url){
-
-    if(!url){
-        return "";
-    }
-
-
-    if(url.includes("drive.google.com")){
-
-        let id =
-        url.match(/[-\w]{25,}/);
-
-
-        if(id){
-
-            return 
-            "https://drive.google.com/uc?export=view&id="
-            + id[0];
-
-        }
-
-    }
-
-
-    return url;
 
 }
