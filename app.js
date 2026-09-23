@@ -721,6 +721,8 @@ await loadResources();
 
 }
 
+if($("staffForm")){
+
 $("staffForm").onsubmit = async function(e){
 
   e.preventDefault();
@@ -782,6 +784,8 @@ $("staffForm").onsubmit = async function(e){
   }
 
 };
+
+}  
 
 
 // ===============================
