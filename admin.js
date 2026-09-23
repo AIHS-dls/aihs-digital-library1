@@ -385,6 +385,7 @@ async function loadAdminEvents(){
                 })
 
             });
+        console.log("ADMIN GET EVENTS RESPONSE:", response);
 
 
         const data =
