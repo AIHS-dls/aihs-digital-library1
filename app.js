@@ -1086,9 +1086,8 @@ async function loadEvents(){
   try{
 
     let response = await post({
-      action:"getEvents",
-      token:token
-    });
+  action:"getEvents"
+});
 
     if(!response.ok){
 
