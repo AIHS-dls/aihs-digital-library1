@@ -1179,22 +1179,48 @@ async function loadStudentEvents(){
 
                 </div>
 
+              ${
+event.image1 || event.image2 || event.image3
+?
+`
+<div class="event-gallery">
+
+${
+[
+event.image1,
+event.image2,
+event.image3
+]
+.filter(function(img){
+
+return img &&
+img !== "";
+
+})
+.map(function(img,i){
+
+return `
+
+<img
+src="${convertDriveImage(img)}"
+class="event-slide-image ${i===0?'active':''}"
+onclick="openEventImage(this.src)"
+>
 
 
-                ${
-                event.image1
-                ?
-                `
-                <img
-                src="${convertDriveImage(event.image1)}"
-                class="student-event-image"
-                >
-                `
-                :
-                ""
-                }
+`;
 
+}).join("")
 
+}
+
+</div>
+
+`
+:
+""
+}
+              
 
                 <p class="professional-event-description">
 
@@ -2420,3 +2446,114 @@ async function(){
     loadPublicBestUsers();
 
 });
+
+// ===============================
+// EVENT IMAGE SLIDER
+// ===============================
+
+
+function startEventImageSlider(){
+
+
+document
+.querySelectorAll(".event-gallery")
+.forEach(function(gallery){
+
+
+let images =
+gallery.querySelectorAll(
+".event-slide-image"
+);
+
+
+if(images.length <= 1){
+
+return;
+
+}
+
+
+let index=0;
+
+
+setInterval(function(){
+
+
+images[index]
+.classList.remove("active");
+
+
+index =
+(index+1)%images.length;
+
+
+images[index]
+.classList.add("active");
+
+
+},3000);
+
+
+});
+
+
+}
+
+
+// Call after loading events
+startEventImageSlider();
+
+// ===============================
+// IMAGE POPUP
+// ===============================
+
+
+function openEventImage(src){
+
+
+let popup =
+document.getElementById(
+"eventImagePopup"
+);
+
+
+let img =
+document.getElementById(
+"popupEventImage"
+);
+
+
+if(popup && img){
+
+img.src=src;
+
+popup.classList.remove(
+"hidden"
+);
+
+}
+
+
+}
+
+
+
+function closeEventImage(){
+
+
+let popup =
+document.getElementById(
+"eventImagePopup"
+);
+
+
+if(popup){
+
+popup.classList.add(
+"hidden"
+);
+
+}
+
+
+}
