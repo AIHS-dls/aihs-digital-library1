@@ -1242,67 +1242,6 @@ async function loadStudentEvents(){
 }
 
     /* ==========================================
-       NO EVENTS
-       ========================================== */
-
-    if(events.length === 0){
-
-      let emptyText = "No upcoming events.";
-
-      if($("eventsList")){
-        $("eventsList").innerHTML = emptyText;
-      }
-
-      if($("studentEvents")){
-        $("studentEvents").innerHTML = emptyText;
-      }
-
-      return;
-
-    }
-
-
-    /* ==========================================
-       LIBRARIAN EVENTS
-       ========================================== */
-
-    if($("eventsList")){
-
-      $("eventsList").innerHTML =
-        events.map(function(event){
-
-          return `
-
-          <div class="userBox">
-
-            <h3>
-              🎉 ${escapeHTML(event.title || "")}
-            </h3>
-
-            <p>
-
-              Category:
-              ${escapeHTML(event.category || "-")}
-              <br>
-
-              Date:
-              ${escapeHTML(event.date || "-")}
-              <br><br>
-
-              ${escapeHTML(event.description || "")}
-
-            </p>
-
-          </div>
-
-          `;
-
-        }).join("");
-
-    }
-
-
-    /* ==========================================
        STUDENT / STAFF DASHBOARD
        ========================================== */
 
