@@ -2051,7 +2051,7 @@ img !== "";
 return `
 
 <img
-src="${img}"
+src="${convertDriveImage(img)}"
 class="event-slide"
 style="
 display:${i===0?"block":"none"};
