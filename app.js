@@ -1055,13 +1055,24 @@ function convertDriveImage(url){
     }
 
 
-    let match =
-        url.match(/[-\w]{25,}/);
+    url = String(url).trim();
+
+
+    // Already direct image
+    if(url.includes("googleusercontent.com")){
+        return url;
+    }
+
+
+    // Extract Drive File ID
+    let match = url.match(/[-\w]{25,}/);
 
 
     if(match){
 
-        return "https://drive.google.com/uc?export=view&id=" + match[0];
+        return "https://drive.google.com/thumbnail?id="
+        + match[0]
+        + "&sz=w1000";
 
     }
 
