@@ -6956,3 +6956,96 @@ min-height:auto;
 }
 
 }
+
+/* =====================================
+   PREMIUM SECTION TITLE STYLE
+===================================== */
+
+
+.section-title{
+
+    text-align:center;
+
+    margin:55px 0 35px;
+
+}
+
+
+
+.section-title h2{
+
+    font-size:34px;
+
+    font-weight:900;
+
+    color:#003366;
+
+    margin:0;
+
+    letter-spacing:.3px;
+
+    position:relative;
+
+    display:inline-block;
+
+}
+
+
+
+/* Bottom Premium Bar */
+
+.section-title h2::after{
+
+    content:"";
+
+    display:block;
+
+    width:110px;
+
+    height:5px;
+
+    margin:14px auto 0;
+
+    border-radius:20px;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #004e92,
+        #00c6ff
+    );
+
+}
+
+
+
+.section-title p{
+
+    margin-top:18px;
+
+    font-size:16px;
+
+    color:#667085;
+
+}
+
+
+
+/* Small label above title */
+
+.section-kicker{
+
+    display:block;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    letter-spacing:2px;
+
+    color:#0077cc;
+
+    margin-bottom:10px;
+
+}
