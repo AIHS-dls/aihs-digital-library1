@@ -1812,7 +1812,7 @@ if(latestBox){
 
 try{
 
-    await loadBestUsers();
+    await loadPublicBestUsers();
 
 }
 catch(error){
