@@ -2271,11 +2271,13 @@ async function loadPublicBestUsers(){
         );
 
 
-        const box =
-            document.getElementById(
-                "publicBestUsers"
-            );
-      alert("Best Users Function Running");
+        const box = 
+document.getElementById(
+    "studentBestUsers"
+) ||
+document.getElementById(
+    "publicBestUsers"
+);
 
 
         if(!box){
