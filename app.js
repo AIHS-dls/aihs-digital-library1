@@ -249,6 +249,8 @@ async function loadBestUsers(){
 
     let users = response.bestUsers || [];
 
+    console.log("BEST USER DATA", users);
+
     if(users.length === 0){
 
       let emptyText = "No Best Users available.";
@@ -2387,14 +2389,16 @@ async function loadPublicBestUsers(){
                         <span class="user-detail-value">
 
                         ${
-                            user
-                            ?
-                            escapeHTML(
-                              user.studentNames || "-"
-                            )
-                            :
-                            "-"
-                        }
+user
+?
+escapeHTML(
+user.studentNames ||
+user.studentName ||
+"-"
+)
+:
+"-"
+}
 
                         </span>
 
