@@ -229,6 +229,8 @@ async function loadBestUsers(){
       token:token
     });
 
+    console.log("BEST USERS RESPONSE:", response);
+
     if(!response.ok){
 
       let errorText =
