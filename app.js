@@ -2294,6 +2294,8 @@ async function loadPublicBestUsers(){
 
         const users =
             response.bestUsers || [];
+      
+      console.log("BEST USERS DATA:", users);
 
 
 
