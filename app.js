@@ -279,7 +279,7 @@ async function loadBestUsers(){
 
             <h3>🏆 ${escapeHTML(user.rank || "")}</h3>
 
-            <b>${escapeHTML(user.studentName || "")}</b><br>
+            <b>${escapeHTML(user.studentNames || "")}</b><br>
 
             Department:
             ${escapeHTML(user.department || "-")}<br>
