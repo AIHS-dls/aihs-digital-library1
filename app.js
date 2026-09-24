@@ -481,13 +481,6 @@ function render(){
 
   if(!box) return;
 
-  let resourceBox = $("resourceBox");
-
-if(resourceBox){
-    resourceBox.classList.remove("hidden");
-}
-
-
   let searchBox = $("search");
 
   let query = searchBox
@@ -514,6 +507,23 @@ if(resourceBox){
     return text.includes(query);
 
 });
+
+  let resourceBox = $("resourceBox");
+
+if(resourceBox){
+
+    if(query){
+
+        resourceBox.classList.remove("hidden");
+
+    }
+    else{
+
+        resourceBox.classList.add("hidden");
+
+    }
+
+}
 
 
   // ===============================
