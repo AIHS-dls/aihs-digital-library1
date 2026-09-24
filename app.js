@@ -2355,90 +2355,90 @@ async function loadPublicBestUsers(){
 
 
         box.innerHTML =
-            departmentCodes.map(
-                function(department, index){
+departmentCodes.map(function(department,index){
 
-                    const user =
-                        findUser(department);
+    const user = findUser(department);
 
+    return `
 
-                    const studentName =
-user && (user.studentName || user.studentNames)
-?
-(user.studentName || user.studentNames)
-:
-"—";
+    <div class="professional-user-card">
 
+        <div class="user-professional-top">
 
-                    const year =
-                        user &&
-                        user.year
-                            ? user.year
-                            : "—";
+            <div class="user-rank">
+                ${String(index+1).padStart(2,"0")}
+            </div>
 
 
-                    return `
+            <div>
 
-                    <div class="professional-user-card">
-
-                        <div class="user-professional-top">
-
-                            <div class="user-rank">
-                                ${String(index + 1).padStart(2,"0")}
-                            </div>
-
-                            <div>
-
-                                <h3 class="user-professional-name">
-                                    ${escapeHTML(department)}
-                                </h3>
-
-                                <p class="user-professional-label">
-                                    ${escapeHTML(
-                                        departments[department]
-                                    )}
-                                </p>
-
-                            </div>
-
-                        </div>
+                <h3 class="user-professional-name">
+                    ${department}
+                </h3>
 
 
-                        <div class="user-professional-details">
+                <p class="user-professional-label">
+                    ${departments[department]}
+                </p>
 
-                            <div class="user-detail-box">
+            </div>
 
-                                <span class="user-detail-label">
-                                    Best User
-                                </span>
-
-                                <span class="user-detail-value">
-                                    ${escapeHTML(studentName)}
-                                </span>
-
-                            </div>
+        </div>
 
 
-                            <div class="user-detail-box">
+        <div class="user-professional-details">
 
-                                <span class="user-detail-label">
-                                    Year
-                                </span>
 
-                                <span class="user-detail-value">
-                                    ${escapeHTML(year)}
-                                </span>
+            <div class="user-detail-box">
 
-                            </div>
+                <span class="user-detail-label">
+                    Best User
+                </span>
 
-                        </div>
 
-                    </div>
+                <span class="user-detail-value">
 
-                    `;
-
+                ${
+                user 
+                ? escapeHTML(user.studentNames)
+                : "—"
                 }
-            ).join("");
+
+                </span>
+
+            </div>
+
+
+
+            <div class="user-detail-box">
+
+                <span class="user-detail-label">
+                    Year
+                </span>
+
+
+                <span class="user-detail-value">
+
+                ${
+                user 
+                ? escapeHTML(user.year)
+                : "—"
+                }
+
+                </span>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+    `;
+
+}).join("");
 
     }
 
