@@ -2275,6 +2275,7 @@ async function loadPublicBestUsers(){
             document.getElementById(
                 "publicBestUsers"
             );
+      alert("Best Users Function Running");
 
 
         if(!box){
