@@ -2259,7 +2259,7 @@ async function loadPublicBestUsers(){
 
         const response =
             await post({
-                action: "getBestUsers"
+                action:"getBestUsers"
             });
 
 
@@ -2269,22 +2269,6 @@ async function loadPublicBestUsers(){
         );
 
 
-        if(!response || !response.ok){
-
-            console.error(
-                "Best Users loading failed:",
-                response
-            );
-
-            return;
-
-        }
-
-
-        const users =
-            response.bestUsers || [];
-
-
         const box =
             document.getElementById(
                 "publicBestUsers"
@@ -2292,159 +2276,175 @@ async function loadPublicBestUsers(){
 
 
         if(!box){
+            return;
+        }
+
+
+        if(!response || !response.ok){
+
+            box.innerHTML =
+            "Unable to load Best Users.";
 
             return;
-
         }
 
 
-        /*
-         * Department names
-         */
-
-        const departments = {
-
-            BPT:
-                "Physiotherapy",
-
-            BMLT:
-                "Medical Laboratory Technology",
-
-            BMIT:
-                "Medical Imaging Technology",
-
-            MHA:
-                "Master of Hospital Administration"
-
-        };
+        const users =
+            response.bestUsers || [];
 
 
-        /*
-         * Find Best User for department
-         */
 
-        function findUser(department){
+        const departments = [
 
-            return users.find(function(user){
+            {
+                code:"BPT",
+                name:"Physiotherapy"
+            },
 
-                const value =
-                    String(
-                        user.department || ""
-                    )
-                    .trim()
-                    .toUpperCase();
+            {
+                code:"BMLT",
+                name:"Medical Laboratory Technology"
+            },
 
+            {
+                code:"BMIT",
+                name:"Medical Imaging Technology"
+            },
 
-                return value.includes(department);
+            {
+                code:"MHA",
+                name:"Master of Hospital Administration"
+            }
 
-            });
-
-        }
-
-
-        /*
-         * Create exactly 4 cards
-         */
-
-        const departmentCodes = [
-            "BPT",
-            "BMLT",
-            "BMIT",
-            "MHA"
         ];
 
 
+
         box.innerHTML =
-departmentCodes.map(function(department,index){
+        departments.map(function(dept,index){
 
-    const user = findUser(department);
 
-    return `
 
-    <div class="professional-user-card">
+            let user =
+            users.find(function(u){
 
-        <div class="user-professional-top">
+                return String(
+                    u.department || ""
+                )
+                .toUpperCase()
+                .includes(dept.code);
 
-            <div class="user-rank">
-                ${String(index+1).padStart(2,"0")}
+            });
+
+
+
+            return `
+
+            <div class="professional-user-card">
+
+
+                <div class="user-professional-top">
+
+
+                    <div class="user-rank">
+                        ${String(index+1).padStart(2,"0")}
+                    </div>
+
+
+                    <div>
+
+                        <h3 class="user-professional-name">
+
+                            ${dept.code}
+
+                        </h3>
+
+
+                        <p class="user-professional-label">
+
+                            ${dept.name}
+
+                        </p>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="user-professional-details">
+
+
+                    <div class="user-detail-box">
+
+                        <span class="user-detail-label">
+                            Best User
+                        </span>
+
+
+                        <span class="user-detail-value">
+
+                        ${
+                            user
+                            ?
+                            escapeHTML(
+                              user.studentNames || "-"
+                            )
+                            :
+                            "-"
+                        }
+
+                        </span>
+
+
+                    </div>
+
+
+
+                    <div class="user-detail-box">
+
+                        <span class="user-detail-label">
+                            Year
+                        </span>
+
+
+                        <span class="user-detail-value">
+
+                        ${
+                            user
+                            ?
+                            escapeHTML(
+                              user.year || "-"
+                            )
+                            :
+                            "-"
+                        }
+
+                        </span>
+
+
+                    </div>
+
+
+
+                </div>
+
+
             </div>
 
-
-            <div>
-
-                <h3 class="user-professional-name">
-                    ${department}
-                </h3>
+            `;
 
 
-                <p class="user-professional-label">
-                    ${departments[department]}
-                </p>
-
-            </div>
-
-        </div>
+        }).join("");
 
 
-        <div class="user-professional-details">
-
-
-            <div class="user-detail-box">
-
-                <span class="user-detail-label">
-                    Best User
-                </span>
-
-
-                <span class="user-detail-value">
-
-                ${
-                user 
-                ? escapeHTML(user.studentNames)
-                : "—"
-                }
-
-                </span>
-
-            </div>
-
-
-
-            <div class="user-detail-box">
-
-                <span class="user-detail-label">
-                    Year
-                </span>
-
-
-                <span class="user-detail-value">
-
-                ${
-                user 
-                ? escapeHTML(user.year)
-                : "—"
-                }
-
-                </span>
-
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-    `;
-
-}).join("");
 
     }
-
     catch(error){
 
-        console.error(
+        console.log(
             "Best Users Error:",
             error
         );
