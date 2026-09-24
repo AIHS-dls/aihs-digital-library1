@@ -6649,3 +6649,310 @@ color:#666;
     color:#0077cc;
 
 }
+
+/* ==========================================
+   PREMIUM COLLECTION CARDS
+========================================== */
+
+
+.collection-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+    linear-gradient(
+        145deg,
+        #ffffff,
+        #f4f9ff
+    );
+
+    border-radius:24px;
+
+    padding:28px 18px;
+
+    min-height:210px;
+
+    border:1px solid rgba(0,78,146,.08);
+
+    box-shadow:
+    0 12px 30px rgba(0,51,102,.12);
+
+    transition:
+    all .35s ease;
+
+}
+
+
+/* Top Glow Effect */
+
+.collection-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-60px;
+
+    right:-60px;
+
+    width:130px;
+
+    height:130px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #00c6ff,
+        #004e92
+    );
+
+    opacity:.12;
+
+    border-radius:50%;
+
+}
+
+
+
+.collection-card:hover{
+
+    transform:
+    translateY(-10px);
+
+    box-shadow:
+
+    0 20px 45px rgba(0,78,146,.25);
+
+}
+
+
+
+/* Icon Circle */
+
+.collection-card h1{
+
+    width:75px;
+
+    height:75px;
+
+    margin:0 auto 20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+
+    background:
+    linear-gradient(
+        135deg,
+        #004e92,
+        #00c6ff
+    );
+
+
+    color:white;
+
+    font-size:38px;
+
+    box-shadow:
+
+    0 10px 25px rgba(0,78,146,.3);
+
+}
+
+
+
+.collection-card h3{
+
+    font-size:21px;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.collection-card p{
+
+    color:#667085;
+
+    font-size:14px;
+
+}
+
+
+
+
+/* ==========================================
+   PREMIUM LATEST RESOURCE CARDS
+========================================== */
+
+
+#studentLatestResources .card{
+
+
+position:relative;
+
+background:white;
+
+border-radius:22px;
+
+padding:25px;
+
+border-top:5px solid #004e92;
+
+
+box-shadow:
+
+0 10px 30px rgba(0,0,0,.10);
+
+
+transition:.35s;
+
+
+overflow:hidden;
+
+}
+
+
+
+#studentLatestResources .card::after{
+
+
+content:"📚";
+
+
+position:absolute;
+
+
+right:15px;
+
+top:15px;
+
+
+font-size:45px;
+
+
+opacity:.08;
+
+
+}
+
+
+
+#studentLatestResources .card:hover{
+
+
+transform:
+translateY(-8px);
+
+
+box-shadow:
+
+0 18px 40px rgba(0,78,146,.20);
+
+
+}
+
+
+
+#studentLatestResources .card h3{
+
+
+color:#003366;
+
+font-size:19px;
+
+margin-bottom:15px;
+
+
+}
+
+
+
+#studentLatestResources .card p{
+
+
+font-size:14px;
+
+color:#555;
+
+line-height:1.6;
+
+
+}
+
+
+
+#studentLatestResources .card a{
+
+
+display:inline-flex;
+
+
+align-items:center;
+
+
+gap:5px;
+
+
+background:
+
+linear-gradient(
+90deg,
+#004e92,
+#0077cc
+);
+
+
+color:white;
+
+
+padding:10px 18px;
+
+
+border-radius:30px;
+
+
+font-size:14px;
+
+
+font-weight:600;
+
+
+margin-top:12px;
+
+
+}
+
+
+
+/* ==========================================
+   CARD NUMBER / RESOURCE BADGE
+========================================== */
+
+
+.card b{
+
+color:#003366;
+
+}
+
+
+/* Mobile adjustment */
+
+@media(max-width:700px){
+
+.collection-card{
+
+min-height:auto;
+
+}
+
+}
