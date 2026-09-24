@@ -6496,3 +6496,156 @@ color:#666;
 }
 
 }
+
+/* =====================================
+   PREMIUM SECTION TITLES
+===================================== */
+
+
+.section-title{
+
+    text-align:center;
+
+    margin:50px 0 35px;
+
+    position:relative;
+
+}
+
+
+
+.section-title h2{
+
+    font-size:34px;
+
+    font-weight:800;
+
+    letter-spacing:.5px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #003366,
+        #0077cc
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.section-title p{
+
+    font-size:16px;
+
+    color:#667085;
+
+    margin-top:8px;
+
+}
+
+
+
+/* Premium underline */
+
+
+.section-title::after{
+
+    content:"";
+
+    display:block;
+
+    width:90px;
+
+    height:4px;
+
+    margin:18px auto 0;
+
+    border-radius:10px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #004e92,
+        #00c6ff
+    );
+
+}
+
+
+
+/* Section icon style */
+
+
+.section-title h2::first-letter{
+
+    font-size:42px;
+
+}
+
+
+
+/* Dashboard section headings */
+
+
+.section-head h2{
+
+    font-size:30px;
+
+    font-weight:800;
+
+    color:#003366;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+
+/* Card title premium */
+
+
+.collection-card h3{
+
+    font-size:20px;
+
+    font-weight:700;
+
+    margin-top:15px;
+
+    color:#003366;
+
+}
+
+
+
+#studentLatestResources .card h3{
+
+    font-size:19px;
+
+    font-weight:700;
+
+    color:#003366;
+
+}
+
+
+
+/* Smooth hover */
+
+
+.collection-card:hover h3,
+#studentLatestResources .card:hover h3{
+
+    color:#0077cc;
+
+}
