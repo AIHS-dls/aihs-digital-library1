@@ -481,6 +481,12 @@ function render(){
 
   if(!box) return;
 
+  let resourceBox = $("resourceBox");
+
+if(resourceBox){
+    resourceBox.classList.remove("hidden");
+}
+
 
   let searchBox = $("search");
 
@@ -493,12 +499,12 @@ function render(){
 
     let text = [
 
-      r.title,
-      r.type,
-      r.department,
-      r.semester,
-      r.subject,
-      r.year
+      r.title || "",
+      r.type || "",
+      r.department || "",
+      r.semester || "",
+      r.subject || "",
+      r.year || ""
 
     ]
     .join(" ")
@@ -507,7 +513,7 @@ function render(){
 
     return text.includes(query);
 
-  });
+});
 
 
   // ===============================
