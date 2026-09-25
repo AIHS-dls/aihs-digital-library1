@@ -2291,16 +2291,12 @@ async function loadPublicBestUsers(){
             response
         );
 
-    const box = 
-document.getElementById("studentBestUsers")
-||
-document.getElementById("publicBestUsers");
-      
-    console.log("BEST USER BOX:", box);
+    const publicBox = document.getElementById("publicBestUsers");
+    const studentBox = document.getElementById("studentBestUsers");
         
-        if(!box){
-            return;
-        }
+        if(!publicBox && !studentBox){
+    return;
+}
 
 
         if(!response || !response.ok){
@@ -2343,129 +2339,126 @@ document.getElementById("publicBestUsers");
 
         ];
 
+   let cards = departments.map(function(dept,index){
+
+    let user =
+    users.find(function(u){
+
+        return String(
+            u.department || ""
+        )
+        .toUpperCase()
+        .includes(dept.code);
+
+    });
 
 
-        box.innerHTML =
-        departments.map(function(dept,index){
+    return `
+
+    <div class="professional-user-card">
 
 
-
-            let user =
-            users.find(function(u){
-
-                return String(
-                    u.department || ""
-                )
-                .toUpperCase()
-                .includes(dept.code);
-
-            });
+        <div class="user-professional-top">
 
 
-
-            return `
-
-            <div class="professional-user-card">
-
-
-                <div class="user-professional-top">
+            <div class="user-rank">
+                ${String(index+1).padStart(2,"0")}
+            </div>
 
 
-                    <div class="user-rank">
-                        ${String(index+1).padStart(2,"0")}
-                    </div>
+            <div>
+
+                <h3 class="user-professional-name">
+                    ${dept.code}
+                </h3>
 
 
-                    <div>
-
-                        <h3 class="user-professional-name">
-
-                            ${dept.code}
-
-                        </h3>
-
-
-                        <p class="user-professional-label">
-
-                            ${dept.name}
-
-                        </p>
-
-
-                    </div>
-
-
-                </div>
-
-
-
-                <div class="user-professional-details">
-
-
-                    <div class="user-detail-box">
-
-                        <span class="user-detail-label">
-                            Best User
-                        </span>
-
-
-                        <span class="user-detail-value">
-
-                        ${
-user
-?
-escapeHTML(
-user.studentNames ||
-user.studentName ||
-"-"
-)
-:
-"-"
-}
-
-                        </span>
-
-
-                    </div>
-
-
-
-                    <div class="user-detail-box">
-
-                        <span class="user-detail-label">
-                            Year
-                        </span>
-
-
-                        <span class="user-detail-value">
-
-                        ${
-                            user
-                            ?
-                            escapeHTML(
-                              user.year || "-"
-                            )
-                            :
-                            "-"
-                        }
-
-                        </span>
-
-
-                    </div>
-
-
-
-                </div>
+                <p class="user-professional-label">
+                    ${dept.name}
+                </p>
 
 
             </div>
 
-            `;
+
+        </div>
 
 
-        }).join("");
 
+        <div class="user-professional-details">
+
+
+            <div class="user-detail-box">
+
+                <span class="user-detail-label">
+                    Best User
+                </span>
+
+
+                <span class="user-detail-value">
+
+                ${
+                user
+                ?
+                escapeHTML(
+                    user.studentNames ||
+                    user.studentName ||
+                    "-"
+                )
+                :
+                "-"
+                }
+
+                </span>
+
+
+            </div>
+
+
+
+            <div class="user-detail-box">
+
+                <span class="user-detail-label">
+                    Year
+                </span>
+
+
+                <span class="user-detail-value">
+
+                ${
+                user
+                ?
+                escapeHTML(
+                    user.year || "-"
+                )
+                :
+                "-"
+                }
+
+                </span>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+    `;
+
+
+}).join("");
+
+ if(publicBox){
+    publicBox.innerHTML = cards;
+}
+
+
+if(studentBox){
+    studentBox.innerHTML = cards;
+}     
 
     }
     catch(error){
