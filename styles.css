@@ -7048,3 +7048,159 @@ min-height:auto;
     margin-bottom:10px;
 
 }
+
+/* =====================================
+   DESKTOP CONTENT SIDE SPACE
+===================================== */
+
+@media (min-width: 992px){
+
+    .about-section,
+    .collections-section,
+    .latest-section,
+    .best-users-section,
+    .events-section,
+    .contact-section{
+
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 35px;
+        padding-right: 35px;
+
+    }
+
+
+    body{
+
+        overflow-x:hidden;
+
+    }
+
+}
+
+
+/* =====================================
+   PREMIUM CONTACT SECTION
+===================================== */
+
+.contact-section{
+
+    margin-top:60px;
+    padding-top:50px;
+    padding-bottom:50px;
+
+}
+
+
+.contact-section .section-title{
+
+    text-align:center;
+
+}
+
+
+.contact-section h2{
+
+    font-size:38px;
+    font-weight:700;
+
+}
+
+
+.contact-section p{
+
+    color:#666;
+
+}
+
+
+
+/* Contact Card */
+
+.contact-section::after{
+
+    content:"";
+
+    display:block;
+
+    max-width:900px;
+
+    margin:35px auto 0;
+
+    height:1px;
+
+    background:#ddd;
+
+}
+
+
+
+.contact-section{
+
+    background:
+    linear-gradient(
+        135deg,
+        #f8fbff,
+        #ffffff
+    );
+
+    border-radius:25px;
+
+}
+
+
+
+.contact-section strong{
+
+    color:#123c78;
+
+}
+
+
+/* Footer Contact Text */
+
+.contact-section{
+
+    text-align:center;
+
+}
+
+
+.contact-section h3{
+
+    font-size:28px;
+
+    margin-bottom:15px;
+
+    color:#123c78;
+
+}
+
+
+.contact-section p{
+
+    font-size:16px;
+
+    line-height:1.8;
+
+}
+
+
+
+.contact-section a{
+
+    color:#0b63ce;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+}
+
+
+.contact-section a:hover{
+
+    text-decoration:underline;
+
+}
