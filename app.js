@@ -2469,6 +2469,9 @@ user.studentName ||
 
         }).join("");
 
+      console.log("BEST USER BOX:", box);
+console.log("BEFORE HTML:", box.innerHTML);
+
 
 
     }
