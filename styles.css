@@ -7059,7 +7059,6 @@ min-height:auto;
     .collections-section,
     .latest-section,
     .best-users-section,
-    .events-section,
     .contact-section{
 
         max-width: 1200px;
@@ -7214,7 +7213,6 @@ min-height:auto;
 #aboutSection,
 #latestSection,
 #bestUsersSection,
-#noticeSection,
 #contactSection,
 #collectionsSection{
 
