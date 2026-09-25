@@ -2293,9 +2293,9 @@ async function loadPublicBestUsers(){
 
 
         const box = 
-document.getElementById("studentBestUsers")
-||
 document.getElementById("publicBestUsers");
+||
+document.getElementById("studentBestUsers")
 
 
         if(!box){
