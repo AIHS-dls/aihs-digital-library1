@@ -7330,19 +7330,67 @@ min-height:auto;
     }
 }
 
-/* BEST USERS - NAME & YEAR SAME LINE */
+/* =========================================
+   LIBRARY BEST USERS - LARGE CLEAN CARDS
+   ========================================= */
 
+.professional-users-grid{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:28px;
+}
+
+.professional-user-card{
+    padding:28px 30px;
+    min-height:240px;
+    border-radius:22px;
+}
+
+/* Department header */
+.user-professional-top{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-bottom:22px;
+}
+
+.user-rank{
+    flex:0 0 48px;
+    width:48px;
+    height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:14px;
+    font-size:15px;
+    font-weight:800;
+}
+
+.user-professional-name{
+    font-size:22px;
+    font-weight:800;
+    margin:0;
+}
+
+.user-professional-label{
+    font-size:14px;
+    margin:5px 0 0;
+    line-height:1.4;
+}
+
+/* Student rows */
 .user-professional-details{
-    margin-top:18px;
+    margin-top:8px;
 }
 
 .user-student-row{
     display:grid;
-    grid-template-columns:34px minmax(0,1fr) 110px;
+    grid-template-columns:38px minmax(0,1fr) 120px;
     align-items:center;
-    gap:14px;
-    padding:13px 0;
-    border-bottom:1px solid rgba(0,0,0,0.08);
+    gap:15px;
+    min-height:52px;
+    padding:11px 0;
+    border-bottom:1px solid rgba(0,0,0,.08);
 }
 
 .user-student-row:last-child{
@@ -7350,45 +7398,65 @@ min-height:auto;
 }
 
 .user-student-number{
-    width:30px;
-    height:30px;
+    width:32px;
+    height:32px;
     display:flex;
     align-items:center;
     justify-content:center;
     border-radius:50%;
-    font-size:12px;
-    font-weight:700;
-    background:#f1f5f9;
+    font-size:13px;
+    font-weight:800;
 }
 
-.user-student-info{
-    display:block;
-    min-width:0;
-}
-
-/* Labels hide */
+/* Hide labels */
 .user-student-info .user-detail-label{
     display:none;
 }
 
-/* Name and Year bold */
+/* Name + Year */
 .user-student-info .user-detail-value{
-    font-size:15px;
-    font-weight:700;
+    display:block;
+    font-size:16px;
+    font-weight:800;
     line-height:1.4;
-    color:#172033;
+    white-space:normal;
 }
 
-/* Year on right */
+/* Year */
 .user-student-row .user-student-info:last-child{
     text-align:right;
 }
 
-/* Mobile */
-@media(max-width:600px){
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media(max-width:800px){
+
+    .professional-users-grid{
+        grid-template-columns:1fr;
+        gap:20px;
+    }
+
+    .professional-user-card{
+        padding:24px;
+        min-height:auto;
+    }
+}
+
+@media(max-width:500px){
+
+    .professional-user-card{
+        padding:20px;
+        border-radius:18px;
+    }
+
+    .user-professional-name{
+        font-size:20px;
+    }
 
     .user-student-row{
-        grid-template-columns:30px minmax(0,1fr) 85px;
+        grid-template-columns:34px minmax(0,1fr) 95px;
         gap:10px;
     }
 
