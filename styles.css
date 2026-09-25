@@ -7383,13 +7383,15 @@ min-height:auto;
     margin-top:8px;
 }
 
+/* Student rows - clean vertical layout */
+
 .user-student-row{
     display:grid;
-    grid-template-columns:38px minmax(0,1fr) 120px;
+    grid-template-columns:36px minmax(0,1fr) 110px;
     align-items:center;
-    gap:15px;
-    min-height:52px;
-    padding:11px 0;
+    gap:14px;
+    padding:12px 0;
+    min-height:48px;
     border-bottom:1px solid rgba(0,0,0,.08);
 }
 
@@ -7398,13 +7400,13 @@ min-height:auto;
 }
 
 .user-student-number{
-    width:32px;
-    height:32px;
+    width:30px;
+    height:30px;
     display:flex;
     align-items:center;
     justify-content:center;
     border-radius:50%;
-    font-size:13px;
+    font-size:12px;
     font-weight:800;
 }
 
@@ -7413,16 +7415,15 @@ min-height:auto;
     display:none;
 }
 
-/* Name + Year */
+/* Name and Year */
 .user-student-info .user-detail-value{
     display:block;
     font-size:16px;
     font-weight:800;
     line-height:1.4;
-    white-space:normal;
 }
 
-/* Year */
+/* Year on right */
 .user-student-row .user-student-info:last-child{
     text-align:right;
 }
