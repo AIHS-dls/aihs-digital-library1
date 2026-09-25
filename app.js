@@ -2292,9 +2292,10 @@ async function loadPublicBestUsers(){
         );
 
 
-        const box = document.getElementById("publicBestUsers");
-
-console.log("PUBLIC BEST USER BOX:", box);
+        const box = 
+document.getElementById("studentBestUsers")
+||
+document.getElementById("publicBestUsers");
 
 
         if(!box){
@@ -2464,8 +2465,6 @@ user.studentName ||
 
 
         }).join("");
-
-      console.log("FINAL BEST USER HTML:", box.innerHTML);
 
 
     }
