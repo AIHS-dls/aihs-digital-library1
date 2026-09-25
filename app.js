@@ -2292,9 +2292,11 @@ async function loadPublicBestUsers(){
         );
 
     const box = 
-document.getElementById("publicBestUsers")
+document.getElementById("studentBestUsers")
 ||
-document.getElementById("studentBestUsers");
+document.getElementById("publicBestUsers");
+      
+    console.log("BEST USER BOX:", box);
         
         if(!box){
             return;
