@@ -2341,113 +2341,88 @@ async function loadPublicBestUsers(){
 
    let cards = departments.map(function(dept,index){
 
-    let user =
-    users.find(function(u){
+    let deptUsers = users.filter(function(u){
+        return String(u.department || "")
+            .toUpperCase()
+            .includes(dept.code);
+    }).slice(0, 2);
 
-        return String(
-            u.department || ""
-        )
-        .toUpperCase()
-        .includes(dept.code);
+    let studentsHTML = "";
 
-    });
+    if(deptUsers.length > 0){
 
+        studentsHTML = deptUsers.map(function(user, studentIndex){
+
+            return `
+                <div class="user-student-row">
+                    <div class="user-student-number">
+                        ${studentIndex + 1}
+                    </div>
+
+                    <div class="user-student-info">
+                        <span class="user-detail-label">Best User</span>
+                        <span class="user-detail-value">
+                            ${escapeHTML(user.studentNames || user.studentName || "-")}
+                        </span>
+                    </div>
+
+                    <div class="user-student-info">
+                        <span class="user-detail-label">Year</span>
+                        <span class="user-detail-value">
+                            ${escapeHTML(user.year || "-")}
+                        </span>
+                    </div>
+                </div>
+            `;
+
+        }).join("");
+
+    }else{
+
+        studentsHTML = `
+            <div class="user-student-row">
+                <div class="user-student-info">
+                    <span class="user-detail-label">Best User</span>
+                    <span class="user-detail-value">-</span>
+                </div>
+
+                <div class="user-student-info">
+                    <span class="user-detail-label">Year</span>
+                    <span class="user-detail-value">-</span>
+                </div>
+            </div>
+        `;
+    }
 
     return `
-
     <div class="professional-user-card">
 
-
         <div class="user-professional-top">
-
 
             <div class="user-rank">
                 ${String(index+1).padStart(2,"0")}
             </div>
 
-
             <div>
-
                 <h3 class="user-professional-name">
                     ${dept.code}
                 </h3>
 
-
                 <p class="user-professional-label">
                     ${dept.name}
                 </p>
-
-
             </div>
 
-
         </div>
-
-
 
         <div class="user-professional-details">
 
-
-            <div class="user-detail-box">
-
-                <span class="user-detail-label">
-                    Best User
-                </span>
-
-
-                <span class="user-detail-value">
-
-                ${
-                user
-                ?
-                escapeHTML(
-                    user.studentNames ||
-                    user.studentName ||
-                    "-"
-                )
-                :
-                "-"
-                }
-
-                </span>
-
-
-            </div>
-
-
-
-            <div class="user-detail-box">
-
-                <span class="user-detail-label">
-                    Year
-                </span>
-
-
-                <span class="user-detail-value">
-
-                ${
-                user
-                ?
-                escapeHTML(
-                    user.year || "-"
-                )
-                :
-                "-"
-                }
-
-                </span>
-
-
-            </div>
-
+            ${studentsHTML}
 
         </div>
 
-
     </div>
-
     `;
-
 
 }).join("");
 
