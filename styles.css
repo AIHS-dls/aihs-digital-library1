@@ -7276,3 +7276,56 @@ min-height:auto;
 }
 
 }
+
+.user-student-row{
+    display:grid;
+    grid-template-columns:32px 1fr 100px;
+    gap:12px;
+    align-items:center;
+    padding:12px 0;
+    border-bottom:1px solid rgba(0,0,0,0.08);
+}
+
+.user-student-row:last-child{
+    border-bottom:none;
+}
+
+.user-student-number{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    font-weight:700;
+    background:#f1f5f9;
+}
+
+.user-student-info{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+}
+
+.user-detail-label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    opacity:.65;
+}
+
+.user-detail-value{
+    font-size:14px;
+    font-weight:600;
+}
+
+@media(max-width:600px){
+    .user-student-row{
+        grid-template-columns:28px 1fr;
+    }
+
+    .user-student-row .user-student-info:last-child{
+        grid-column:2;
+    }
+}
