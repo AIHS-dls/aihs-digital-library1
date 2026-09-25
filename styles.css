@@ -7329,3 +7329,70 @@ min-height:auto;
         grid-column:2;
     }
 }
+
+/* BEST USERS - NAME & YEAR SAME LINE */
+
+.user-professional-details{
+    margin-top:18px;
+}
+
+.user-student-row{
+    display:grid;
+    grid-template-columns:34px minmax(0,1fr) 110px;
+    align-items:center;
+    gap:14px;
+    padding:13px 0;
+    border-bottom:1px solid rgba(0,0,0,0.08);
+}
+
+.user-student-row:last-child{
+    border-bottom:none;
+}
+
+.user-student-number{
+    width:30px;
+    height:30px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    font-size:12px;
+    font-weight:700;
+    background:#f1f5f9;
+}
+
+.user-student-info{
+    display:block;
+    min-width:0;
+}
+
+/* Labels hide */
+.user-student-info .user-detail-label{
+    display:none;
+}
+
+/* Name and Year bold */
+.user-student-info .user-detail-value{
+    font-size:15px;
+    font-weight:700;
+    line-height:1.4;
+    color:#172033;
+}
+
+/* Year on right */
+.user-student-row .user-student-info:last-child{
+    text-align:right;
+}
+
+/* Mobile */
+@media(max-width:600px){
+
+    .user-student-row{
+        grid-template-columns:30px minmax(0,1fr) 85px;
+        gap:10px;
+    }
+
+    .user-student-info .user-detail-value{
+        font-size:14px;
+    }
+}
