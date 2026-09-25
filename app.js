@@ -1346,6 +1346,11 @@ async function loadPublicResources(){
 
 let box=document.getElementById("publicResources");
 
+if(!box){
+    console.log("Public resources container not found");
+    return;
+}
+
 
 try{
 
